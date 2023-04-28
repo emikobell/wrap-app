@@ -61,10 +61,29 @@ def call_top_info():
     header= {
         'Authorization': 'Bearer ' + session['access_token'],
     }
-    response = requests.get(url, headers=header)
-    response_json = response.json()
-    print(response_json)
+    response_json = requests.get(url, headers=header)
+    response = response_json.json()
 
+    tracks = response['items']
+    
+    top_tracks = {}
+
+    for indx, track in enumerate(tracks):
+        rank = str(indx+1)
+        top_tracks[rank] = {
+            'name': track['name'],
+            'album_cover': track['album']['images'][1]['url'],
+            'url': track['external_urls']['spotify'],
+        }
+        for artist in track['artists']:
+            if top_tracks[rank].get('artists', False):
+                top_tracks[rank]['artists'].append(artist['name'])
+            else:
+                top_tracks[rank]['artists'] = [artist['name']]
+
+    print(top_tracks)
+
+    # make artist calls too, that's where genres are
     return render_template('index.html')
 
 @app.route('/logout')
