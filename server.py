@@ -1,48 +1,43 @@
 from flask import Flask, render_template, redirect, session, request
-import requests
 from authlib.integrations.requests_client import OAuth2Session
 import os
 import secrets
-import base64
+import crud
+import data_processing
+import api_calls
+from model import connect_to_db, db
+from datetime import datetime, timedelta, timezone
 
 app = Flask(__name__)
+app.app_context().push()
 app.secret_key = secrets.token_hex(16)
+
 
 @app.route('/login')
 def oauth_login():
-    scope = 'user-top-read'
+    scopes = ['user-top-read', 'user-read-private', 'user-read-email']
+    scopes = ' '.join(scopes)
     redirect_uri = 'http://localhost:5000/callback'
-    client = OAuth2Session(os.environ['CLIENT_ID'], os.environ['CLIENT_SECRET'], scope=scope, redirect_uri=redirect_uri)
+    client = OAuth2Session(os.environ.get('CLIENT_ID'),
+                           os.environ.get('CLIENT_SECRET'),
+                           scope = scopes, redirect_uri = redirect_uri)
     authorization_endpoint = 'https://accounts.spotify.com/authorize'
     uri, state = client.create_authorization_url(authorization_endpoint)
     session['state'] = state
+
     return redirect(uri)
+
 
 @app.route('/callback')
 def return_auth_code():
     code = request.args.get('code')
     state = request.args.get('state')
-    url = 'https://accounts.spotify.com/api/token'
-    client_id = os.environ['CLIENT_ID']
-    client_secret = os.environ['CLIENT_SECRET']
-    auth_str = base64.b64encode(client_id.encode() + b':' + client_secret.encode()).decode('utf-8')
-
-    payload = {
-        'body': {
-            'grant_type': 'authorization_code',
-            'code': code,
-            'redirect_uri': 'http://localhost:5000/callback',
-            },
-        'header': {
-            'Authorization': f'Basic {auth_str}',
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-    }
+    uri = 'http://localhost:5000/callback'
 
     if state != session['state']:
         return redirect('/error/auth_error')
 
-    response = requests.post(url, data=payload['body'], headers=payload['header'])
+    response = api_calls.get_auth_code(code, uri)
 
     try:
         response.raise_for_status()
@@ -50,45 +45,74 @@ def return_auth_code():
         return redirect('/error/auth_error')
 
     authorization = response.json()
+
     session['access_token'] = authorization['access_token']
     session['refresh_token'] = authorization['refresh_token']
+    session['expiration'] = datetime.now(timezone.utc) + timedelta(seconds = authorization['expires_in'])
 
     return redirect('/wrap')
 
+
 @app.route('/wrap')
 def call_top_info():
-    url = 'https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0&time_range=long_term'
-    header= {
-        'Authorization': 'Bearer ' + session['access_token'],
-    }
-    response_json = requests.get(url, headers=header)
-    response = response_json.json()
 
-    tracks = response['items']
+    timeframe = 'long_term' # Once frontend is set up, this will be set from there
+    # url = f'https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0&time_range={timeframe}'
+    # header = {
+    #     'Authorization': 'Bearer ' + session['access_token'],
+    # }
+    # response_json = requests.get(url, headers = header)
+    # response = response_json.json()
+    if session['expiration'] > datetime.now(timezone.utc):
+        new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
+
+    user_profile = api_calls.make_user_call(session['access_token'])
+
+    if not crud.get_user(user_profile.get('id')).first():
+        data_processing.process_user_response(user_profile)
+
     
-    top_tracks = {}
+    # artist call
+    # keep track of genres associated in a list
+    # create artists in db model if they don't exist
+    # append to artist list
+    # add artists to db
+    # create user_artists in db with rank
+    # add user_artists to db
+    # from genre list, create genre in db if it doesn't exist
+    # add genre to db
+    # create user_genres with frequency
+    # add user_genres to db
+    # create artist_genres
+    # add artist_genres to db
+    # track call
+    # create tracks in db if they don't already exist
+    # add tracks to db
+    # create user_tracks in db with rank
+    # add user tracks to db
+    # for each artist in track, create artist if it doesn't already exist in db
+    # create track_artist
+    # add track_artists to db
 
-    for indx, track in enumerate(tracks):
-        rank = str(indx+1)
-        top_tracks[rank] = {
-            'name': track['name'],
-            'album_cover': track['album']['images'][1]['url'],
-            'url': track['external_urls']['spotify'],
-        }
-        for artist in track['artists']:
-            if top_tracks[rank].get('artists', False):
-                top_tracks[rank]['artists'].append(artist['name'])
-            else:
-                top_tracks[rank]['artists'] = [artist['name']]
+    # for artist in track['artists']:
+    #     spotify_id = artist['id']
+    #     name = artist['name']
+    #     artist_img = artist['images'][1]['url']
+    #     url = artist['external_urls']['spotify']
+    #     db_artist = crud.create_artist()
 
-    print(top_tracks)
-
-    # make artist calls too, that's where genres are
+            # if top_tracks[rank].get('artists', False):
+            #     top_tracks[rank]['artists'].append(artist['name'])
+            # else:
+            #     top_tracks[rank]['artists'] = [artist['name']]
+    
     return render_template('index.html')
+
 
 @app.route('/logout')
 def log_out():
     session.pop('state')
+
 
 @app.route('/error/<id>')
 def show_error(id):
@@ -96,5 +120,7 @@ def show_error(id):
         return 'There was a problem authenticating' # PLACEHOLDER - return error template
     # For each kind of error, render templates/pages
 
+
 if __name__ == '__main__':
+    connect_to_db(app, 'spotify-data')
     app.run(debug=True, host='0.0.0.0')
