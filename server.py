@@ -57,34 +57,26 @@ def return_auth_code():
 def call_top_info():
 
     timeframe = 'long_term' # Once frontend is set up, this will be set from there
-    # url = f'https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0&time_range={timeframe}'
-    # header = {
-    #     'Authorization': 'Bearer ' + session['access_token'],
-    # }
-    # response_json = requests.get(url, headers = header)
-    # response = response_json.json()
+
     if session['expiration'] > datetime.now(timezone.utc):
         new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
 
     user_profile = api_calls.make_user_call(session['access_token'])
+    # Should add error handling here
 
     if not crud.get_user(user_profile.get('id')).first():
         data_processing.process_user_response(user_profile)
 
+    user_top_artists = api_calls.make_artist_call(token = session['access_token'],
+                                                  timeframe = timeframe)
     
-    # artist call
-    # keep track of genres associated in a list
-    # create artists in db model if they don't exist
-    # append to artist list
-    # add artists to db
-    # create user_artists in db with rank
-    # add user_artists to db
-    # from genre list, create genre in db if it doesn't exist
-    # add genre to db
-    # create user_genres with frequency
-    # add user_genres to db
-    # create artist_genres
-    # add artist_genres to db
+    # should add error handling here
+
+    data_processing.process_artist_response(response = user_top_artists,
+                                            user_id = user_profile['id'],
+                                            timeframe = timeframe)
+    
+
     # track call
     # create tracks in db if they don't already exist
     # add tracks to db
