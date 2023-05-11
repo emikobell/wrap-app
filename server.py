@@ -70,33 +70,22 @@ def call_top_info():
     user_top_artists = api_calls.make_artist_call(token = session['access_token'],
                                                   timeframe = timeframe)
     
-    # should add error handling here
+    # Should add error handling here
 
     data_processing.process_artist_response(response = user_top_artists,
                                             user_id = user_profile['id'],
                                             timeframe = timeframe)
     
+    user_top_tracks = api_calls.make_track_call(token = session ['access_token'],
+                                                timeframe = timeframe)
+    
+    # Should add error handling here
 
-    # track call
-    # create tracks in db if they don't already exist
-    # add tracks to db
-    # create user_tracks in db with rank
-    # add user tracks to db
-    # for each artist in track, create artist if it doesn't already exist in db
-    # create track_artist
-    # add track_artists to db
+    data_processing.process_track_response(response = user_top_tracks,
+                                           user_id= user_profile['id'],
+                                           timeframe= timeframe)
 
-    # for artist in track['artists']:
-    #     spotify_id = artist['id']
-    #     name = artist['name']
-    #     artist_img = artist['images'][1]['url']
-    #     url = artist['external_urls']['spotify']
-    #     db_artist = crud.create_artist()
 
-            # if top_tracks[rank].get('artists', False):
-            #     top_tracks[rank]['artists'].append(artist['name'])
-            # else:
-            #     top_tracks[rank]['artists'] = [artist['name']]
     
     return render_template('index.html')
 

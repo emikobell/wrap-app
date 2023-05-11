@@ -73,3 +73,21 @@ def make_artist_call(token, timeframe):
     response_json = requests.get(url, headers = header)
 
     return response_json.json()
+
+def make_track_call(token, timeframe):
+    """Make an user top artist call to the Spotify API."""
+
+    url = f'https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0&time_range={timeframe}'
+    header = {'Authorization': f'Bearer {token}'}
+    response_json = requests.get(url, headers = header)
+
+    return response_json.json()
+
+
+def get_artist_from_api(href, token):
+    """Make a artist API call to get information about an artist."""
+
+    header = {'Authorization': f'Bearer {token}'}
+    response_json = requests.get(href, headers = header)
+
+    return response_json.json()

@@ -1,29 +1,7 @@
 import crud
 from model import db
-
-
-def create_artists_in_db(artist_info, user_id, timeframe):
-    """
-    Create artist objects if they do not exist,
-    then create user's top artist object.
-    """
-    artists_to_add = []
-
-    if not crud.get_artist(artist_info.get('spotify_id')).first():  #If the artist doesn't exist, create in artist table
-        db_artist = crud.create_artist(spotify_id = artist_info['spotify_id'],
-                                       name = artist_info['name'],
-                                       artist_img = artist_info['artist_img'],
-                                       url = artist_info['url'])
-        artists_to_add.append(db_artist)
-
-    user_artist = crud.create_user_artist(rank = artist_info['rank'],
-                                          artist_id = artist_info['spotify_id'], 
-                                          user_id = user_id,
-                                          timeframe = timeframe)
-    
-    artists_to_add.append(user_artist)
-
-    return artists_to_add
+import api_calls
+from server import session
 
 
 def process_user_response(response):
@@ -34,12 +12,9 @@ def process_user_response(response):
 
     spotify_id = response['id']
     display_name = response['display_name']
-    image = response['images'][0]
-    img_url = image.get('url', None)
+    img_url = response['images'][0]['url'] if response['images'] else None
 
-    user = crud.create_user(spotify_id = spotify_id,
-                            display_name = display_name,
-                            img_url = img_url)
+    user = crud.create_user(spotify_id, display_name, img_url)
     
     db.session.add(user)
     db.session.commit()
@@ -71,26 +46,24 @@ def process_artist_response(response, user_id, timeframe):
 
     artists = response['items']
     genres_dict = {}
-    db_artists = []
-    db_artist_genres = []
-    db_user_genres = []
+    db_add = []
 
-    crud.delete_user_artists(user_id = user_id, timeframe = timeframe)    
-    crud.delete_user_genres(user_id = user_id, timeframe = timeframe)
+    crud.delete_user_artists(user_id, timeframe)    
+    crud.delete_user_genres(user_id, timeframe)
 
     for indx, artist in enumerate(artists):
         artist_info = {
             'spotify_id': artist['id'],
             'name': artist['name'],
-            'artist_img': artist['images'][1]['url'],
+            'artist_img': artist['images'][1]['url'] if artist['images'] else None,
             'url': artist['external_urls']['spotify'],
-            'rank': str(indx + 1)
+            'rank': str(indx + 1),
         }
         
-        db_user_artists = create_artists_in_db(artist_info = artist_info,
-                                               user_id = user_id,
-                                               timeframe = timeframe)
-        db_artists.extend(db_user_artists)
+        db_user_artists = crud.create_artists_in_db(artist_info,
+                                                    user_id,
+                                                    timeframe)
+        db_add.extend(db_user_artists)
         
         genres = artist['genres']
 
@@ -103,56 +76,83 @@ def process_artist_response(response, user_id, timeframe):
                 if not genre_obj:
                     db_genre = crud.create_genre(genre)
                     db.session.add(db_genre)
-                    db.session.commit()
+                    db.session.commit() # Need to commit for genre ID to be generated
                     genre_obj = db_genre
                 
                 genres_dict[genre] = {'id': genre_obj.genre_id,
                                       'freq': 1}
 
-            # if the specific artist genre combo exists, skip
-            if not crud.get_artist_genre(artist_id = artist_info['spotify_id'],
-                                         genre_id = genre_obj.genre_id).first():
-                db_artist_genre = crud.create_artist_genre(artist_id = artist_info['spotify_id'],
-                                                           genre_id = genre_obj.genre_id)
-                db_artist_genres.append(db_artist_genre)
+            # if the specific artist genre combo exists in arist_genres, skip
+            artist_id, genre_id = (
+                artist_info.get('spotify_id'),
+                genre_obj.genre_id
+            )
 
-    db.session.add_all(db_artists)
-    db.session.add_all(db_artist_genres)
-    db.session.commit()
+            if not crud.get_artist_genre(artist_id, genre_id).first():
+                db_artist_genre = crud.create_artist_genre(artist_id, genre_id)
+                db_add.append(db_artist_genre)
 
-    for genre in genres_dict.values():
-        db_user_genre = crud.create_user_genre(genre_id = genre['id'],
-                                               user_id = user_id,
-                                               freq = genre['freq'],
-                                               timeframe = timeframe)
-        db_user_genres.append(db_user_genre)
+    db_user_genres = crud.create_user_genres_in_db(genres_dict,
+                                                   user_id,
+                                                   timeframe)
     
-    db.session.add_all(db_user_genres)
+    db_add.extend(db_user_genres)
+    db.session.add_all(db_add)
     db.session.commit()
         
 
-def process_track_response(response):
+def process_track_response(response, user_id, timeframe):
     """
     Take the Spotify API User Top Tracks response as a dictionary,
     create db track instances, and adds to db.
     """
 
     tracks = response['items']
-    db_tracks = []
+    db_add = []
 
     for indx, track in enumerate(tracks):
-        spotify_id = track['id']
-        name = track['name']
-        album_img = track['album']['images'][1]['url']
-        url = track['external_urls']['spotify']
-        rank = str(indx + 1)
+        track_info ={
+            'spotify_id': track['id'],
+            'name': track['name'],
+            'album_img': track['album']['images'][1]['url'] if track['album']['images'] else None,
+            'url': track['external_urls']['spotify'],
+            'rank': str(indx + 1),
+        }
 
-        db_track = crud.create_track(spotify_id = spotify_id,
-                                  name = name,
-                                  album_img = album_img,
-                                  url = url)
+        db_user_artists = crud.create_tracks_in_db(track_info,
+                                                   user_id,
+                                                   timeframe)
         
-        db_tracks.append(db_track)
+        db_add.extend(db_user_artists)
+
+        artists = track['artists']
+
+        for artist in artists:
+            spotify_id, name, url = (
+                artist['id'],
+                artist['name'],
+                artist['external_urls']['spotify']
+            )
+
+            artist_obj = crud.get_artist(spotify_id).first()
+
+            if not artist_obj:
+                artist_data = api_calls.get_artist_from_api(artist['href'],
+                                                            session['access_token'])
+                
+                artist_img = artist_data['images'][1]['url'] if artist_data['images'] else None
+
+                artist_obj = crud.create_artist(spotify_id, name, artist_img, url)
+                db_add.append(artist_obj)
+
+            track_id, artist_id = (
+                    track_info.get('spotify_id'),
+                    artist_obj.spotify_id
+                )
+
+            if not crud.get_track_artist(track_id, artist_id).first():
+                db_track_artist = crud.create_track_artist(track_id, artist_id)
+                db_add.append(db_track_artist)
         
-    db.session.add_all(db_tracks)
+    db.session.add_all(db_add)
     db.session.commit()
