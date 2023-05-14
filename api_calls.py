@@ -61,7 +61,7 @@ def make_user_call(token):
     url = 'https://api.spotify.com/v1/me'
     header = {'Authorization': f'Bearer {token}'}
     response_json = requests.get(url, headers = header)
-
+    
     return response_json.json()
 
 

@@ -19,6 +19,8 @@ def process_user_response(response):
     db.session.add(user)
     db.session.commit()
 
+    return user
+
 
 def process_artist_response(response, user_id, timeframe):
     """
@@ -63,34 +65,15 @@ def process_artist_response(response, user_id, timeframe):
         db_user_artists = crud.create_artists_in_db(artist_info,
                                                     user_id,
                                                     timeframe)
+        # More items will be added to database later
         db_add.extend(db_user_artists)
         
         genres = artist['genres']
 
-        for genre in genres:
-            genre_obj = crud.get_genre(genre).first()
-
-            if genres_dict.get(genre):
-                genres_dict[genre]['freq'] += 1
-            else:
-                if not genre_obj:
-                    db_genre = crud.create_genre(genre)
-                    db.session.add(db_genre)
-                    db.session.commit() # Need to commit for genre ID to be generated
-                    genre_obj = db_genre
-                
-                genres_dict[genre] = {'id': genre_obj.genre_id,
-                                      'freq': 1}
-
-            # if the specific artist genre combo exists in arist_genres, skip
-            artist_id, genre_id = (
-                artist_info.get('spotify_id'),
-                genre_obj.genre_id
-            )
-
-            if not crud.get_artist_genre(artist_id, genre_id).first():
-                db_artist_genre = crud.create_artist_genre(artist_id, genre_id)
-                db_add.append(db_artist_genre)
+        db_genres, genres_dict = crud.create_genres_in_db(genres, genres_dict,
+                                                          artist_info.get('spotify_id'))
+        
+        db_add.extend(db_genres)
 
     db_user_genres = crud.create_user_genres_in_db(genres_dict,
                                                    user_id,
@@ -107,6 +90,7 @@ def process_track_response(response, user_id, timeframe):
     create db track instances, and adds to db.
     """
 
+    crud.delete_user_tracks(user_id, timeframe) 
     tracks = response['items']
     db_add = []
 
@@ -119,40 +103,16 @@ def process_track_response(response, user_id, timeframe):
             'rank': str(indx + 1),
         }
 
-        db_user_artists = crud.create_tracks_in_db(track_info,
-                                                   user_id,
-                                                   timeframe)
+        db_user_artists = crud.create_tracks_in_db(track_info, user_id, timeframe)
         
         db_add.extend(db_user_artists)
 
         artists = track['artists']
 
-        for artist in artists:
-            spotify_id, name, url = (
-                artist['id'],
-                artist['name'],
-                artist['external_urls']['spotify']
-            )
-
-            artist_obj = crud.get_artist(spotify_id).first()
-
-            if not artist_obj:
-                artist_data = api_calls.get_artist_from_api(artist['href'],
-                                                            session['access_token'])
-                
-                artist_img = artist_data['images'][1]['url'] if artist_data['images'] else None
-
-                artist_obj = crud.create_artist(spotify_id, name, artist_img, url)
-                db_add.append(artist_obj)
-
-            track_id, artist_id = (
-                    track_info.get('spotify_id'),
-                    artist_obj.spotify_id
-                )
-
-            if not crud.get_track_artist(track_id, artist_id).first():
-                db_track_artist = crud.create_track_artist(track_id, artist_id)
-                db_add.append(db_track_artist)
+        db_track_artists = crud.create_track_artists_in_db(artists,
+                                                           track_info.get('spotify_id'))
+        
+        db_add.extend(db_track_artists)
         
     db.session.add_all(db_add)
     db.session.commit()

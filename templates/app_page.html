@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Wrap{% endblock %}
+
+{% block body %}
+    <!-- <div class="container-fluid" id="react-app"></div> -->
+    <div id="all-top-tracks">
+        <div id="top-track">
+            <h3>Your top song:</h3>
+            <div id="top-track-image">
+                <img src="{{ tracks[0]['img'] }}" alt="Image of album cover" />
+            </div>
+            <div id="top-track-name">
+                <a href="{{ tracks[0]['url'] }}" target="_blank">{{ tracks[0]['name'] }}</a>
+            </div>
+            <div id="top-track-artists">
+            {% for artist in tracks[0]['artists'] %}
+                <a href="{{ artist['url'] }}" target="_blank">{{ artist['name'] }}</a> <br />
+            {% endfor %}
+            </div>
+        </div>
+        <div id="top-tracks-list">
+            <h3>Your top songs:</h3>
+        {% for track in tracks %}
+            <div id="top-track-{{ track['rank'] }}">
+                {{ track['rank'] }}
+                <img src="{{ track['img'] }}" alt="Image of album cover" />
+                <a href="{{ track['url'] }}" target="_blank">{{ track['name'] }}</a>
+                {% for artist in track['artists'] %}
+                <a href="{{ artist['url'] }}" target="_blank">{{ artist['name'] }}</a> <br />
+                {% endfor %}
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div id="all-top-artists">
+        <div id="top-artist">
+            <h3>Your top artist:</h3>
+            <div id="top-artist-image">
+                <img src="{{ artists[0]['img'] }}" alt="Image of artist, {{ artists[0]['name'] }}" />
+            </div>
+            <div id="top-artist-name">
+                <a href="{{ artists[0]['url'] }}" target="_blank">{{ artists[0]['name'] }}</a>
+            </div>
+        </div>
+        <div id="top-artist-list">
+            <h3>Your top artists:</h3>
+        {% for artist in artists %}
+            <div id="top-artist-{{ artist['rank'] }}">
+                {{ artist['rank'] }}
+                <img src="{{ artist['img'] }}" alt="Image of artist, {{ artist['name'] }}" />
+                <a href="{{ artist['url'] }}" target="_blank">{{ artist['name'] }}</a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div id="all-top-genres">
+        <div id="top-genre">
+            <h3>Your top genre:</h3>
+            {{ genres[0]['name'] }}
+        </div>
+        <div id="top-genre-list">
+            <h3>Your top genres:</h3>
+            <ul>
+            {% for genre in genres %}
+            <li>{{ genre['name'] }}: {{ genre['freq'] }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <!-- <script src="/static/js/wrap.jsx" type="text/jsx" ></script> -->
+{% endblock %}
