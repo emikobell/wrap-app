@@ -1,3 +1,5 @@
+let spotifyPopup
+
 const App =() => {
 
     const [pageLocation, setPageLocation] = React.useState("home")
@@ -6,10 +8,9 @@ const App =() => {
         setPageLocation(location)
     };
 
-
-    // const handleLocationClick = (location) => {
-    //     handlePageLocation(location);
-    // };
+    const SpotifyLogin = () =>{
+        spotifyPopup = window.open("/login", "test", "popup");
+    };
 
     const RenderNavbar = (props) => {
     
@@ -87,7 +88,7 @@ const App =() => {
                 <ReactBootstrap.Container id="wrap-buttons">
                     <ReactBootstrap.Row breakpoint="md" className="justify-content-md-center">
                         <ReactBootstrap.Col md="auto">
-                            <ReactBootstrap.Button variant = "light" size="lg">Login to Spotify</ReactBootstrap.Button>
+                            <ReactBootstrap.Button variant = "light" size="lg" onClick={SpotifyLogin}>Login to Spotify</ReactBootstrap.Button>
                         </ReactBootstrap.Col>
                     </ReactBootstrap.Row>
                 </ReactBootstrap.Container>
@@ -117,7 +118,6 @@ const App =() => {
             </React.Fragment>
         )
     };
-
 
     return (
         <React.Fragment>

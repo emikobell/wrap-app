@@ -13,6 +13,9 @@ app = Flask(__name__)
 app.app_context().push()
 app.secret_key = secrets.token_hex(16)
 
+@app.route('/')
+def render_landing_page():
+    return render_template('homepage.html')
 
 @app.route('/login')
 def oauth_login():
@@ -36,14 +39,14 @@ def return_auth_code():
     uri = 'http://localhost:5000/callback'
 
     if state != session['state']:
-        return redirect('/error/auth_error')
+        return 'Unauthorized', 403
 
     response = api_calls.get_auth_code(code, uri)
 
     try:
         response.raise_for_status()
     except Exception:
-        return redirect('/error/auth_error')
+        return 'Unauthorized', 403
 
     authorization = response.json()
 
@@ -51,7 +54,7 @@ def return_auth_code():
     session['refresh_token'] = authorization['refresh_token']
     session['expiration'] = datetime.now(timezone.utc) + timedelta(seconds = authorization['expires_in'])
 
-    return redirect('/wrap')
+    return 'Success', 200
 
 
 @app.route('/wrap')
@@ -221,13 +224,6 @@ def return_top_genres():
 @app.route('/logout')
 def log_out():
     session.pop('state')
-
-
-@app.route('/error/<id>')
-def show_error(id):
-    if id == 'auth_error':
-        return 'There was a problem authenticating' # PLACEHOLDER - return error template
-    # For each kind of error, render templates/pages
 
 
 if __name__ == '__main__':
