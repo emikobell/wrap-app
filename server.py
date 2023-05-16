@@ -91,7 +91,7 @@ def gather_wrap_data():
                                            timeframe= timeframe)
     
     # render_template('app_page.html')
-    return redirect('/jinja-test')
+    return render_template('homepage.html')
 
 
 @app.route('/jinja-test')
@@ -163,6 +163,8 @@ def return_top_artists():
             'url': artist.artists.url
         }
         artists_list.append(artist_dict)
+    
+    artists_list = sorted(artists_list, key = itemgetter('rank'))
 
     return jsonify(artists_list)
 
@@ -193,7 +195,8 @@ def return_top_tracks():
         }
 
         tracks_list.append(track_dict)
-
+    
+    tracks_list = sorted(tracks_list, key = itemgetter('rank'))
 
     return jsonify(tracks_list)
 

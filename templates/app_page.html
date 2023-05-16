@@ -3,7 +3,6 @@
 {% block title %}Wrap{% endblock %}
 
 {% block body %}
-    <!-- <div class="container-fluid" id="react-app"></div> -->
     <div id="all-top-tracks">
         <div id="top-track">
             <h3>Your top song:</h3>
@@ -21,16 +20,26 @@
         </div>
         <div id="top-tracks-list">
             <h3>Your top songs:</h3>
+            <table id="top-tracks-table">
         {% for track in tracks %}
-            <div id="top-track-{{ track['rank'] }}">
-                {{ track['rank'] }}
-                <img src="{{ track['img'] }}" alt="Image of album cover" />
-                <a href="{{ track['url'] }}" target="_blank">{{ track['name'] }}</a>
-                {% for artist in track['artists'] %}
-                <a href="{{ artist['url'] }}" target="_blank">{{ artist['name'] }}</a> <br />
-                {% endfor %}
-            </div>
+            <tr>
+                <td id="track-{{ track['rank'] }}-rank">{{ track['rank'] }}</td>
+                <td id="track-{{ track['rank'] }}-img"><img src="{{ track['img'] }}" alt="Image of album cover" /></td>
+                <td id="track-{{ track['rank'] }}-name"><a href="{{ track['url'] }}" target="_blank">{{ track['name'] }}</a>
+                    <div>
+                    {% for artist in track['artists'] %}
+                        {% if loop.revindex == 1 and track['artists']|length > 1 %}
+                             & 
+                        {% elif track['artists']|length != 1 and loop.index0 != 0%}
+                            , 
+                        {% endif %}
+                        <a href="{{ artist['url'] }}" target="_blank">{{ artist['name'] }}</a>
+                    {% endfor %}
+                    </div>
+                </td>
+            </tr>
         {% endfor %}
+            </table>
         </div>
     </div>
     <div id="all-top-artists">
@@ -45,13 +54,15 @@
         </div>
         <div id="top-artist-list">
             <h3>Your top artists:</h3>
-        {% for artist in artists %}
-            <div id="top-artist-{{ artist['rank'] }}">
-                {{ artist['rank'] }}
-                <img src="{{ artist['img'] }}" alt="Image of artist, {{ artist['name'] }}" />
-                <a href="{{ artist['url'] }}" target="_blank">{{ artist['name'] }}</a>
-            </div>
-        {% endfor %}
+            <table id="top-tracks-table">
+            {% for artist in artists %}
+                <tr>
+                    <td id="artist-{{ artist['rank'] }}-rank">{{ artist['rank'] }}</td>
+                    <td id="artist-{{ artist['rank'] }}-img"><img src="{{ artist['img'] }}" alt="Image of artist, {{ artist['name'] }}" /></td>
+                    <td id="artist-{{ artist['rank'] }}-name"><a href="{{ artist['url'] }}" target="_blank">{{ artist['name'] }}</a></td>
+                </tr>
+            {% endfor %}
+            </table>
         </div>
     </div>
     <div id="all-top-genres">
@@ -68,8 +79,4 @@
             </ul>
         </div>
     </div>
-{% endblock %}
-
-{% block js %}
-    <!-- <script src="/static/js/wrap.jsx" type="text/jsx" ></script> -->
 {% endblock %}
