@@ -56,22 +56,25 @@ def return_auth_code():
 
     return 'Success', 200
 
-
 @app.route('/wrap')
+def render_wrap_page():
+    return render_template('wrap_page.html')
+
+
+@app.route('/wrap_history')
 def gather_wrap_data():
 
-    timeframe = 'long_term' # Once frontend is set up, this will be set from there
+    timeframe = request.args.get('timeframe')
 
     if session['expiration'] > datetime.now(timezone.utc):
         new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
+        # Should add error handling here
 
     user_profile = api_calls.make_user_call(session['access_token'])
     # Should add error handling here
 
-    db_user = crud.get_user(user_profile.get('id')).first()
-
-    if not db_user:
-        db_user = data_processing.process_user_response(user_profile)
+    db_user = crud.get_user(user_profile.get('id')).first() \
+        or data_processing.process_user_response(user_profile)
     
     session['user_id'] = db_user.spotify_id
 
@@ -93,8 +96,7 @@ def gather_wrap_data():
                                            user_id= user_profile['id'],
                                            timeframe= timeframe)
     
-    # render_template('app_page.html')
-    return render_template('homepage.html')
+    return 'Success', 200
 
 
 @app.route('/jinja-test')
@@ -152,27 +154,7 @@ def return_all_items():
                            tracks = tracks_list, genres = genres_list)
 
 
-@app.route('/top_artists')
-def return_top_artists():
-    timeframe = request.args.get('timeframe')
-    artists_list = []
-    top_artists = crud.get_user_artists(session['user_id'], timeframe).all()
-
-    for artist in top_artists:
-        artist_dict = {
-            'rank': artist.rank,
-            'name': artist.artists.name,
-            'img': artist.artists.artist_img,
-            'url': artist.artists.url
-        }
-        artists_list.append(artist_dict)
-    
-    artists_list = sorted(artists_list, key = itemgetter('rank'))
-
-    return jsonify(artists_list)
-
-
-@app.route('/top_tracks')
+@app.route('/top-tracks')
 def return_top_tracks():
     timeframe = request.args.get('timeframe')
     tracks_list = []
@@ -203,7 +185,28 @@ def return_top_tracks():
 
     return jsonify(tracks_list)
 
-@app.route('/top_genres')
+
+@app.route('/top-artists')
+def return_top_artists():
+    timeframe = request.args.get('timeframe')
+    artists_list = []
+    top_artists = crud.get_user_artists(session['user_id'], timeframe).all()
+
+    for artist in top_artists:
+        artist_dict = {
+            'rank': artist.rank,
+            'name': artist.artists.name,
+            'img': artist.artists.artist_img,
+            'url': artist.artists.url
+        }
+        artists_list.append(artist_dict)
+    
+    artists_list = sorted(artists_list, key = itemgetter('rank'))
+
+    return jsonify(artists_list)
+
+
+@app.route('/top-genres')
 def return_top_genres():
     timeframe = request.args.get('timeframe')
     genres_list = []
