@@ -15,7 +15,7 @@ const AllTracks = (props) => {
                                     return (
                                     <React.Fragment key={track.rank}>
                                     <tr>
-                                        <td>{track.rank}</td>
+                                        <td><h2>{track.rank}</h2></td>
                                         <td><ReactBootstrap.Image src={track.img} alt="Image of album cover" rounded fluid /></td>
                                         <td><h4><a href={track.url} target="_blank">{track.name}</a></h4>
                                             <div>

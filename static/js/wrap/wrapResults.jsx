@@ -2,22 +2,28 @@ const WrapHistory = (props) => {
 
     const {timeframe} = props;
     const [topTracks, setTopTracks] = React.useState([]);
+    const [topArtists, setTopArtists] = React.useState([]);
 
     React.useEffect(() => {
         const fetchTopItems =  async (timeframe) => { 
-            const response = await fetch(`/wrap_history?timeframe=${timeframe}`)
+            const response = await fetch(`/wrap_history?timeframe=${timeframe}`);
             // Put error handling here
             if (response.status == 200) {
                 const topTracksResponse = await fetch(`/top-tracks?timeframe=${timeframe}`);
                 // Put error handling here
                 const topTracksParsed = await topTracksResponse.json();
                 setTopTracks(topTracksParsed);
+
+                const topArtistsResponse = await fetch(`/top-artists?timeframe=${timeframe}`);
+                // Put error handling here
+                const topArtistsParsed = await topArtistsResponse.json();
+                setTopArtists(topArtistsParsed);
             };
         };
         fetchTopItems(timeframe);
     }, []);
 
-    if (topTracks.length == 0){
+    if (topTracks.length == 0 || topArtists.length == 0){
         return (
         <React.Fragment>
             <ReactBootstrap.Row className="justify-content-md-center">
@@ -31,8 +37,10 @@ const WrapHistory = (props) => {
 
     return (
         <React.Fragment>
-            <TopTrack topTracks={topTracks}/>
-            <AllTracks topTracks={topTracks}/>
+            <TopTrack topTracks={topTracks} />
+            <AllTracks topTracks={topTracks} />
+            <TopArtist topArtists={topArtists} />
+            <AllArtists topArtists={topArtists} />
         </React.Fragment>
     )
 };

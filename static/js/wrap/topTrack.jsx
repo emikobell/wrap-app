@@ -19,13 +19,18 @@ const TopTrack = (props) => {
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-md-center">
                     <ReactBootstrap.Col md="auto">
-                        {props.topTracks[0]['artists'].map((artist) => {
+                        {props.topTracks[0]['artists'].map((artist, index) => {
+                            let punct = "";
+                            if (props.topTracks[0]['artists'].length > 1 && !props.topTracks[0]['artists'][index+1]) {
+                                punct = " & "
+                            } else if (props.topTracks[0]['artists'].length != 1 && index != 0) {
+                                punct = ", "
+                            }
                             return (
-                            <React.Fragment key={artist.name}>
-                                <h4><a href={artist.url} target="_blank">{artist.name}</a></h4>
-                            </React.Fragment>
-                            )
-                        })}
+                                <React.Fragment key={artist.name}>
+                                    <strong>{punct}<a href={artist.url} target="_blank">{artist.name}</a></strong>
+                                </React.Fragment>
+                            )})}
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
