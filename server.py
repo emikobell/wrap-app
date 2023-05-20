@@ -61,7 +61,7 @@ def render_wrap_page():
     return render_template('wrap_page.html')
 
 
-@app.route('/wrap_history')
+@app.route('/wrap-history')
 def gather_wrap_data():
 
     timeframe = request.args.get('timeframe')
@@ -97,61 +97,6 @@ def gather_wrap_data():
                                            timeframe= timeframe)
     
     return 'Success', 200
-
-
-@app.route('/jinja-test')
-def return_all_items():
-    timeframe = 'long_term'
-    artists_list = []
-    top_artists = crud.get_user_artists(session['user_id'], timeframe).all()
-
-    for artist in top_artists:
-        artist_dict = {
-            'rank': artist.rank,
-            'name': artist.artists.name,
-            'img': artist.artists.artist_img,
-            'url': artist.artists.url
-        }
-        artists_list.append(artist_dict)
-    
-    tracks_list = []
-    top_tracks = crud.get_user_tracks(session['user_id'], timeframe).all()
-
-    for track in top_tracks:
-        artist_list = []
-        artists = crud.get_artists_for_track(track.track_id).all()
-
-        for artist in artists:
-            artist_info = {
-                'name': artist.artists.name,
-                'url': artist.artists.url
-            }
-            artist_list.append(artist_info)
-
-        track_dict = {
-            'rank': track.rank,
-            'name': track.tracks.name,
-            'img': track.tracks.album_img,
-            'url': track.tracks.url,
-            'artists': artist_list
-        }
-
-        tracks_list.append(track_dict)
-
-    genres_list = []
-    top_genres = crud.get_user_genres(session['user_id'], timeframe).all()
-
-    for genre in top_genres:
-        genre_dict = {
-            'name': genre.genres.name,
-            'freq': genre.freq
-        }
-        genres_list.append(genre_dict)
-    
-    genres_list = sorted(genres_list, key = itemgetter('freq'), reverse = True)
-    
-    return render_template('app_page.html', artists = artists_list,
-                           tracks = tracks_list, genres = genres_list)
 
 
 @app.route('/top-tracks')
@@ -220,7 +165,7 @@ def return_top_genres():
         genres_list.append(genre_dict)
     
     genres_list = sorted(genres_list, key = itemgetter('freq'), reverse = True)
-        
+
     return jsonify(genres_list)
 
 

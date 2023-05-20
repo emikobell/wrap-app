@@ -1,3 +1,5 @@
+// Handle blank use-case
+
 const AllTracks = (props) => {
     return (
         <React.Fragment>
