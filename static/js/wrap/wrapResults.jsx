@@ -18,34 +18,21 @@ const WrapHistory = (props) => {
     }, []);
 
     if (topTracks.length == 0){
-        return <p>Loading...</p>
+        return (
+        <React.Fragment>
+            <ReactBootstrap.Row className="justify-content-md-center">
+                <ReactBootstrap.Col md="auto" className="p-5">
+                    <h1>Loading...</h1>
+                </ReactBootstrap.Col>
+            </ReactBootstrap.Row>
+        </React.Fragment>
+        )
     }
 
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="top-song">
-                <ReactBootstrap.Row className="justify-content-md-center">
-                    <ReactBootstrap.Col md="auto" className="p-5">
-                        <h1>Your top song:</h1>
-                    </ReactBootstrap.Col>
-                </ReactBootstrap.Row>
-                <ReactBootstrap.Row className="justify-content-md-center">
-                    <ReactBootstrap.Col md="auto">
-                        <img src={topTracks[0]['img']} alt="Image of album cover" />
-                    </ReactBootstrap.Col>
-                </ReactBootstrap.Row>
-                <ReactBootstrap.Row className="justify-content-md-center">
-                    <ReactBootstrap.Col md="auto">
-                        <h2><a href={topTracks[0]['url']} target="_blank">{topTracks[0]['name']}</a></h2>
-                    </ReactBootstrap.Col>
-                </ReactBootstrap.Row>
-                <ReactBootstrap.Row className="justify-content-md-center">
-                    <ReactBootstrap.Col md="auto">
-                        {}
-                    </ReactBootstrap.Col>
-                </ReactBootstrap.Row>
-            </ReactBootstrap.Container>
+            <TopTrack topTracks={topTracks}/>
+            <AllTracks topTracks={topTracks}/>
         </React.Fragment>
     )
-    
 };
