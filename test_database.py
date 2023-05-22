@@ -12,5 +12,6 @@ if __name__ == '__main__':
 
     os.system('dropdb test-spotify-data')
     os.system('createdb test-spotify-data')
+    os.system('psql test-spotify-data < sample_data.sql')
     connect_to_db(app, "test-spotify-data", echo = True)
     db.create_all()

@@ -8,14 +8,18 @@ import data_processing
 import api_calls
 from model import connect_to_db, db
 from datetime import datetime, timedelta, timezone
+import sys
+import contextlib
 
 app = Flask(__name__)
 app.app_context().push()
 app.secret_key = secrets.token_hex(16)
 
+
 @app.route('/')
 def render_landing_page():
     return render_template('homepage.html')
+
 
 @app.route('/login')
 def oauth_login():
@@ -53,8 +57,32 @@ def return_auth_code():
     session['access_token'] = authorization['access_token']
     session['refresh_token'] = authorization['refresh_token']
     session['expiration'] = datetime.now(timezone.utc) + timedelta(seconds = authorization['expires_in'])
+    session['login_state'] = True
 
     return 'Success', 200
+
+@app.route('/user-info')
+def return_user_info():
+    if session['expiration'] > datetime.now(timezone.utc):
+        new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
+        # Should add error handling here
+
+    user_profile = api_calls.make_user_call(session['access_token'])
+    # Should add error handling here
+
+    db_user = crud.get_user(user_profile.get('id')).first() \
+        or data_processing.process_user_response(user_profile)
+    
+    session['user_id'] = db_user.spotify_id
+
+    user_info = {
+        'display_name': db_user.display_name,
+        'img_url': db_user.img_url,
+        'login_state': session.get('login_state', False),
+    }
+
+    return jsonify(user_info)
+
 
 @app.route('/wrap')
 def render_wrap_page():
@@ -175,5 +203,9 @@ def log_out():
 
 
 if __name__ == '__main__':
-    connect_to_db(app, 'spotify-data')
+    db_name = 'spotify-data'
+    with contextlib.suppress(Exception):
+        if sys.argv[1] == 'test':
+            db_name = 'test-spotify-data'
+    connect_to_db(app, db_name)
     app.run(debug=True, host='0.0.0.0')
