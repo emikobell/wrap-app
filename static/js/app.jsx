@@ -18,6 +18,15 @@ const App = () => {
     };
 
     React.useEffect(() => {
+        const fetchUserLogin = async () => {
+			const login = await fetch('/login-check');
+			const loginParsed = await login.json();
+			setLogin(loginParsed);
+        } ;
+		fetchUserLogin();
+    }, []);
+
+    React.useEffect(() => {
         if (!popupState) {
           return;
         }

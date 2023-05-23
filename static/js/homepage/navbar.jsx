@@ -1,7 +1,7 @@
 const RenderNavbar = (props) => {
     
     return (<React.Fragment>
-                <ReactBootstrap.Navbar expand="lg" sticky="top">
+                <ReactBootstrap.Navbar bg="light" expand="lg" sticky="top">
                     <ReactBootstrap.Container>
                         <ReactBootstrap.Navbar.Brand href="#" onClick={() => props.handlePageLocation("home")}>Wrap</ReactBootstrap.Navbar.Brand>
                         <ReactBootstrap.Navbar.Toggle aria-controls="basic-navbar-nav" />

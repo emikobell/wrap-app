@@ -63,6 +63,7 @@ def return_auth_code():
 
 @app.route('/user-info')
 def return_user_info():
+    
     if session['expiration'] > datetime.now(timezone.utc):
         new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
         # Should add error handling here
@@ -72,7 +73,7 @@ def return_user_info():
 
     db_user = crud.get_user(user_profile.get('id')).first() \
         or data_processing.process_user_response(user_profile)
-    
+        
     session['user_id'] = db_user.spotify_id
 
     user_info = {
@@ -82,6 +83,14 @@ def return_user_info():
     }
 
     return jsonify(user_info)
+
+@app.route('/login-check')
+def check_login():
+    """Return session login info, if any."""
+
+    login_state = session.get('login_state', False)
+
+    return jsonify(login_state)
 
 
 @app.route('/wrap')
@@ -98,21 +107,13 @@ def gather_wrap_data():
         new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
         # Should add error handling here
 
-    user_profile = api_calls.make_user_call(session['access_token'])
-    # Should add error handling here
-
-    db_user = crud.get_user(user_profile.get('id')).first() \
-        or data_processing.process_user_response(user_profile)
-    
-    session['user_id'] = db_user.spotify_id
-
     user_top_artists = api_calls.make_artist_call(token = session['access_token'],
                                                   timeframe = timeframe)
     
     # Should add error handling here
 
     data_processing.process_artist_response(response = user_top_artists,
-                                            user_id = user_profile['id'],
+                                            user_id = session['user_id'],
                                             timeframe = timeframe)
     
     user_top_tracks = api_calls.make_track_call(token = session ['access_token'],
@@ -121,7 +122,7 @@ def gather_wrap_data():
     # Should add error handling here
 
     data_processing.process_track_response(response = user_top_tracks,
-                                           user_id= user_profile['id'],
+                                           user_id= session['user_id'],
                                            timeframe= timeframe)
     
     return 'Success', 200
