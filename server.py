@@ -200,7 +200,8 @@ def return_top_genres():
 
 @app.route('/logout')
 def log_out():
-    session.pop('state')
+    session.clear()
+    return 'Success', 200
 
 
 if __name__ == '__main__':

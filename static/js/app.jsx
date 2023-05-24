@@ -3,6 +3,7 @@ const App = () => {
     const [pageLocation, setPageLocation] = React.useState("home")
     const [popupState, setPopupState] = React.useState(null);
     const [login, setLogin] = React.useState(false);
+	const [logoutRequested, setLogOutRequested] = React.useState(false);
     const [userInfo, setUserInfo] = React.useState({
       'display_name': null,
       'img_url': null,
@@ -16,6 +17,11 @@ const App = () => {
     const openSpotifyLogin = () => {
         setPopupState(window.open("/login", "", "popup"));
     };
+
+	const handleLogOut = () => {
+		setLogOutRequested(true);
+		setLogin(false);
+	};
 
     React.useEffect(() => {
         const fetchUserLogin = async () => {
@@ -55,24 +61,32 @@ const App = () => {
 
     React.useEffect(() => {
         const getUserInfo = async () => {
-          if (!login) {
-            return;
-          }
           const userResponse = await fetch('/user-info');
           const responseParsed = await userResponse.json();
           setUserInfo(responseParsed);
         };
-
-        getUserInfo();
+		if (login) {
+			getUserInfo();
+		}
         },
-      [login]
+      	[login]
       );
+
+	React.useEffect(() => {
+		const userLogOut = async () => {
+				await fetch('/logout');
+				window.location.reload();
+			};
+		if (logoutRequested) {
+			userLogOut();
+		}
+	}, [logoutRequested])
 
     const renderPageContent = (pageLocation) => {
         if (pageLocation == "wrap"){
             return <RenderWrap openSpotifyLogin={openSpotifyLogin} loginState={userInfo.login_state}/>
         } else if (pageLocation == "compare") {
-            return <RenderCompare openSpotifyLogin={openSpotifyLogin} />
+            return <RenderCompare openSpotifyLogin={openSpotifyLogin} loginState={userInfo.login_state}/>
         } else {
             return <RenderHomeContent handlePageLocation={handlePageLocation}/>
         };
@@ -80,7 +94,11 @@ const App = () => {
 
     return (
         <React.Fragment>
-            <RenderNavbar handlePageLocation={handlePageLocation} pageLocation={pageLocation}/>
+            <RenderNavbar handlePageLocation={handlePageLocation}
+							pageLocation={pageLocation}
+							openSpotifyLogin={openSpotifyLogin}
+							userInfo={userInfo}
+							handleLogOut={handleLogOut}/>
             {renderPageContent(pageLocation)}
         </React.Fragment>
     );

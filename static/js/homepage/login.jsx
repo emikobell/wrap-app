@@ -10,3 +10,21 @@ const RenderLoginButton = (props) => {
             </ReactBootstrap.Row>
         </ReactBootstrap.Container>
     )};
+
+const RenderLoginProfile = (props) => {
+    return(
+        <React.Fragment>
+            <ReactBootstrap.NavDropdown title={props.userInfo.display_name} id="basic-nav-dropdown">
+                {/* <img src={props.userInfo.img_url} alt="Image of your Spotify profile" /> */}
+                <ReactBootstrap.NavDropdown.Item onClick={props.handleLogOut}>Log out</ReactBootstrap.NavDropdown.Item>
+            </ReactBootstrap.NavDropdown>
+        </React.Fragment>
+    )};
+
+
+const RenderNavLogin = (props) => {
+    return(
+        <React.Fragment>
+            <ReactBootstrap.Nav.Link id="login-nav" onClick={props.openSpotifyLogin}>Log In</ReactBootstrap.Nav.Link>
+        </React.Fragment>
+    )};
