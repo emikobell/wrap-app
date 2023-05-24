@@ -7,7 +7,7 @@ import crud
 import data_processing
 import api_calls
 from model import connect_to_db, db
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 import sys
 import contextlib
 
@@ -54,19 +54,18 @@ def return_auth_code():
 
     authorization = response.json()
 
-    session['access_token'] = authorization['access_token']
-    session['refresh_token'] = authorization['refresh_token']
-    session['expiration'] = datetime.now(timezone.utc) + timedelta(seconds = authorization['expires_in'])
-    session['login_state'] = True
+    data_processing.process_auth_codes(authorization)
 
     return 'Success', 200
 
 @app.route('/user-info')
 def return_user_info():
     
-    if session['expiration'] > datetime.now(timezone.utc):
+    if session['expiration'] < datetime.now(timezone.utc):
         new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
         # Should add error handling here
+        authorization = new_auth_codes.json()
+        data_processing.process_auth_codes(authorization)
 
     user_profile = api_calls.make_user_call(session['access_token'])
     # Should add error handling here
@@ -103,8 +102,10 @@ def gather_wrap_data():
 
     timeframe = request.args.get('timeframe')
 
-    if session['expiration'] > datetime.now(timezone.utc):
+    if session['expiration'] < datetime.now(timezone.utc):
         new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
+        authorization = new_auth_codes.json()
+        data_processing.process_auth_codes(authorization)
         # Should add error handling here
 
     user_top_artists = api_calls.make_artist_call(token = session['access_token'],
@@ -155,7 +156,10 @@ def return_top_tracks():
 
         tracks_list.append(track_dict)
     
-    tracks_list = sorted(tracks_list, key = itemgetter('rank'))
+    if not tracks_list:
+        tracks_list.append(None)
+    else:
+        tracks_list = sorted(tracks_list, key = itemgetter('rank'))
 
     return jsonify(tracks_list)
 
@@ -175,7 +179,10 @@ def return_top_artists():
         }
         artists_list.append(artist_dict)
     
-    artists_list = sorted(artists_list, key = itemgetter('rank'))
+    if not artists_list:
+        artists_list.append(None)
+    else:
+        artists_list = sorted(artists_list, key = itemgetter('rank'))
 
     return jsonify(artists_list)
 
@@ -193,7 +200,10 @@ def return_top_genres():
         }
         genres_list.append(genre_dict)
     
-    genres_list = sorted(genres_list, key = itemgetter('freq'), reverse = True)
+    if not genres_list:
+        genres_list.append(None)
+    else:
+        genres_list = sorted(genres_list, key = itemgetter('freq'), reverse = True)
 
     return jsonify(genres_list)
 

@@ -14,6 +14,9 @@ const RenderLoginButton = (props) => {
 const RenderLoginProfile = (props) => {
     return(
         <React.Fragment>
+            {props.userInfo.img_url &&
+                <ReactBootstrap.Image src={props.userInfo.img_url} alt="Image of your Spotify profile"
+                                    roundedCircle width="30" height="30" className="d-inline-block"/>}
             <ReactBootstrap.NavDropdown title={props.userInfo.display_name} id="basic-nav-dropdown">
                 {/* <img src={props.userInfo.img_url} alt="Image of your Spotify profile" /> */}
                 <ReactBootstrap.NavDropdown.Item onClick={props.handleLogOut}>Log out</ReactBootstrap.NavDropdown.Item>

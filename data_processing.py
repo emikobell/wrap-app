@@ -1,7 +1,20 @@
 import crud
 from model import db
-import api_calls
 from server import session
+from datetime import datetime, timedelta, timezone
+
+def process_auth_codes(response):
+    """
+    Take the Spotify API Authorization/Refresh Code and add to session.
+    """
+
+    session['access_token'] = response['access_token']
+
+    if response.get('refresh_token'):
+        session['refresh_token'] = response['refresh_token']
+
+    session['expiration'] = datetime.now(timezone.utc) + timedelta(seconds = response['expires_in'])
+    session['login_state'] = True
 
 
 def process_user_response(response):

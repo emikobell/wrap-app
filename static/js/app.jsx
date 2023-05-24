@@ -61,6 +61,9 @@ const App = () => {
 
     React.useEffect(() => {
         const getUserInfo = async () => {
+			if (!login) {
+				return;
+			}
           const userResponse = await fetch('/user-info');
           const responseParsed = await userResponse.json();
           setUserInfo(responseParsed);
