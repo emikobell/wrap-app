@@ -1,6 +1,20 @@
-// Handle blank use-case
-
 const AllTracks = (props) => {
+    const [trackVisibility, setTrackVisibility] = React.useState(false);
+    const [trackNumber, setTrackNumber] = React.useState(5);
+    const [buttonText, setButtonText] = React.useState("Show All 50 Songs");
+
+    const handleTrackVisibility = () => {
+        if (!trackVisibility) {
+            setTrackVisibility(true);
+            setTrackNumber();
+            setButtonText("Hide Songs")
+        } else {
+            setTrackVisibility(false);
+            setTrackNumber(5);
+            setButtonText("Show All 50 Songs");
+        }
+    };
+
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="all-top-tracks">
@@ -13,7 +27,7 @@ const AllTracks = (props) => {
                     <ReactBootstrap.Col xs="auto">
                         <ReactBootstrap.Table borderless hover className="align-middle">
                             <tbody>
-                                {props.topTracks.map((track) => {
+                                {props.topTracks.slice(0,trackNumber).map((track) => {
                                     return (
                                     <React.Fragment key={track.rank}>
                                     <tr>
@@ -40,6 +54,11 @@ const AllTracks = (props) => {
                                 )})}
                             </tbody>
                         </ReactBootstrap.Table>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row className="justify-content-md-center">
+                    <ReactBootstrap.Col xs="auto">
+                        <GenerateTrackButton handleTrackVisibility={handleTrackVisibility} buttonText={buttonText}/>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
