@@ -92,11 +92,6 @@ def check_login():
     return jsonify(login_state)
 
 
-@app.route('/wrap')
-def render_wrap_page():
-    return render_template('wrap_page.html')
-
-
 @app.route('/wrap-history')
 def gather_wrap_data():
 

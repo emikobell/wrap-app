@@ -6,7 +6,7 @@ const RenderCompare = (props) => {
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="page-content">
-                <ReactBootstrap.Row className="justify-content-md-center">
+                <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col md="auto" className="p-5">
                         <h1>
                             This is the compare page.

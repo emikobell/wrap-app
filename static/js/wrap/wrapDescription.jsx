@@ -2,8 +2,8 @@ const RenderWrapDescription = (props) => {
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="page-content">
-                <ReactBootstrap.Row className="justify-content-md-center">
-                    <ReactBootstrap.Col md="auto" className="p-5">
+                <ReactBootstrap.Row className="justify-content-center">
+                    <ReactBootstrap.Col xs="auto" className="p-5">
                         <h1>
                             This is the wrap page.
                         </h1>

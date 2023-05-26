@@ -5,12 +5,12 @@ const AllTracks = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="all-top-tracks">
                 <ReactBootstrap.Row className="justify-content-md-center">
-                    <ReactBootstrap.Col md="auto" className="p-5">
+                    <ReactBootstrap.Col xs="auto" className="p-5">
                         <h1>Your top songs:</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-md-center">
-                    <ReactBootstrap.Col md="auto">
+                    <ReactBootstrap.Col xs="auto">
                         <ReactBootstrap.Table borderless hover className="align-middle">
                             <tbody>
                                 {props.topTracks.map((track) => {
@@ -18,7 +18,7 @@ const AllTracks = (props) => {
                                     <React.Fragment key={track.rank}>
                                     <tr>
                                         <td><h2>{track.rank}</h2></td>
-                                        <td><ReactBootstrap.Image src={track.img} alt="Image of album cover" rounded fluid /></td>
+                                        <td><ReactBootstrap.Image src={track.img} alt="Image of album cover" rounded fluid height="100px" width="100px" /></td>
                                         <td><h4><a href={track.url} target="_blank">{track.name}</a></h4>
                                             <div>
                                                 {track.artists.map((artist, index) => {

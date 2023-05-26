@@ -102,7 +102,9 @@ const App = () => {
 							openSpotifyLogin={openSpotifyLogin}
 							userInfo={userInfo}
 							handleLogOut={handleLogOut}/>
-            {renderPageContent(pageLocation)}
+			<ReactBootstrap.Container fluid>
+            	{renderPageContent(pageLocation)}
+			</ReactBootstrap.Container>
         </React.Fragment>
     );
 };

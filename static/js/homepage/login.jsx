@@ -1,8 +1,8 @@
 const RenderLoginButton = (props) => {
     return(
         <ReactBootstrap.Container id="login-button">
-            <ReactBootstrap.Row breakpoint="md" className="justify-content-md-center">
-                <ReactBootstrap.Col md="auto">
+            <ReactBootstrap.Row breakpoint="md" className="justify-content-center">
+                <ReactBootstrap.Col xs="auto">
                     <ReactBootstrap.Button variant = "light" size="lg" onClick={props.openSpotifyLogin}>
                         Log In on Spotify
                     </ReactBootstrap.Button>
@@ -18,7 +18,6 @@ const RenderLoginProfile = (props) => {
                 <ReactBootstrap.Image src={props.userInfo.img_url} alt="Image of your Spotify profile"
                                     roundedCircle width="30" height="30" className="d-inline-block"/>}
             <ReactBootstrap.NavDropdown title={props.userInfo.display_name} id="basic-nav-dropdown">
-                {/* <img src={props.userInfo.img_url} alt="Image of your Spotify profile" /> */}
                 <ReactBootstrap.NavDropdown.Item onClick={props.handleLogOut}>Log out</ReactBootstrap.NavDropdown.Item>
             </ReactBootstrap.NavDropdown>
         </React.Fragment>
