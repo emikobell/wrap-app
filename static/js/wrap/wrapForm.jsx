@@ -4,7 +4,7 @@ const RenderWrapForm = (props) => {
         <ReactBootstrap.Row breakpoint="md" className="justify-content-center">
             <ReactBootstrap.Col xs="auto">
                 <ReactBootstrap.Dropdown>
-                    <ReactBootstrap.DropdownButton  className={"d-grid"} id="dropdown-basic-button"
+                    <ReactBootstrap.DropdownButton  id="dropdown-basic-button"
                                                     variant="light" size = "lg"
                                                     drop="down-centered" onSelect={props.handleWrapStart}
                                                     title="Choose a Timeframe to Wrap">
