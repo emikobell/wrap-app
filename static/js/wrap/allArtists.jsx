@@ -1,6 +1,19 @@
-// Handle blank use-case
-
 const AllArtists = (props) => {
+    const [artistVisibility, setArtistVisibility] = React.useState(false);
+    const [artistNumber, setArtistNumber] = React.useState(5);
+    const [buttonText, setButtonText] = React.useState("Show All 10 Artists");
+
+    const handleArtistVisibility = () => {
+        if (!artistVisibility) {
+            setArtistVisibility(true);
+            setArtistNumber();
+            setButtonText("Hide Artists")
+        } else {
+            setArtistVisibility(false);
+            setArtistNumber(5);
+            setButtonText("Show All 10 Artists");
+        }
+    };
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="all-top-tracks">
@@ -13,7 +26,7 @@ const AllArtists = (props) => {
                     <ReactBootstrap.Col xs="auto">
                         <ReactBootstrap.Table borderless hover className="align-middle">
                             <tbody>
-                                {props.topArtists.map((artist) => {
+                                {props.topArtists.slice(0,artistNumber).map((artist) => {
                                     return (
                                     <React.Fragment key={artist.rank}>
                                     <tr>
@@ -25,6 +38,11 @@ const AllArtists = (props) => {
                                 )})}
                             </tbody>
                         </ReactBootstrap.Table>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row className="justify-content-md-center">
+                    <ReactBootstrap.Col xs="auto">
+                        <GenerateArtistButton handleArtistVisibility={handleArtistVisibility} buttonText={buttonText}/>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>

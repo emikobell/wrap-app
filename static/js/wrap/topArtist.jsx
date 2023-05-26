@@ -1,5 +1,3 @@
-// Handle blank use-case
-
 const TopArtist = (props) => {
     return (
         <React.Fragment>
