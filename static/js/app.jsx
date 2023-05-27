@@ -87,7 +87,7 @@ const App = () => {
 
     const renderPageContent = (pageLocation) => {
         if (pageLocation == "wrap"){
-            return <RenderWrap openSpotifyLogin={openSpotifyLogin} loginState={userInfo.login_state}/>
+            return <RenderWrap openSpotifyLogin={openSpotifyLogin} userInfo={userInfo}/>
         } else if (pageLocation == "compare") {
             return <RenderCompare openSpotifyLogin={openSpotifyLogin} loginState={userInfo.login_state}/>
         } else {

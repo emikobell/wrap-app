@@ -10,10 +10,10 @@ const RenderWrap = (props) => {
     return (
         <React.Fragment>
             {startWrap 
-            ? <WrapHistory timeframe={timeframe}/> 
+            ? <WrapHistory timeframe={timeframe} username={props.userInfo.display_name}/> 
             : <RenderWrapDescription openSpotifyLogin={props.openSpotifyLogin}
-                                        loginState={props.loginState}
-                                        handleWrapStart={handleWrapStart}/>}
+                                     loginState={props.userInfo.login_state}
+                                     handleWrapStart={handleWrapStart}/>}
         </React.Fragment>
     );
 };

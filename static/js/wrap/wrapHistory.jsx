@@ -61,6 +61,14 @@ const WrapHistory = (props) => {
 
     return (
         <React.Fragment>
+            <ReactBootstrap.Container id="wrap-history-greeting">
+                <ReactBootstrap.Row className="justify-content-center">
+                    <ReactBootstrap.Col xs="auto" className="p-5">
+                        <h1>Hi, {props.username}! </h1>
+                        <h2>Here's your wrap history.</h2>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+            </ReactBootstrap.Container>
             <TopTrack topTracks={topTracks} />
             <AllTracks topTracks={topTracks} />
             <TopArtist topArtists={topArtists} />

@@ -5,7 +5,7 @@ const RenderWrapDescription = (props) => {
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-5">
                         <h1>
-                            This is the wrap page.
+                            Wrap your listening history.
                         </h1>
                         <p className="fs-4">
                             Choose between short term, medium term, and long term
