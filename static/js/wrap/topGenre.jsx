@@ -1,5 +1,3 @@
-// Handle blank use-case
-
 const TopGenre = (props) => {
     return (
         <React.Fragment>

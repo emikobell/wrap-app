@@ -75,6 +75,15 @@ const WrapHistory = (props) => {
             <AllArtists topArtists={topArtists} />
             <TopGenre topGenres={topGenres} />
             <AllGenres topGenres={topGenres} />
+            <ReactBootstrap.Container id="wrap-again">
+                <ReactBootstrap.Row className="justify-content-center">
+                    <ReactBootstrap.Col xs="auto" className="p-4">
+                        <ReactBootstrap.Button variant="light" size="lg" onClick={() => props.setStartWrap(false)}>
+                            Wrap Again
+                        </ReactBootstrap.Button>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+            </ReactBootstrap.Container>
         </React.Fragment>
     )
 };
