@@ -4,7 +4,12 @@ const GeneratePlaylist = (props) => {
     React.useEffect(() => {
         const requestPlaylist = async (timeframe) => {
             const response = await fetch(`/playlist?timeframe=${timeframe}`);
-            // Put error handling here
+        
+            if (response.status !== 200) {
+                return (
+                    <ShowError type="button" />
+                )
+            }
         };
         if (createPlaylist) {
             requestPlaylist(props.timeframe);
