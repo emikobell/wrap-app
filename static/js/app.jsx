@@ -9,6 +9,7 @@ const App = () => {
       'img_url': null,
       'login_state': false,
     });
+	const [errorState, setErrorState] = React.useState(false);
 
     const handlePageLocation = (location) => {
         setPageLocation(location)
@@ -28,18 +29,8 @@ const App = () => {
 			const login = await fetch('/login-check');
 
 			if (login.status !== 200) {
-				return (
-					<React.Fragment>
-						<RenderNavbar handlePageLocation={handlePageLocation}
-										pageLocation={pageLocation}
-										openSpotifyLogin={openSpotifyLogin}
-										userInfo={userInfo}
-										handleLogOut={handleLogOut}/>
-						<ReactBootstrap.Container fluid>
-							<ShowError type="main" />
-						</ReactBootstrap.Container>
-					</React.Fragment>
-				);
+				setErrorState(true);
+				return;
 			}
 
 			const loginParsed = await login.json();
@@ -100,18 +91,8 @@ const App = () => {
 		const userLogOut = async () => {
 				const response = await fetch('/logout');
 				if (response.status !== 200) {
-					return (
-						<React.Fragment>
-						<RenderNavbar handlePageLocation={handlePageLocation}
-										pageLocation={pageLocation}
-										openSpotifyLogin={openSpotifyLogin}
-										userInfo={userInfo}
-										handleLogOut={handleLogOut}/>
-						<ReactBootstrap.Container fluid>
-							<ShowError type="main" />
-						</ReactBootstrap.Container>
-					</React.Fragment>
-					)
+					setErrorState(true);
+					return;
 				}
 				window.location.reload();
 			};
@@ -139,7 +120,7 @@ const App = () => {
 							userInfo={userInfo}
 							handleLogOut={handleLogOut}/>
 			<ReactBootstrap.Container fluid>
-            	{renderPageContent(pageLocation)}
+            	{!errorState ? renderPageContent(pageLocation) : <ShowError type="main" />}
 			</ReactBootstrap.Container>
         </React.Fragment>
     );

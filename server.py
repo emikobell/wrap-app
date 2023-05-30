@@ -9,9 +9,9 @@ import api_calls
 from model import connect_to_db, db
 from datetime import date
 import sys
-import contextlib
 import string
 import utils
+
 
 app = Flask(__name__)
 app.app_context().push()
@@ -67,7 +67,6 @@ def return_user_info():
     utils.check_refresh_state()
 
     user_profile = api_calls.make_user_call(session['access_token'])
-    # Should add error handling here
 
     db_user = crud.get_user(user_profile.get('id')).first() \
         or data_processing.process_user_response(user_profile)
@@ -102,8 +101,6 @@ def gather_wrap_data():
     user_top_artists = api_calls.make_artist_call(token = session['access_token'],
                                                   timeframe = timeframe)
     
-    # Should add error handling here
-
     data_processing.process_artist_response(response = user_top_artists,
                                             user_id = session['user_id'],
                                             timeframe = timeframe)
@@ -111,8 +108,6 @@ def gather_wrap_data():
     user_top_tracks = api_calls.make_track_call(token = session ['access_token'],
                                                 timeframe = timeframe)
     
-    # Should add error handling here
-
     data_processing.process_track_response(response = user_top_tracks,
                                            user_id= session['user_id'],
                                            timeframe= timeframe)
@@ -213,7 +208,7 @@ def create_top_playlist():
     creation_response = api_calls.create_playlist(user_id = session['user_id'],
                                                   name = name,
                                                   token = session['access_token'])
-    # Add error handling here
+
     playlist_id = creation_response['id']
 
     tracks = []
@@ -226,7 +221,6 @@ def create_top_playlist():
     playlist_response = api_calls.add_to_playlist(playlist_id = playlist_id,
                                                   tracks = tracks,
                                                   token = session['access_token'])
-    # Add error handling here
 
     return 'Success', 200
 
@@ -239,8 +233,7 @@ def log_out():
 
 if __name__ == '__main__':
     db_name = 'spotify-data'
-    with contextlib.suppress(Exception):
-        if sys.argv[1] == 'test':
-            db_name = 'test-spotify-data'
+    if len(sys.argv) > 1 and sys.argv[1] == 'test':
+        db_name = 'test-spotify-data'
     connect_to_db(app, db_name)
     app.run(debug=True, host='0.0.0.0')
