@@ -8,27 +8,36 @@ const WrapHistory = (props) => {
     React.useEffect(() => {
         const fetchTopItems =  async (timeframe) => { 
             const response = await fetch(`/wrap-history?timeframe=${timeframe}`);
-            // Put error handling here
-            if (response.status == 200) {
-                const topTracksResponse = await fetch(`/top-tracks?timeframe=${timeframe}`);
-                // Put error handling here
-                const topTracksParsed = await topTracksResponse.json();
-                setTopTracks(topTracksParsed);
+            if (response.status !== 200) {
+                return <ShowError />
+            }
+        
+            const topTracksResponse = await fetch(`/top-tracks?timeframe=${timeframe}`);
 
-                if (topTracks) {
-                    const topArtistsResponse = await fetch(`/top-artists?timeframe=${timeframe}`);
-                    // Put error handling here
-                    const topArtistsParsed = await topArtistsResponse.json();
-                    setTopArtists(topArtistsParsed);
+            if (topTracksResponse.status !== 200) {
+                return <ShowError />
+            }
 
-                    if (topArtists) {
-                        const topGenresResponse = await fetch(`/top-genres?timeframe=${timeframe}`);
-                        // Put error handling here
-                        const topGenresParsed = await topGenresResponse.json();
-                        setTopGenres(topGenresParsed);
-                    }
-                }
-            };
+            const topTracksParsed = await topTracksResponse.json();
+            setTopTracks(topTracksParsed);
+
+            const topArtistsResponse = await fetch(`/top-artists?timeframe=${timeframe}`);
+
+            if (topArtistsResponse.status !== 200) {
+                return <ShowError />
+            }
+
+            const topArtistsParsed = await topArtistsResponse.json();
+            setTopArtists(topArtistsParsed);
+
+            const topGenresResponse = await fetch(`/top-genres?timeframe=${timeframe}`);
+
+            if (topGenresResponse.status !== 200) {
+                return <ShowError />
+            }
+
+            const topGenresParsed = await topGenresResponse.json();
+            setTopGenres(topGenresParsed);
         };
         fetchTopItems(timeframe);
     }, []);
