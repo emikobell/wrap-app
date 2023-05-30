@@ -17,37 +17,29 @@ const GeneratePlaylist = (props) => {
     }, [createPlaylist]);
 
     return (
-        <React.Fragment>
-            {createPlaylist ? <PlaylistCreated />
-            : <PlaylistButton setCreatePlaylist={setCreatePlaylist} />}
-        </React.Fragment>
+        <ReactBootstrap.Container id="create-playlist">
+            <ReactBootstrap.Row className="justify-content-center">
+                <ReactBootstrap.Col xs="auto" className="p-4">
+                {createPlaylist ? <PlaylistCreated />
+                : <PlaylistButton setCreatePlaylist={setCreatePlaylist} />}
+                </ReactBootstrap.Col>
+            </ReactBootstrap.Row>
+        </ReactBootstrap.Container>
     )
 };
 
 const PlaylistButton = (props) => {
     return (
-        <ReactBootstrap.Container id="create-playlist">
-            <ReactBootstrap.Row className="justify-content-center">
-                <ReactBootstrap.Col xs="auto" className="p-4">
-                    <ReactBootstrap.Button variant="light" size="lg" onClick={() => props.setCreatePlaylist(true)}>
-                        Create Playlist
-                    </ReactBootstrap.Button>
-                </ReactBootstrap.Col>
-            </ReactBootstrap.Row>
-        </ReactBootstrap.Container>
+        <ReactBootstrap.Button variant="light" size="lg" onClick={() => props.setCreatePlaylist(true)}>
+            Create Playlist
+        </ReactBootstrap.Button>
     )
 };
 
 const PlaylistCreated = () => {
     return (
-        <ReactBootstrap.Container id="playlist-created">
-            <ReactBootstrap.Row className="justify-content-center">
-                <ReactBootstrap.Col xs="auto" className="p-4">
-                    <ReactBootstrap.Button variant="light" size="lg" disabled>
-                        Playlist Created!
-                    </ReactBootstrap.Button>
-                </ReactBootstrap.Col>
-            </ReactBootstrap.Row>
-        </ReactBootstrap.Container>
+        <ReactBootstrap.Button variant="light" size="lg" disabled>
+            Playlist Created!
+        </ReactBootstrap.Button>
     )
 };
