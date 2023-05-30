@@ -121,6 +121,7 @@ const App = () => {
 							handleLogOut={handleLogOut}/>
 			<ReactBootstrap.Container fluid>
             	{!errorState ? renderPageContent(pageLocation) : <ShowError type="main" />}
+				<RenderFooter />
 			</ReactBootstrap.Container>
         </React.Fragment>
     );

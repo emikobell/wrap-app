@@ -1,5 +1,4 @@
 const RenderNavbar = (props) => {
-  
     return (<React.Fragment>
                 <ReactBootstrap.Navbar bg="light" expand="lg" sticky="top">
                     <ReactBootstrap.Container>
