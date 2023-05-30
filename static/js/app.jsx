@@ -26,6 +26,22 @@ const App = () => {
     React.useEffect(() => {
         const fetchUserLogin = async () => {
 			const login = await fetch('/login-check');
+
+			if (login.status !== 200) {
+				return (
+					<React.Fragment>
+						<RenderNavbar handlePageLocation={handlePageLocation}
+										pageLocation={pageLocation}
+										openSpotifyLogin={openSpotifyLogin}
+										userInfo={userInfo}
+										handleLogOut={handleLogOut}/>
+						<ReactBootstrap.Container fluid>
+							<ShowError type="main" />
+						</ReactBootstrap.Container>
+					</React.Fragment>
+				);
+			}
+
 			const loginParsed = await login.json();
 			setLogin(loginParsed);
         } ;
@@ -38,52 +54,72 @@ const App = () => {
         }
         
         const timer = setInterval(() => {
-          if (!popupState) {
-            timer && clearInterval(timer);
-            return;
-          }
-          const currentUrl = popupState.location.href;
-          if (!currentUrl) {
-            return;
-          }
-          const {searchParams} = new URL(currentUrl);
-          const code = searchParams.get('code');
-          if (code) {
-            popupState.close();
-            setPopupState(null);
-            setLogin(true);
-            timer && clearInterval(timer);
-          }
-        }, 500);
-      },
-      [popupState]
-    );
+
+			if (!popupState) {
+				timer && clearInterval(timer);
+				return;
+			}
+
+			const currentUrl = popupState.location.href;
+
+			if (!currentUrl) {
+				return;
+			}
+
+			const {searchParams} = new URL(currentUrl);
+			const code = searchParams.get('code');
+
+			if (code) {
+				popupState.close();
+				setPopupState(null);
+				setLogin(true);
+				timer && clearInterval(timer);
+			}
+		}, 500);
+	}, [popupState]);
 
     React.useEffect(() => {
         const getUserInfo = async () => {
-			if (!login) {
+			const userResponse = await fetch('/user-info');
+
+			if (userResponse.status !== 200) {
+				handleLogOut()
 				return;
 			}
-          const userResponse = await fetch('/user-info');
-          const responseParsed = await userResponse.json();
-          setUserInfo(responseParsed);
+
+			const responseParsed = await userResponse.json();
+			setUserInfo(responseParsed);
         };
+
 		if (login) {
 			getUserInfo();
 		}
-        },
-      	[login]
-      );
+    }, [login]);
 
 	React.useEffect(() => {
 		const userLogOut = async () => {
-				await fetch('/logout');
+				const response = await fetch('/logout');
+				if (response.status !== 200) {
+					return (
+						<React.Fragment>
+						<RenderNavbar handlePageLocation={handlePageLocation}
+										pageLocation={pageLocation}
+										openSpotifyLogin={openSpotifyLogin}
+										userInfo={userInfo}
+										handleLogOut={handleLogOut}/>
+						<ReactBootstrap.Container fluid>
+							<ShowError type="main" />
+						</ReactBootstrap.Container>
+					</React.Fragment>
+					)
+				}
 				window.location.reload();
 			};
+			
 		if (logoutRequested) {
 			userLogOut();
 		}
-	}, [logoutRequested])
+	}, [logoutRequested]);
 
     const renderPageContent = (pageLocation) => {
         if (pageLocation == "wrap"){
