@@ -75,6 +75,7 @@ const WrapHistory = (props) => {
             <AllArtists topArtists={topArtists} />
             <TopGenre topGenres={topGenres} />
             <AllGenres topGenres={topGenres} />
+            <GeneratePlaylist timeframe={timeframe} />
             <ReactBootstrap.Container id="wrap-again">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-4">

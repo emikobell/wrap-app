@@ -7,9 +7,11 @@ import crud
 import data_processing
 import api_calls
 from model import connect_to_db, db
-from datetime import datetime, timezone
+from datetime import date
 import sys
 import contextlib
+import string
+import utils
 
 app = Flask(__name__)
 app.app_context().push()
@@ -23,7 +25,7 @@ def render_landing_page():
 
 @app.route('/login')
 def oauth_login():
-    scopes = ['user-top-read', 'user-read-private', 'user-read-email']
+    scopes = ['user-top-read', 'user-read-private', 'playlist-modify-private']
     scopes = ' '.join(scopes)
     redirect_uri = 'http://localhost:5000/callback'
     client = OAuth2Session(os.environ.get('CLIENT_ID'),
@@ -58,14 +60,11 @@ def return_auth_code():
 
     return 'Success', 200
 
+
 @app.route('/user-info')
 def return_user_info():
-    
-    if session['expiration'] < datetime.now(timezone.utc):
-        new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
-        # Should add error handling here
-        authorization = new_auth_codes.json()
-        data_processing.process_auth_codes(authorization)
+
+    utils.check_refresh_state()
 
     user_profile = api_calls.make_user_call(session['access_token'])
     # Should add error handling here
@@ -83,6 +82,7 @@ def return_user_info():
 
     return jsonify(user_info)
 
+
 @app.route('/login-check')
 def check_login():
     """Return session login info, if any."""
@@ -97,11 +97,7 @@ def gather_wrap_data():
 
     timeframe = request.args.get('timeframe')
 
-    if session['expiration'] < datetime.now(timezone.utc):
-        new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
-        authorization = new_auth_codes.json()
-        data_processing.process_auth_codes(authorization)
-        # Should add error handling here
+    utils.check_refresh_state()
 
     user_top_artists = api_calls.make_artist_call(token = session['access_token'],
                                                   timeframe = timeframe)
@@ -201,6 +197,38 @@ def return_top_genres():
         genres_list = sorted(genres_list, key = itemgetter('freq'), reverse = True)
 
     return jsonify(genres_list)
+
+
+@app.route('/playlist')
+def create_top_playlist():
+
+    utils.check_refresh_state()
+    
+    timeframe = request.args.get('timeframe')
+    str_timeframe = timeframe.replace('_', ' ')
+    str_timeframe = string.capwords(str_timeframe)
+    current_date = date.today()
+    name = f'{str_timeframe} Top Songs {str(current_date)}'
+
+    creation_response = api_calls.create_playlist(user_id = session['user_id'],
+                                                  name = name,
+                                                  token = session['access_token'])
+    # Add error handling here
+    playlist_id = creation_response['id']
+
+    tracks = []
+    top_tracks = crud.get_user_tracks(session['user_id'], timeframe).all()
+
+    for track in top_tracks:
+        uri = f'spotify:track:{track.track_id}'
+        tracks.append(uri)
+    
+    playlist_response = api_calls.add_to_playlist(playlist_id = playlist_id,
+                                                  tracks = tracks,
+                                                  token = session['access_token'])
+    # Add error handling here
+
+    return 'Success', 200
 
 
 @app.route('/logout')
