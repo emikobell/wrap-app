@@ -1,7 +1,7 @@
 const RenderFooter = () => {
     return (
         <ReactBootstrap.Container id="footer">
-            <footer className="justify-content-between align-items-center py-3 my-4 border-top">
+            <footer className="justify-content-between align-items-center py-3 my-5 border-top">
                 <ReactBootstrap.Navbar>
                     <ReactBootstrap.Container>
                         <ReactBootstrap.Navbar.Brand href="#">
