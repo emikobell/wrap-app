@@ -1,7 +1,9 @@
 const RenderCompareForm = (props) => {
     const [choice, setChoice] = React.useState();
+    const [dispTimeframe1, setDispTimeframe1] = React.useState();
+    const [dispTimeframe2, setDispTimeframe2] = React.useState();
 
-    const timeframes = [
+    const TIMEFRAMES = [
         {
             key: 'short_term',
             name: 'Short Term',
@@ -19,10 +21,12 @@ const RenderCompareForm = (props) => {
 
     const handleTimeframe1 = (eventKey) => {
         setChoice(eventKey);
-        props.setTimeframe1(choice);
+        setDispTimeframe1(getTimeframeTitle(eventKey));
+        props.setTimeframe1(eventKey);
     };
 
     const handleTimeframe2 = (eventKey) => {
+        setDispTimeframe2(getTimeframeTitle(eventKey));
         props.setTimeframe2(eventKey);
     };
 
@@ -35,10 +39,18 @@ const RenderCompareForm = (props) => {
         )
     };
 
+    const getTimeframeTitle = (eventKey) => {
+        for (const timeframe of TIMEFRAMES) {
+            if (timeframe.key == eventKey) {
+                return timeframe.name;
+            }
+        }
+    };
+
     let options = null;
 
     if (choice) {
-        const filteredOptions = timeframes.filter(timeframe => timeframe.key !== choice);
+        const filteredOptions = TIMEFRAMES.filter(timeframe => timeframe.key !== choice);
         options = mapOptions(filteredOptions);
     }
 
@@ -50,8 +62,8 @@ const RenderCompareForm = (props) => {
                         <ReactBootstrap.DropdownButton  id="timeframe1"
                                                         variant="light" size = "lg"
                                                         drop="down-centered" onSelect={(eventKey) => handleTimeframe1(eventKey)}
-                                                        title="Choose a Timeframe to Compare">
-                        {mapOptions(timeframes)}
+                                                        title={dispTimeframe1 || "Choose a Timeframe to Compare"}>
+                        {mapOptions(TIMEFRAMES)}
                         </ReactBootstrap.DropdownButton>
                     </ReactBootstrap.Dropdown>
                 </ReactBootstrap.Col>
@@ -60,7 +72,7 @@ const RenderCompareForm = (props) => {
                         <ReactBootstrap.DropdownButton  id="timeframe2"
                                                         variant="light" size = "lg"
                                                         drop="down-centered"
-                                                        title="Choose a Timeframe to Compare"
+                                                        title={dispTimeframe2 || "Choose a Timeframe to Compare"}
                                                         onSelect={(eventKey) => handleTimeframe2(eventKey)}>
                         {options}
                         </ReactBootstrap.DropdownButton>
