@@ -122,24 +122,7 @@ def return_top_tracks():
     top_tracks = crud.get_user_tracks(session['user_id'], timeframe).all()
 
     for track in top_tracks:
-        artists_list = []
-        artists = crud.get_artists_for_track(track.track_id).all()
-
-        for artist in artists:
-            artist_info = {
-                'name': artist.artists.name,
-                'url': artist.artists.url
-            }
-            artists_list.append(artist_info)
-
-        track_dict = {
-            'rank': track.rank,
-            'name': track.tracks.name,
-            'img': track.tracks.album_img,
-            'url': track.tracks.url,
-            'artists': artists_list
-        }
-
+        track_dict = data_processing.create_track_dict(track)
         tracks_list.append(track_dict)
     
     if not tracks_list:
@@ -223,6 +206,19 @@ def create_top_playlist():
                                                   token = session['access_token'])
 
     return 'Success', 200
+
+
+@app.route('/compare-tracks')
+def return_track_compare():
+    timeframe1 = request.args.get('timeframe1')
+    timeframe2 = request.args.get('timeframe2')
+
+    compare_top_tracks = data_processing.process_compare_tracks(user_id = session['user_id'],
+                                                                timeframe1 = timeframe1,
+                                                                timeframe2 = timeframe2)
+    print(compare_top_tracks)
+
+    return jsonify(compare_top_tracks)
 
 
 @app.route('/logout')

@@ -81,7 +81,7 @@ const RenderCompareForm = (props) => {
             </ReactBootstrap.Row>
             <ReactBootstrap.Row className="justify-content-center">
                 <ReactBootstrap.Col xs="auto" className="p-4">
-                    <ReactBootstrap.Button variant="light" size="lg" onSelect={props.handleCompareStart}>
+                    <ReactBootstrap.Button variant="light" size="lg" onClick={props.handleCompareStart}>
                         Compare
                     </ReactBootstrap.Button>
                 </ReactBootstrap.Col>

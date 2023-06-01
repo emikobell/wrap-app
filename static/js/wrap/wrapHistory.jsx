@@ -44,27 +44,27 @@ const WrapHistory = (props) => {
 
     if (topTracks.length == 0 || topArtists.length == 0 || topGenres.length == 0){
         return (
-        <React.Fragment>
-            <ReactBootstrap.Row className="justify-content-center">
-                <ReactBootstrap.Col xs="auto" className="p-5">
-                    <h1>Loading...</h1>
-                </ReactBootstrap.Col>
-            </ReactBootstrap.Row>
-        </React.Fragment>
+            <React.Fragment>
+                <ReactBootstrap.Row className="justify-content-center">
+                    <ReactBootstrap.Col xs="auto" className="p-5">
+                        <h1>Loading...</h1>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+            </React.Fragment>
         )
     } else if (!topTracks[0] || !topArtists[0] || !topGenres[0]) {
         return (
-        <React.Fragment>
-            <ReactBootstrap.Row className="justify-content-center">
-                <ReactBootstrap.Col xs="auto" className="p-5">
-                    <h1>No results :&#40;</h1>
-                    <p>
-                        Your Spotify profile doesn't have top items. This might be because your profile is too new. <br />
-                        Please try again in the future after you've listened to some songs!
-                    </p>
-                </ReactBootstrap.Col>
-            </ReactBootstrap.Row>
-        </React.Fragment>
+            <React.Fragment>
+                <ReactBootstrap.Row className="justify-content-center">
+                    <ReactBootstrap.Col xs="auto" className="p-5">
+                        <h1>No results :&#40;</h1>
+                        <p>
+                            Your Spotify profile doesn't have top items. This might be because your profile is too new. <br />
+                            Please try again in the future after you've listened to some songs!
+                        </p>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+            </React.Fragment>
         )
     }
 
