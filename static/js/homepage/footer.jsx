@@ -16,12 +16,12 @@ const RenderFooter = () => {
                     <ReactBootstrap.Nav className="ms-auto">
                         <ReactBootstrap.Nav.Item>
                             <ReactBootstrap.Nav.Link href="https://github.com/emikobell/wrap-app" target="_blank">
-                                <i class="bi bi-github"></i>
+                                <i className="bi bi-github"></i>
                             </ReactBootstrap.Nav.Link>
                         </ReactBootstrap.Nav.Item>
                         <ReactBootstrap.Nav.Item>
                             <ReactBootstrap.Nav.Link href="https://www.linkedin.com/in/emikobell/" target="_blank">
-                                <i class="bi bi-linkedin"></i>
+                                <i className="bi bi-linkedin"></i>
                             </ReactBootstrap.Nav.Link>
                         </ReactBootstrap.Nav.Item>
                     </ReactBootstrap.Nav>

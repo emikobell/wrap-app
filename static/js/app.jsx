@@ -104,11 +104,11 @@ const App = () => {
 
     const renderPageContent = (pageLocation) => {
         if (pageLocation == "wrap"){
-            return <RenderWrap openSpotifyLogin={openSpotifyLogin} userInfo={userInfo}/>
+            return <RenderWrap openSpotifyLogin={openSpotifyLogin} userInfo={userInfo} />
         } else if (pageLocation == "compare") {
-            return <RenderCompare openSpotifyLogin={openSpotifyLogin} loginState={userInfo.login_state}/>
+            return <RenderCompare openSpotifyLogin={openSpotifyLogin} userInfo={userInfo} />
         } else {
-            return <RenderHomeContent handlePageLocation={handlePageLocation}/>
+            return <RenderHomeContent handlePageLocation={handlePageLocation} />
         };
     };
 
