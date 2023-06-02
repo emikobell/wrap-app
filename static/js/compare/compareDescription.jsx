@@ -8,7 +8,7 @@ const RenderCompareDescription = (props) => {
                                 Compare your listening history.
                             </h1>
                             <p className="fs-4">
-                                Compare your short term, medium term,
+                                Compare your short, medium,
                                 and long term listening history.
                             </p>
                             <ul className="fs-4">

@@ -120,15 +120,16 @@ def return_top_tracks():
     timeframe = request.args.get('timeframe')
     tracks_list = []
     top_tracks = crud.get_user_tracks(session['user_id'], timeframe).all()
+    
+    if not top_tracks:
+        tracks_list.append(None)
+        return jsonify(tracks_list)
 
     for track in top_tracks:
         track_dict = data_processing.create_track_dict(track)
         tracks_list.append(track_dict)
-    
-    if not tracks_list:
-        tracks_list.append(None)
-    else:
-        tracks_list = sorted(tracks_list, key = itemgetter('rank'))
+
+    tracks_list = sorted(tracks_list, key = itemgetter('rank'))
 
     return jsonify(tracks_list)
 

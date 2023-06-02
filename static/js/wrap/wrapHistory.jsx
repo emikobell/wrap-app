@@ -4,18 +4,19 @@ const WrapHistory = (props) => {
     const [topTracks, setTopTracks] = React.useState([]);
     const [topArtists, setTopArtists] = React.useState([]);
     const [topGenres, setTopGenres] = React.useState([]);
+    const [errorState, setErrorState] = React.useState(false);
 
     React.useEffect(() => {
         const fetchTopItems =  async (timeframe) => { 
             const response = await fetch(`/wrap-history?timeframe=${timeframe}`);
             if (response.status !== 200) {
-                return <ShowError type="main" />
+                setErrorState(true);
             }
         
             const topTracksResponse = await fetch(`/top-tracks?timeframe=${timeframe}`);
 
             if (topTracksResponse.status !== 200) {
-                return <ShowError type="main" />
+                setErrorState(true);
             }
 
             const topTracksParsed = await topTracksResponse.json();
@@ -24,7 +25,7 @@ const WrapHistory = (props) => {
             const topArtistsResponse = await fetch(`/top-artists?timeframe=${timeframe}`);
 
             if (topArtistsResponse.status !== 200) {
-                return <ShowError type="main" />
+                setErrorState(true);
             }
 
             const topArtistsParsed = await topArtistsResponse.json();
@@ -33,7 +34,7 @@ const WrapHistory = (props) => {
             const topGenresResponse = await fetch(`/top-genres?timeframe=${timeframe}`);
 
             if (topGenresResponse.status !== 200) {
-                return <ShowError type="main" />
+                setErrorState(true);
             }
 
             const topGenresParsed = await topGenresResponse.json();
@@ -42,7 +43,9 @@ const WrapHistory = (props) => {
         fetchTopItems(timeframe);
     }, []);
 
-    if (topTracks.length == 0 || topArtists.length == 0 || topGenres.length == 0){
+    if (errorState) {
+        return <ShowError type="main" />
+    } else if (topTracks.length == 0 || topArtists.length == 0 || topGenres.length == 0){
         return (
             <React.Fragment>
                 <ReactBootstrap.Row className="justify-content-center">

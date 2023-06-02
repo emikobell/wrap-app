@@ -1,6 +1,7 @@
 import crud
 from model import db
 from server import session
+from operator import itemgetter
 from datetime import datetime, timedelta, timezone
 
 def process_auth_codes(response):
@@ -142,15 +143,13 @@ def create_track_dict(track):
         }
         artists_list.append(artist_info)
 
-    track_dict = {
+    return {
         'rank': track.rank,
         'name': track.tracks.name,
         'img': track.tracks.album_img,
         'url': track.tracks.url,
         'artists': artists_list
     }
-
-    return track_dict
 
 
 def process_compare_tracks(user_id, timeframe1, timeframe2):
@@ -164,19 +163,21 @@ def process_compare_tracks(user_id, timeframe1, timeframe2):
 
     if not timeframe1_tracks or not timeframe2_tracks:
         return compare_tracks_dict
-    
+        
     timeframe1_top_track = create_track_dict(timeframe1_tracks[0])
     timeframe2_top_track = create_track_dict(timeframe2_tracks[0])
 
     top_tracks = [timeframe1_top_track, timeframe2_top_track]
 
     similar_tracks = []
-    timeframe2_set = set(timeframe2_tracks) # Create a set for O(1) lookup
 
-    for track in timeframe1_tracks:
-        if track in timeframe2_set:
-            track_dict = create_track_dict(track)
-            similar_tracks.append(track_dict)
+    for track1 in timeframe1_tracks:
+        for track2 in timeframe2_tracks:
+            if track1.track_id == track2.track_id:
+                track_dict = create_track_dict(track1)
+                similar_tracks.append(track_dict)
+    
+    similar_tracks = sorted(similar_tracks, key = itemgetter('rank'))
 
     compare_tracks_dict['top_tracks'] = top_tracks
     compare_tracks_dict['similar_tracks'] = similar_tracks

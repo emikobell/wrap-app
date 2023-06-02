@@ -4,22 +4,23 @@ const CompareHistory = (props) => {
     const [compareTracks, setCompareTracks] = React.useState([]);
     const [topArtists, setTopArtists] = React.useState([]);
     const [topGenres, setTopGenres] = React.useState([]);
+    const [errorState, setErrorState] = React.useState(false);
 
     React.useEffect(() => {
         const fetchTopItems = async (timeframe1, timeframe2) => {
             const timeframe1Response = await fetch(`/wrap-history?timeframe=${timeframe1}`);
             if (timeframe1Response.status !== 200) {
-                return <ShowError type="main" />
+                setErrorState(true);
             }
 
             const timeframe2Response = await fetch(`/wrap-history?timeframe=${timeframe2}`);
             if (timeframe2Response.status !== 200) {
-                return <ShowError type="main" />
+                setErrorState(true);
             }
 
             const compareTracksResponse = await fetch(`/compare-tracks?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
             if (compareTracksResponse.status !== 200) {
-                return <ShowError type="main" />
+                setErrorState(true);
             }
 
             const compareTracksParsed = await compareTracksResponse.json();
@@ -28,7 +29,9 @@ const CompareHistory = (props) => {
         fetchTopItems(timeframe1, timeframe2);
     }, []);
 
-    if (compareTracks.length == 0) {
+    if (errorState) {
+        return <ShowError type="main" />
+    } else if (compareTracks.length == 0) {
         return(
             <React.Fragment>
             <ReactBootstrap.Row className="justify-content-center">
@@ -39,7 +42,6 @@ const CompareHistory = (props) => {
         </React.Fragment>
         )
     } else if (!compareTracks.top_tracks) {
-        console.log(compareTracks);
         return(
             <React.Fragment>
                 <ReactBootstrap.Row className="justify-content-center">
