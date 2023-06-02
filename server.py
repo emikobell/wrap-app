@@ -141,12 +141,7 @@ def return_top_artists():
     top_artists = crud.get_user_artists(session['user_id'], timeframe).all()
 
     for artist in top_artists:
-        artist_dict = {
-            'rank': artist.rank,
-            'name': artist.artists.name,
-            'img': artist.artists.artist_img,
-            'url': artist.artists.url
-        }
+        artist_dict = data_processing.create_artist_dict(artist)
         artists_list.append(artist_dict)
     
     if not artists_list:
@@ -219,6 +214,18 @@ def return_track_compare():
                                                                 timeframe2 = timeframe2)
 
     return jsonify(compare_top_tracks)
+
+
+@app.route('/compare-artists')
+def return_artist_compare():
+    timeframe1 = request.args.get('timeframe1')
+    timeframe2 = request.args.get('timeframe2')
+
+    compare_top_artists = data_processing.process_compare_artists(user_id = session['user_id'],
+                                                                  timeframe1 = timeframe1,
+                                                                  timeframe2 = timeframe2)
+
+    return jsonify(compare_top_artists)
 
 
 @app.route('/logout')

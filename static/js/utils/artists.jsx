@@ -15,17 +15,17 @@ const TopArtist = (props) => {
             <ReactBootstrap.Container id="top-artist">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-5">
-                        <h1>Your top artist:</h1>
+                        <h1>Your <strong>{props.timeframeName}</strong> top artist:</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto">
-                        <ReactBootstrap.Image src={props.topArtists[0]['img']} alt="Image of album cover" rounded />
+                        <ReactBootstrap.Image src={props.topArtist['img']} alt="Image of album cover" rounded />
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto">
-                        <h2><a href={props.topArtists[0]['url']} target="_blank">{props.topArtists[0]['name']}</a></h2>
+                        <h2><a href={props.topArtist['url']} target="_blank">{props.topArtist['name']}</a></h2>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
@@ -53,10 +53,10 @@ const AllArtists = (props) => {
     
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="all-top-tracks">
+            <ReactBootstrap.Container id="all-top-artists">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-5">
-                        <h1>Your top artists:</h1>
+                        <h1>{props.title}</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
@@ -67,7 +67,7 @@ const AllArtists = (props) => {
                                     return (
                                     <React.Fragment key={artist.rank}>
                                     <tr>
-                                        <td><h2>{artist.rank}</h2></td>
+                                        {!props.hideRank && <td><h2>{artist.rank}</h2></td>}
                                         <td><ReactBootstrap.Image src={artist.img} alt={"Image of artist, " + artist.name} rounded fluid height="100px" width="100px" /></td>
                                         <td><h4><a href={artist.url} target="_blank">{artist.name}</a></h4></td>
                                     </tr>

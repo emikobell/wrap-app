@@ -189,6 +189,21 @@ def get_user_artists(user_id, timeframe):
                                    & (UserArtist.rank <= 10))
 
 
+def get_all_user_artists(user_id, timeframe):
+    """Return user's top 50 artists."""
+
+    return UserArtist.query.filter((UserArtist.user_id == user_id)
+                                   & (UserArtist.timeframe == timeframe))
+
+
+def get_top_user_artist(user_id, timeframe):
+    """Return user's top artist."""
+
+    return UserArtist.query.filter((UserArtist.user_id == user_id)
+                                & (UserArtist.timeframe == timeframe)
+                                & (UserArtist.rank == 1))
+    
+
 def delete_user_artists(user_id, timeframe):
     """Delete a user's top artists by timeframe."""
 

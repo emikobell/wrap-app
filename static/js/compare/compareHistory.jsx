@@ -2,8 +2,8 @@ const CompareHistory = (props) => {
 
     const {timeframe1, timeframe2} = props;
     const [compareTracks, setCompareTracks] = React.useState([]);
-    const [topArtists, setTopArtists] = React.useState([]);
-    const [topGenres, setTopGenres] = React.useState([]);
+    const [compareArtists, setCompareArtists] = React.useState([]);
+    const [compareGenres, setCompareGenres] = React.useState([]);
     const [errorState, setErrorState] = React.useState(false);
 
     React.useEffect(() => {
@@ -25,13 +25,21 @@ const CompareHistory = (props) => {
 
             const compareTracksParsed = await compareTracksResponse.json();
             setCompareTracks(compareTracksParsed);
+
+            const compareArtistsResponse = await fetch (`/compare-artists?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
+            if (compareTracksResponse.status !== 200) {
+                setErrorState(true);
+            }
+
+            const compareArtistsParsed = await compareArtistsResponse.json();
+            setCompareArtists(compareArtistsParsed);
         };
         fetchTopItems(timeframe1, timeframe2);
     }, []);
 
     if (errorState) {
         return <ShowError type="main" />
-    } else if (compareTracks.length == 0) {
+    } else if (compareTracks.length == 0 || compareArtists.length == 0) {
         return(
             <React.Fragment>
             <ReactBootstrap.Row className="justify-content-center">
@@ -41,7 +49,7 @@ const CompareHistory = (props) => {
             </ReactBootstrap.Row>
         </React.Fragment>
         )
-    } else if (!compareTracks.top_tracks) {
+    } else if (!compareTracks.top_tracks || !compareArtists.top_artists) {
         return(
             <React.Fragment>
                 <ReactBootstrap.Row className="justify-content-center">
@@ -56,7 +64,7 @@ const CompareHistory = (props) => {
             </React.Fragment>
         )
     }
-    // Put else if to address empty results...including no overlap
+
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="wrap-history-greeting">
@@ -70,7 +78,7 @@ const CompareHistory = (props) => {
             <ReactBootstrap.Row className="justify-content-center">
                 {compareTracks.top_tracks.map((track) => {
                     return (
-                        <ReactBootstrap.Col xs="auto" className="p-5">
+                        <ReactBootstrap.Col xs="auto" className="p-5" key={track.timeframe}>
                             <TopTrack topTrack={track} timeframeName={track.timeframe} />
                         </ReactBootstrap.Col>
                     )
@@ -82,7 +90,22 @@ const CompareHistory = (props) => {
                 : <CompareTrackText />
                 }
             </ReactBootstrap.Row>
-            <ReactBootstrap.Container id="wrap-again">
+            <ReactBootstrap.Row className="justify-content-center">
+                {compareArtists.top_artists.map((artist) => {
+                    return (
+                        <ReactBootstrap.Col xs="auto" className="p-5" key={artist.timeframe}>
+                            <TopArtist topArtist={artist} timeframeName={artist.timeframe} />
+                        </ReactBootstrap.Col>
+                    )
+                })}
+                {compareArtists.similar_artists
+                ? <AllArtists topArtists={compareArtists.similar_artists}
+                                title="Here are some artists that you kept listening to:"
+                                hideRank={true}/>
+                : <CompareArtistText />
+                }
+            </ReactBootstrap.Row>
+            <ReactBootstrap.Container id="compare-again">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-4">
                         <ReactBootstrap.Button variant="light" size="lg" onClick={() => props.setStartCompare(false)}>

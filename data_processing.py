@@ -132,7 +132,7 @@ def process_track_response(response, user_id, timeframe):
     db.session.commit()
 
 
-def create_track_dict(track):
+def create_track_dict(track, timeframe = None):
     artists_list = []
     artists = crud.get_artists_for_track(track.track_id).all()
 
@@ -142,14 +142,19 @@ def create_track_dict(track):
             'url': artist.artists.url
         }
         artists_list.append(artist_info)
-
-    return {
+    
+    track_dict = {
         'rank': track.rank,
         'name': track.tracks.name,
         'img': track.tracks.album_img,
         'url': track.tracks.url,
         'artists': artists_list
     }
+
+    if timeframe:
+        track_dict['timeframe'] = timeframe.replace('_', ' ')
+
+    return track_dict
 
 
 def process_compare_tracks(user_id, timeframe1, timeframe2):
@@ -166,10 +171,8 @@ def process_compare_tracks(user_id, timeframe1, timeframe2):
     if not timeframe1_tracks or not timeframe2_tracks:
         return compare_tracks_dict
     
-    timeframe1_top_track = create_track_dict(timeframe1_top_track)
-    timeframe1_top_track['timeframe'] = timeframe1.replace('_', ' ')
-    timeframe2_top_track = create_track_dict(timeframe2_top_track)
-    timeframe2_top_track['timeframe'] = timeframe2.replace('_', ' ')
+    timeframe1_top_track = create_track_dict(track = timeframe1_top_track, timeframe = timeframe1)
+    timeframe2_top_track = create_track_dict(track = timeframe2_top_track, timeframe = timeframe2)
 
     top_tracks = [timeframe1_top_track, timeframe2_top_track]
 
@@ -186,4 +189,49 @@ def process_compare_tracks(user_id, timeframe1, timeframe2):
 
     return compare_tracks_dict
         
+
+def create_artist_dict(artist, timeframe = None):
+    artist_dict = {
+            'rank': artist.rank,
+            'name': artist.artists.name,
+            'img': artist.artists.artist_img,
+            'url': artist.artists.url
+        }
     
+    if timeframe:
+        artist_dict['timeframe'] = timeframe.replace('_', ' ')
+
+    return artist_dict
+
+
+def process_compare_artists(user_id, timeframe1, timeframe2):
+    timeframe1_top_artist = crud.get_top_user_artist(user_id = user_id, timeframe = timeframe1).first()
+    timeframe2_top_artist = crud.get_top_user_artist(user_id = user_id, timeframe = timeframe2).first()
+    timeframe1_artists = crud.get_all_user_artists(user_id = user_id, timeframe = timeframe1).all()
+    timeframe2_artists = crud.get_all_user_artists(user_id = user_id, timeframe = timeframe2).all()
+
+    compare_artists_dict = {
+        'top_artists': None,
+        'similar_artists': None,
+        }
+
+    if not timeframe1_artists or not timeframe2_artists:
+        return compare_artists_dict
+    
+    timeframe1_top_artist = create_artist_dict(artist = timeframe1_top_artist, timeframe = timeframe1)
+    timeframe2_top_artist = create_artist_dict(artist = timeframe2_top_artist, timeframe = timeframe2)
+
+    top_artists = [timeframe1_top_artist, timeframe2_top_artist]
+
+    similar_artists = []
+
+    for artist1 in timeframe1_artists:
+        for artist2 in timeframe2_artists:
+            if artist1.artist_id == artist2.artist_id:
+                artist_dict = create_artist_dict(artist1)
+                similar_artists.append(artist_dict)
+    
+    compare_artists_dict['top_artists'] = top_artists
+    compare_artists_dict['similar_artists'] = similar_artists
+
+    return compare_artists_dict
