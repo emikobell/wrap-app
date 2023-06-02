@@ -165,7 +165,9 @@ def process_compare_tracks(user_id, timeframe1, timeframe2):
         return compare_tracks_dict
         
     timeframe1_top_track = create_track_dict(timeframe1_tracks[0])
+    timeframe1_top_track['timeframe'] = timeframe1.replace('_', ' ')
     timeframe2_top_track = create_track_dict(timeframe2_tracks[0])
+    timeframe2_top_track['timeframe'] = timeframe2.replace('_', ' ')
 
     top_tracks = [timeframe1_top_track, timeframe2_top_track]
 

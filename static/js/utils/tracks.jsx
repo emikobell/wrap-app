@@ -15,26 +15,26 @@ const TopTrack = (props) => {
             <ReactBootstrap.Container id="top-song">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-5">
-                        <h1>Your top song:</h1>
+                        <h1>Your <strong>{props.timeframeName}</strong> top song:</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto">
-                        <ReactBootstrap.Image src={props.topTracks[0]['img']} alt="Image of album cover" rounded />
+                        <ReactBootstrap.Image src={props.topTrack['img']} alt="Image of album cover" rounded />
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto">
-                        <h2><a href={props.topTracks[0]['url']} target="_blank">{props.topTracks[0]['name']}</a></h2>
+                        <h2><a href={props.topTrack['url']} target="_blank">{props.topTrack['name']}</a></h2>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto">
-                        {props.topTracks[0]['artists'].map((artist, index) => {
+                        {props.topTrack['artists'].map((artist, index) => {
                             let punct = "";
-                            if (props.topTracks[0]['artists'].length > 1 && !props.topTracks[0]['artists'][index+1]) {
+                            if (props.topTrack['artists'].length > 1 && !props.topTrack['artists'][index+1]) {
                                 punct = " & "
-                            } else if (props.topTracks[0]['artists'].length != 1 && index != 0) {
+                            } else if (props.topTrack['artists'].length != 1 && index != 0) {
                                 punct = ", "
                             }
                             return (
@@ -53,7 +53,7 @@ const TopTrack = (props) => {
 const AllTracks = (props) => {
     const [trackVisibility, setTrackVisibility] = React.useState(false);
     const [trackNumber, setTrackNumber] = React.useState(5);
-    const [buttonText, setButtonText] = React.useState("Show All 50 Songs");
+    const [buttonText, setButtonText] = React.useState("Show More Songs");
 
     const handleTrackVisibility = () => {
         if (!trackVisibility) {
@@ -63,7 +63,7 @@ const AllTracks = (props) => {
         } else {
             setTrackVisibility(false);
             setTrackNumber(5);
-            setButtonText("Show All 50 Songs");
+            setButtonText("Show More Songs");
         }
     };
 
@@ -72,7 +72,7 @@ const AllTracks = (props) => {
             <ReactBootstrap.Container id="all-top-tracks">
                 <ReactBootstrap.Row className="justify-content-md-center">
                     <ReactBootstrap.Col xs="auto" className="p-5">
-                        <h1>Your top songs:</h1>
+                        <h1>{props.title}</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-md-center">
@@ -83,7 +83,7 @@ const AllTracks = (props) => {
                                     return (
                                     <React.Fragment key={track.rank}>
                                     <tr>
-                                        <td><h2>{track.rank}</h2></td>
+                                        {!props.hideRank && <td><h2>{track.rank}</h2></td>}
                                         <td><ReactBootstrap.Image src={track.img} alt="Image of album cover" rounded fluid height="100px" width="100px" /></td>
                                         <td><h4><a href={track.url} target="_blank">{track.name}</a></h4>
                                             <div>

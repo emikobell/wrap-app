@@ -37,7 +37,7 @@ const TopArtist = (props) => {
 const AllArtists = (props) => {
     const [artistVisibility, setArtistVisibility] = React.useState(false);
     const [artistNumber, setArtistNumber] = React.useState(5);
-    const [buttonText, setButtonText] = React.useState("Show All 10 Artists");
+    const [buttonText, setButtonText] = React.useState("Show More Artists");
 
     const handleArtistVisibility = () => {
         if (!artistVisibility) {
@@ -47,7 +47,7 @@ const AllArtists = (props) => {
         } else {
             setArtistVisibility(false);
             setArtistNumber(5);
-            setButtonText("Show All 10 Artists");
+            setButtonText("Show More Artists");
         }
     };
     

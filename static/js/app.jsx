@@ -120,7 +120,7 @@ const App = () => {
 							userInfo={userInfo}
 							handleLogOut={handleLogOut}/>
 			<ReactBootstrap.Container fluid className="my-4">
-            	{!errorState ? renderPageContent(pageLocation) : <ShowError type="main" />}
+            	{errorState ? <ShowError type="main" /> : renderPageContent(pageLocation)}
 				<RenderFooter />
 			</ReactBootstrap.Container>
         </React.Fragment>

@@ -68,7 +68,21 @@ const CompareHistory = (props) => {
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
             {console.log(compareTracks)}
-            {/* <CompareTopTracks topTracks={compareTracks.top_tracks} /> */}
+            <ReactBootstrap.Row className="justify-content-center">
+                {compareTracks.top_tracks.map((track) => {
+                    return (
+                        <ReactBootstrap.Col xs="auto" className="p-5">
+                            <TopTrack topTrack={track} timeframeName={track.timeframe} />
+                        </ReactBootstrap.Col>
+                    )
+                })}
+                {compareTracks.similar_tracks
+                ? <AllTracks topTracks={compareTracks.similar_tracks}
+                                title="Here are some songs that you kept listening to:"
+                                hideRank={true}/>
+                : <CompareTrackText />
+                }
+            </ReactBootstrap.Row>
             <ReactBootstrap.Container id="wrap-again">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-4">
