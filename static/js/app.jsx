@@ -127,5 +127,6 @@ const App = () => {
     );
 };
 
-
-ReactDOM.render(<App />, document.getElementById("react-app"));
+const container = document.getElementById("react-app");
+const root = ReactDOM.createRoot(container);
+root.render(<App />);
