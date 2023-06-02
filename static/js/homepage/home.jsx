@@ -9,7 +9,10 @@ const RenderHomeContent = (props) => {
                             history every day of the year.
                         </h1>
                         <p className="fs-4">
-                            See your top tracks, artists, and genres at any time.
+                            See your top tracks, artists, and genres at any time. <br />
+                            <br />
+                            You can choose to wrap your listening history within a specific timeframe, <br />
+                            or compare your listening history over time.
                         </p>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>

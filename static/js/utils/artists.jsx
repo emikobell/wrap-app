@@ -14,7 +14,7 @@ const TopArtist = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="top-artist">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
+                    <ReactBootstrap.Col xs="auto" className="p-4">
                         <h1>Your <strong>{props.timeframeName}</strong> top artist:</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>

@@ -83,8 +83,8 @@ const WrapHistory = (props) => {
             </ReactBootstrap.Container>
             <TopTrack topTrack={topTracks[0]} />
             <AllTracks topTracks={topTracks} title="Your top songs:" />
-            <TopArtist topArtists={topArtists} />
-            <AllArtists topArtists={topArtists} />
+            <TopArtist topArtist={topArtists[0]} />
+            <AllArtists topArtists={topArtists} title="Your top artists:" />
             <TopGenre topGenres={topGenres} />
             <AllGenres topGenres={topGenres} />
             <GeneratePlaylist timeframe={timeframe} />

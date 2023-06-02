@@ -9,7 +9,8 @@ const RenderWrapDescription = (props) => {
                         </h1>
                         <p className="fs-4">
                             Wrap your short, medium, and long term
-                            Spotify listening history.
+                            Spotify listening history. <br />
+                            You can also choose to generate a playlist of your top songs!
                         </p>
                         <ul className="fs-4">
                             <li>Short term: Last month</li>

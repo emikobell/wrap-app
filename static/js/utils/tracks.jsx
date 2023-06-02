@@ -14,7 +14,7 @@ const TopTrack = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="top-song">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
+                    <ReactBootstrap.Col xs="auto" className="p-4">
                         <h1>Your <strong>{props.timeframeName}</strong> top song:</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
