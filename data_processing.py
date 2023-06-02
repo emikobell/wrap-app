@@ -153,6 +153,8 @@ def create_track_dict(track):
 
 
 def process_compare_tracks(user_id, timeframe1, timeframe2):
+    timeframe1_top_track = crud.get_top_user_track(user_id = user_id, timeframe = timeframe1).first()
+    timeframe2_top_track = crud.get_top_user_track(user_id = user_id, timeframe = timeframe2).first()
     timeframe1_tracks = crud.get_user_tracks(user_id = user_id, timeframe = timeframe1).all()
     timeframe2_tracks = crud.get_user_tracks(user_id = user_id, timeframe = timeframe2).all()
 
@@ -163,10 +165,10 @@ def process_compare_tracks(user_id, timeframe1, timeframe2):
 
     if not timeframe1_tracks or not timeframe2_tracks:
         return compare_tracks_dict
-        
-    timeframe1_top_track = create_track_dict(timeframe1_tracks[0])
+    
+    timeframe1_top_track = create_track_dict(timeframe1_top_track)
     timeframe1_top_track['timeframe'] = timeframe1.replace('_', ' ')
-    timeframe2_top_track = create_track_dict(timeframe2_tracks[0])
+    timeframe2_top_track = create_track_dict(timeframe2_top_track)
     timeframe2_top_track['timeframe'] = timeframe2.replace('_', ' ')
 
     top_tracks = [timeframe1_top_track, timeframe2_top_track]
@@ -179,8 +181,6 @@ def process_compare_tracks(user_id, timeframe1, timeframe2):
                 track_dict = create_track_dict(track1)
                 similar_tracks.append(track_dict)
     
-    similar_tracks = sorted(similar_tracks, key = itemgetter('rank'))
-
     compare_tracks_dict['top_tracks'] = top_tracks
     compare_tracks_dict['similar_tracks'] = similar_tracks
 

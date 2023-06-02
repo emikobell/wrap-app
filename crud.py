@@ -152,14 +152,21 @@ def create_user_track(rank, track_id, user_id, timeframe):
 
 
 def get_user_tracks(user_id, timeframe):
-    """Return user's top artists."""
+    """Return user's top tracks."""
 
     return UserTrack.query.filter((UserTrack.user_id == user_id)
                                    & (UserTrack.timeframe == timeframe))
 
 
+def get_top_user_track(user_id, timeframe):
+    """Return user's top track."""
+
+    return UserTrack.query.filter((UserTrack.user_id == user_id)
+                                   & (UserTrack.timeframe == timeframe)
+                                   & (UserTrack.rank == 1))
+
 def delete_user_tracks(user_id, timeframe):
-    """Delete a user's top artists by timeframe."""
+    """Delete a user's top tracks by timeframe."""
 
     UserTrack.query.filter((UserTrack.user_id == user_id)
                             & (UserTrack.timeframe == timeframe)).delete()

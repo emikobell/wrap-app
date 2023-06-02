@@ -217,7 +217,6 @@ def return_track_compare():
     compare_top_tracks = data_processing.process_compare_tracks(user_id = session['user_id'],
                                                                 timeframe1 = timeframe1,
                                                                 timeframe2 = timeframe2)
-    print(compare_top_tracks)
 
     return jsonify(compare_top_tracks)
 

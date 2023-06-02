@@ -67,7 +67,6 @@ const CompareHistory = (props) => {
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
-            {console.log(compareTracks)}
             <ReactBootstrap.Row className="justify-content-center">
                 {compareTracks.top_tracks.map((track) => {
                     return (
