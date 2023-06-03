@@ -4,7 +4,7 @@ const TopGenre = (props) => {
             <ReactBootstrap.Container id="top-artist">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-5">
-                        <h1>Your top genre:</h1>
+                        <h1>Your <strong>{props.timeframeName}</strong> top genre:</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
@@ -72,7 +72,7 @@ const GenerateCompareGenreGraph = (props) => {
 
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="genre-graph">
+            <ReactBootstrap.Container id="genre-compare-graph">
                     <ReactBootstrap.Col xs="auto" className="p-5">
                         <canvas id="compareGenres"></canvas>
                     </ReactBootstrap.Col>
@@ -92,9 +92,7 @@ const AllGenres = (props) => {
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
-                        <GenerateGenreGraph topGenres={props.topGenres} />
-                    </ReactBootstrap.Col>
+                    <GenerateGenreGraph topGenres={props.topGenres} />
                     <ReactBootstrap.Col xs="auto">
                         <ReactBootstrap.Table borderless hover className="align-middle">
                             <tbody>
