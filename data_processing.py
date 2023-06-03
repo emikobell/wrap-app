@@ -3,6 +3,7 @@ from model import db
 from server import session
 from operator import itemgetter
 from datetime import datetime, timedelta, timezone
+import string
 
 def process_auth_codes(response):
     """
@@ -235,3 +236,74 @@ def process_compare_artists(user_id, timeframe1, timeframe2):
     compare_artists_dict['similar_artists'] = similar_artists
 
     return compare_artists_dict
+
+
+def create_genre_dict(genre, timeframe = None):
+    genre_dict = {
+            'name': genre.genres.name,
+            'freq': genre.freq
+        }
+    
+    if timeframe:
+        genre_dict['timeframe'] = timeframe.replace('_', ' ')
+
+    return genre_dict
+
+
+def create_genre_dataset(timeframe1_genres, timeframe2_genres, timeframes):
+
+    str_timeframes = [timeframe.replace('_', ' ') for timeframe in timeframes]
+    str_timeframes = [string.capwords(timeframe) for timeframe in str_timeframes]
+
+    timeframe1_data = {
+        'label': str_timeframes[0],
+        'data': [],
+        'fill': True,
+    }
+    timeframe2_data = {
+        'label': str_timeframes[1],
+        'data': [],
+        'fill': True,
+    }
+
+    labels = []
+
+    for genre1 in timeframe1_genres:
+        for genre2 in timeframe2_genres:
+            if genre1.genre_id == genre2.genre_id:
+                labels.append(genre1.genres.name)
+                timeframe1_data['data'].append(genre1.freq)
+                timeframe2_data['data'].append(genre2.freq)
+
+    if not timeframe1_data['data'] or not timeframe2_data['data']:
+        return {}
+    
+    return {
+        'labels': labels,
+        'datasets': [timeframe1_data, timeframe2_data]
+    }
+
+
+def process_compare_genres(user_id, timeframe1, timeframe2):
+    timeframe1_top_genre = crud.get_top_user_genre(user_id = user_id, timeframe = timeframe1).first()
+    timeframe2_top_genre = crud.get_top_user_genre(user_id = user_id, timeframe = timeframe2).first()
+    timeframe1_genres = crud.get_all_user_genres(user_id = user_id, timeframe = timeframe1).all()
+    timeframe2_genres = crud.get_all_user_genres(user_id = user_id, timeframe = timeframe2).all()
+
+    compare_genres_dict = {
+        'top_genres': None,
+        'genre_data': None,
+        }
+
+    if not timeframe1_genres or not timeframe2_genres:
+        return compare_genres_dict
+    
+    timeframe1_top_genre = create_genre_dict(genre = timeframe1_top_genre, timeframe = timeframe1)
+    timeframe2_top_genre = create_genre_dict(genre = timeframe2_top_genre, timeframe = timeframe2)
+
+    compare_genres_dict['top_genres'] = [timeframe1_top_genre, timeframe2_top_genre]
+    compare_genres_dict['genre_data'] = create_genre_dataset(timeframe1_genres,
+                                                                 timeframe2_genres,
+                                                                 [timeframe1, timeframe2])
+
+    return compare_genres_dict

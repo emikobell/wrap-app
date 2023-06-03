@@ -1,6 +1,6 @@
 from model import (db, User, Track, Artist, Genre, Timeframe,
                    UserTrack, UserArtist, UserGenre,
-                   TrackArtist, ArtistGenre, connect_to_db)
+                   TrackArtist, ArtistGenre)
 import api_calls
 from server import session
 
@@ -235,11 +235,19 @@ def create_user_genres_in_db(genres_dict, user_id, timeframe):
     return user_genres
 
 
-def get_user_genres(user_id, timeframe):
+def get_all_user_genres(user_id, timeframe):
     """Get a user's top genres by timeframe."""
 
     return UserGenre.query.filter((UserGenre.user_id == user_id)
                                    & (UserGenre.timeframe == timeframe))
+
+
+def get_top_user_genre(user_id, timeframe):
+    """Get a user's top genre by timeframe."""
+
+    return UserGenre.query.filter((UserGenre.user_id == user_id)
+                                   & (UserGenre.timeframe == timeframe)) \
+                                   .order_by(UserGenre.freq.desc())
 
 
 def delete_user_genres(user_id, timeframe):

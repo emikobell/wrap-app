@@ -156,13 +156,10 @@ def return_top_artists():
 def return_top_genres():
     timeframe = request.args.get('timeframe')
     genres_list = []
-    top_genres = crud.get_user_genres(session['user_id'], timeframe).all()
+    top_genres = crud.get_all_user_genres(session['user_id'], timeframe).all()
 
     for genre in top_genres:
-        genre_dict = {
-            'name': genre.genres.name,
-            'freq': genre.freq
-        }
+        genre_dict = data_processing.create_genre_dict(genre)
         genres_list.append(genre_dict)
     
     if not genres_list:
@@ -226,6 +223,18 @@ def return_artist_compare():
                                                                   timeframe2 = timeframe2)
 
     return jsonify(compare_top_artists)
+
+
+@app.route('/compare-genres')
+def return_genre_compare():
+    timeframe1 = request.args.get('timeframe1')
+    timeframe2 = request.args.get('timeframe2')
+
+    compare_top_genres = data_processing.process_compare_genres(user_id = session['user_id'],
+                                                                timeframe1 = timeframe1,
+                                                                timeframe2 = timeframe2)
+    
+    return jsonify(compare_top_genres)
 
 
 @app.route('/logout')

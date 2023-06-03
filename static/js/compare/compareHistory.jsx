@@ -26,20 +26,28 @@ const CompareHistory = (props) => {
             const compareTracksParsed = await compareTracksResponse.json();
             setCompareTracks(compareTracksParsed);
 
-            const compareArtistsResponse = await fetch (`/compare-artists?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
+            const compareArtistsResponse = await fetch(`/compare-artists?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
             if (compareTracksResponse.status !== 200) {
                 setErrorState(true);
             }
 
             const compareArtistsParsed = await compareArtistsResponse.json();
             setCompareArtists(compareArtistsParsed);
+            
+            const compareGenresResponse = await fetch(`/compare-genres?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
+            if (compareGenresResponse.status !== 200) {
+                setErrorState(true);
+            }
+
+            const compareGenresParsed = await compareGenresResponse.json();
+            setCompareGenres(compareGenresParsed);
         };
         fetchTopItems(timeframe1, timeframe2);
     }, []);
 
     if (errorState) {
         return <ShowError type="main" />
-    } else if (compareTracks.length == 0 || compareArtists.length == 0) {
+    } else if (compareTracks.length == 0 || compareArtists.length == 0 || compareGenres.length == 0) {
         return(
             <React.Fragment>
             <ReactBootstrap.Row className="justify-content-center">
@@ -49,7 +57,7 @@ const CompareHistory = (props) => {
             </ReactBootstrap.Row>
         </React.Fragment>
         )
-    } else if (!compareTracks.top_tracks || !compareArtists.top_artists) {
+    } else if (!compareTracks.top_tracks || !compareArtists.top_artists || !compareGenres.top_genres) {
         return(
             <React.Fragment>
                 <ReactBootstrap.Row className="justify-content-center">
@@ -69,7 +77,7 @@ const CompareHistory = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="wrap-history-greeting">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
+                    <ReactBootstrap.Col xs="auto" className="p-4">
                         <h1>Hi, {props.username}! </h1>
                         <h2>Here's your listening history compared.</h2>
                     </ReactBootstrap.Col>
@@ -104,6 +112,17 @@ const CompareHistory = (props) => {
                                 hideRank={true}/>
                 : <CompareArtistText />
                 }
+            </ReactBootstrap.Row>
+            <ReactBootstrap.Row className="justify-content-center">
+                {compareGenres.top_genres.map((genre) => {
+                    return (
+                        <ReactBootstrap.Col xs="auto" className="p-5" key={genre.timeframe}>
+                            <TopGenre topGenre={genre} timeframeName={genre.timeframe} />
+                        </ReactBootstrap.Col>
+                    )
+                })}
+                {!compareGenres.genre_data && <CompareGenresText />}
+                {compareGenres.genre_data && <GenerateCompareGenreGraph genreData={compareGenres.genre_data} />}
             </ReactBootstrap.Row>
             <ReactBootstrap.Container id="compare-again">
                 <ReactBootstrap.Row className="justify-content-center">

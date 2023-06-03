@@ -9,7 +9,7 @@ const TopGenre = (props) => {
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto">
-                        <h2>{props.topGenres[0].name}</h2>
+                        <h2>{props.topGenre.name}</h2>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
@@ -19,7 +19,6 @@ const TopGenre = (props) => {
 
 
 const GenerateGenreGraph = (props) => {
-
     const [graphData, setGraphData] = React.useState(props.topGenres);
 
     React.useEffect(() => {
@@ -46,8 +45,36 @@ const GenerateGenreGraph = (props) => {
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="genre-graph">
-                    <ReactBootstrap.Col md="auto">
+                    <ReactBootstrap.Col xs="auto" className="p-5">
                         <canvas id="allGenres"></canvas>
+                    </ReactBootstrap.Col>
+            </ReactBootstrap.Container>
+        </React.Fragment>
+    )
+};
+
+
+const GenerateCompareGenreGraph = (props) => {
+    const [graphData, setGraphData] = React.useState(props.genreData);
+
+    React.useEffect(() => {
+        if (graphData) {
+            setTimeout(() => {
+                const ctx = document.getElementById("compareGenres");
+                
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: graphData,
+                })
+            }, 1000);
+        }
+    }, []);
+
+    return (
+        <React.Fragment>
+            <ReactBootstrap.Container id="genre-graph">
+                    <ReactBootstrap.Col xs="auto" className="p-5">
+                        <canvas id="compareGenres"></canvas>
                     </ReactBootstrap.Col>
             </ReactBootstrap.Container>
         </React.Fragment>
@@ -65,7 +92,7 @@ const AllGenres = (props) => {
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto">
+                    <ReactBootstrap.Col xs="auto" className="p-5">
                         <GenerateGenreGraph topGenres={props.topGenres} />
                     </ReactBootstrap.Col>
                     <ReactBootstrap.Col xs="auto">
@@ -83,21 +110,6 @@ const AllGenres = (props) => {
                             </tbody>
                         </ReactBootstrap.Table>
                     </ReactBootstrap.Col>
-                    {/* <ReactBootstrap.Col md="auto">
-                        <ReactBootstrap.Table borderless hover className="align-middle">
-                            <tbody>
-                                {props.topGenres.slice(5,10).map((genre) => {
-                                    return (
-                                    <React.Fragment key={genre.rank}>
-                                    <tr>
-                                        <td><h4>{genre.name}</h4></td>
-                                        <td><h2>{genre.freq}</h2></td>
-                                    </tr>
-                                    </React.Fragment>
-                                )})}
-                            </tbody>
-                        </ReactBootstrap.Table>
-                    </ReactBootstrap.Col> */}
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
         </React.Fragment>

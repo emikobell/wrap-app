@@ -75,7 +75,7 @@ const WrapHistory = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="wrap-history-greeting">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
+                    <ReactBootstrap.Col xs="auto" className="p-4">
                         <h1>Hi, {props.username}! </h1>
                         <h2>Here's your wrap history.</h2>
                     </ReactBootstrap.Col>
@@ -85,7 +85,7 @@ const WrapHistory = (props) => {
             <AllTracks topTracks={topTracks} title="Your top songs:" />
             <TopArtist topArtist={topArtists[0]} />
             <AllArtists topArtists={topArtists} title="Your top artists:" />
-            <TopGenre topGenres={topGenres} />
+            <TopGenre topGenre={topGenres[0]} />
             <AllGenres topGenres={topGenres} />
             <GeneratePlaylist timeframe={timeframe} />
             <ReactBootstrap.Container id="wrap-again">
