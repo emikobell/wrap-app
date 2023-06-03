@@ -121,8 +121,9 @@ const CompareHistory = (props) => {
                         </ReactBootstrap.Col>
                     )
                 })}
-                {!compareGenres.genre_data && <CompareGenresText />}
-                {compareGenres.genre_data && <GenerateCompareGenreGraph genreData={compareGenres.genre_data} />}
+                {compareGenres.genre_data
+                ? <GenerateCompareGenreGraph genreData={compareGenres.genre_data} />
+                : <CompareGenresText />}
             </ReactBootstrap.Row>
             <ReactBootstrap.Container id="compare-again">
                 <ReactBootstrap.Row className="justify-content-center">

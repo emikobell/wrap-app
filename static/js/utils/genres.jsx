@@ -73,9 +73,12 @@ const GenerateCompareGenreGraph = (props) => {
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="genre-compare-graph">
+                <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-5">
+                        <h1>Here are some genres that you kept listening to:</h1>
                         <canvas id="compareGenres"></canvas>
                     </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
             </ReactBootstrap.Container>
         </React.Fragment>
     )

@@ -270,7 +270,7 @@ def create_genre_dataset(timeframe1_genres, timeframe2_genres, timeframes):
 
     for genre1 in timeframe1_genres:
         for genre2 in timeframe2_genres:
-            if genre1.genre_id == genre2.genre_id:
+            if (genre1.genre_id == genre2.genre_id) and (genre1.freq > 1 and genre2.freq > 1):
                 labels.append(genre1.genres.name)
                 timeframe1_data['data'].append(genre1.freq)
                 timeframe2_data['data'].append(genre2.freq)
