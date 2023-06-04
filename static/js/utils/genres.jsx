@@ -61,10 +61,18 @@ const GenerateCompareGenreGraph = (props) => {
         if (graphData) {
             setTimeout(() => {
                 const ctx = document.getElementById("compareGenres");
-                
+                console.log(graphData)
                 new Chart(ctx, {
                     type: 'radar',
                     data: graphData,
+                    options: {
+                        normalized: true,
+                        elements: {
+                          line: {
+                            borderWidth: 3
+                          }
+                        }
+                      },
                 })
             }, 1000);
         }

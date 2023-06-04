@@ -2,6 +2,7 @@ const RenderCompareForm = (props) => {
     const [choice, setChoice] = React.useState();
     const [dispTimeframe1, setDispTimeframe1] = React.useState();
     const [dispTimeframe2, setDispTimeframe2] = React.useState();
+    const [buttonDisabled, setButtonDisabled] = React.useState(true);
 
     const TIMEFRAMES = [
         {
@@ -28,6 +29,7 @@ const RenderCompareForm = (props) => {
     const handleTimeframe2 = (eventKey) => {
         setDispTimeframe2(getTimeframeTitle(eventKey));
         props.setTimeframe2(eventKey);
+        setButtonDisabled(false);
     };
 
     const mapOptions = (options) => {
@@ -81,7 +83,7 @@ const RenderCompareForm = (props) => {
             </ReactBootstrap.Row>
             <ReactBootstrap.Row className="justify-content-center">
                 <ReactBootstrap.Col xs="auto" className="p-4">
-                    <ReactBootstrap.Button variant="light" size="lg" onClick={props.handleCompareStart}>
+                    <ReactBootstrap.Button variant="light" size="lg" disabled={buttonDisabled} onClick={props.handleCompareStart}>
                         Compare
                     </ReactBootstrap.Button>
                 </ReactBootstrap.Col>

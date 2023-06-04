@@ -259,6 +259,7 @@ def create_genre_dataset(timeframe1_genres, timeframe2_genres, timeframes):
         'label': str_timeframes[0],
         'data': [],
         'fill': True,
+
     }
     timeframe2_data = {
         'label': str_timeframes[1],
