@@ -11,7 +11,6 @@ from datetime import date
 import sys
 import string
 import utils
-import test_database
 
 
 app = Flask(__name__)
