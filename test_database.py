@@ -5,7 +5,7 @@ if __name__ == '__main__':
     from server import app
     import os
 
-    use_data = len(sys.argv) > 2 and sys.argv[2] == 'use_data'
+    use_data = len(sys.argv) > 1 and sys.argv[1] == 'use_data'
     timeframes = ['short_term', 'medium_term', 'long_term']
 
     os.system('dropdb test-spotify-data')
