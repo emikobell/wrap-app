@@ -28,7 +28,7 @@ const RenderCompareForm = (props) => {
 
         if (eventKey == choice2) {
             setButtonDisabled(true);
-        } else if (buttonDisabled == true) {
+        } else if (choice2 && buttonDisabled == true) {
             setButtonDisabled(false);
         }
     };
