@@ -1,5 +1,6 @@
 const RenderCompareForm = (props) => {
     const [choice, setChoice] = React.useState();
+    const [choice2, setChoice2] = React.useState();
     const [dispTimeframe1, setDispTimeframe1] = React.useState();
     const [dispTimeframe2, setDispTimeframe2] = React.useState();
     const [buttonDisabled, setButtonDisabled] = React.useState(true);
@@ -24,11 +25,16 @@ const RenderCompareForm = (props) => {
         setChoice(eventKey);
         setDispTimeframe1(getTimeframeTitle(eventKey));
         props.setTimeframe1(eventKey);
+
+        if (eventKey == choice2) {
+            setButtonDisabled(true);
+        }
     };
 
     const handleTimeframe2 = (eventKey) => {
         setDispTimeframe2(getTimeframeTitle(eventKey));
         props.setTimeframe2(eventKey);
+        setChoice2(eventKey);
         setButtonDisabled(false);
     };
 
