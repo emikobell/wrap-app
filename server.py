@@ -11,6 +11,7 @@ from datetime import date
 import sys
 import string
 import utils
+import test_database
 
 
 app = Flask(__name__)
@@ -20,11 +21,13 @@ app.secret_key = secrets.token_hex(16)
 
 @app.route('/')
 def render_landing_page():
+    """Render the React application through the Flask template."""
     return render_template('homepage.html')
 
 
 @app.route('/login')
 def oauth_login():
+    """Access Spotify's login endpoint to authenticate the user and scopes."""
     scopes = ['user-top-read', 'user-read-private', 'playlist-modify-private']
     scopes = ' '.join(scopes)
     redirect_uri = 'http://localhost:5000/callback'
@@ -40,6 +43,13 @@ def oauth_login():
 
 @app.route('/callback')
 def return_auth_code():
+    """
+    Callback route for Spotify's OAuth authentication.
+    The route must be the same as what is registered on the dev console.
+    Verifies state as what was initially sent to Spotify, stores auth code,
+    and sends the status to the frontend.
+    """
+
     code = request.args.get('code')
     state = request.args.get('state')
     uri = 'http://localhost:5000/callback'
@@ -63,6 +73,7 @@ def return_auth_code():
 
 @app.route('/user-info')
 def return_user_info():
+    """API to send user's profile info to the frontend."""
 
     utils.check_refresh_state()
 
@@ -93,6 +104,7 @@ def check_login():
 
 @app.route('/wrap-history')
 def gather_wrap_data():
+    """Call Spotify API for top listening history by timeframe. Store in database."""
 
     timeframe = request.args.get('timeframe')
 
@@ -117,6 +129,8 @@ def gather_wrap_data():
 
 @app.route('/top-tracks')
 def return_top_tracks():
+    """API to return top track information to frontend by timeframe."""
+
     timeframe = request.args.get('timeframe')
     tracks_list = []
     top_tracks = crud.get_user_tracks(session['user_id'], timeframe).all()
@@ -136,6 +150,8 @@ def return_top_tracks():
 
 @app.route('/top-artists')
 def return_top_artists():
+    """API to return top artist information to frontend by timeframe."""
+
     timeframe = request.args.get('timeframe')
     artists_list = []
     top_artists = crud.get_user_artists(session['user_id'], timeframe).all()
@@ -154,6 +170,8 @@ def return_top_artists():
 
 @app.route('/top-genres')
 def return_top_genres():
+    """API to return top genre information to frontend by timeframe."""
+
     timeframe = request.args.get('timeframe')
     genres_list = []
     top_genres = crud.get_all_user_genres(session['user_id'], timeframe).all()
@@ -172,6 +190,7 @@ def return_top_genres():
 
 @app.route('/playlist')
 def create_top_playlist():
+    """Create a Spotify playlist for the user by timeframe and send to Spotify API."""
 
     utils.check_refresh_state()
     
@@ -203,6 +222,8 @@ def create_top_playlist():
 
 @app.route('/compare-tracks')
 def return_track_compare():
+    """API to return top track comparison data by timeframes."""
+
     timeframe1 = request.args.get('timeframe1')
     timeframe2 = request.args.get('timeframe2')
 
@@ -215,6 +236,8 @@ def return_track_compare():
 
 @app.route('/compare-artists')
 def return_artist_compare():
+    """API to return top artist comparison data by timeframes."""
+
     timeframe1 = request.args.get('timeframe1')
     timeframe2 = request.args.get('timeframe2')
 
@@ -227,6 +250,8 @@ def return_artist_compare():
 
 @app.route('/compare-genres')
 def return_genre_compare():
+    """API to return top genre comparison data by timeframes."""
+
     timeframe1 = request.args.get('timeframe1')
     timeframe2 = request.args.get('timeframe2')
 
@@ -239,13 +264,16 @@ def return_genre_compare():
 
 @app.route('/logout')
 def log_out():
+    """Clear all Flask session data on backend."""
     session.clear()
     return 'Success', 200
 
 
 if __name__ == '__main__':
     db_name = 'spotify-data'
+
     if len(sys.argv) > 1 and sys.argv[1] == 'test':
         db_name = 'test-spotify-data'
+
     connect_to_db(app, db_name)
     app.run(debug=True, host='0.0.0.0')

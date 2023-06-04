@@ -1,4 +1,8 @@
 const App = () => {
+	/**
+	 * This component is the React application for the wrap app.
+	 * This component calls children components to render the single-page application.
+	 */
 
     const [pageLocation, setPageLocation] = React.useState("home")
     const [popupState, setPopupState] = React.useState(null);

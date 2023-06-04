@@ -3,6 +3,7 @@ from model import (db, User, Track, Artist, Genre, Timeframe,
                    TrackArtist, ArtistGenre)
 import api_calls
 from server import session
+import utils
 
 
 def create_user(spotify_id, display_name, img_url):
@@ -114,6 +115,13 @@ def get_genre(name):
 
 
 def create_genres_in_db(genres, genres_dict, artist_id):
+    """
+    1. Create a unique list of genres
+    2. Add genre to database
+    3. Get genre ID from the created genre
+    4. Create the artist's genres if they do not yet exist
+    """
+
     db_genres = [] 
     for genre in genres:
         genre_obj = get_genre(genre).first()
@@ -265,6 +273,10 @@ def create_track_artist(track_id, artist_id):
 
 
 def create_track_artists_in_db(artists, track_id):
+    """
+    Add artists not yet in database to database.
+    Create a track's artists in database if they do not yet exist.
+    """
 
     db_track_artists = []
 
@@ -302,6 +314,7 @@ def get_track_artist(track_id, artist_id):
 
     return TrackArtist.query.filter((TrackArtist.track_id == track_id)
                                     & (TrackArtist.artist_id == artist_id))
+
 
 def get_artists_for_track(track_id):
     """Get artists for a given track."""

@@ -134,6 +134,7 @@ def process_track_response(response, user_id, timeframe):
 
 
 def create_track_dict(track, timeframe = None):
+    """Create a dictionary of track info."""
     artists_list = []
     artists = crud.get_artists_for_track(track.track_id).all()
 
@@ -159,6 +160,12 @@ def create_track_dict(track, timeframe = None):
 
 
 def process_compare_tracks(user_id, timeframe1, timeframe2):
+    """
+    Create a dictionary of top track comparison data.
+    Data includes top tracks for each timeframe and common tracks across
+    the two timeframes.
+    """
+
     timeframe1_top_track = crud.get_top_user_track(user_id = user_id, timeframe = timeframe1).first()
     timeframe2_top_track = crud.get_top_user_track(user_id = user_id, timeframe = timeframe2).first()
     timeframe1_tracks = crud.get_user_tracks(user_id = user_id, timeframe = timeframe1).all()
@@ -192,6 +199,7 @@ def process_compare_tracks(user_id, timeframe1, timeframe2):
         
 
 def create_artist_dict(artist, timeframe = None):
+    """Create a dictionary of artist info."""
     artist_dict = {
             'rank': artist.rank,
             'name': artist.artists.name,
@@ -206,6 +214,12 @@ def create_artist_dict(artist, timeframe = None):
 
 
 def process_compare_artists(user_id, timeframe1, timeframe2):
+    """
+    Create a dictionary of top artist comparison data.
+    Data includes top artists for each timeframe and common artists across
+    the two timeframes.
+    """
+
     timeframe1_top_artist = crud.get_top_user_artist(user_id = user_id, timeframe = timeframe1).first()
     timeframe2_top_artist = crud.get_top_user_artist(user_id = user_id, timeframe = timeframe2).first()
     timeframe1_artists = crud.get_all_user_artists(user_id = user_id, timeframe = timeframe1).all()
@@ -239,6 +253,8 @@ def process_compare_artists(user_id, timeframe1, timeframe2):
 
 
 def create_genre_dict(genre, timeframe = None):
+    """Create a dictionary of genre data."""
+
     genre_dict = {
             'name': genre.genres.name,
             'freq': genre.freq
@@ -251,6 +267,11 @@ def create_genre_dict(genre, timeframe = None):
 
 
 def create_genre_dataset(timeframe1_genres, timeframe2_genres, timeframes):
+    """
+    Create a dataset of top genre comparison data for Chart js on the frontend.
+    Data includes common top genres across the two timeframes, above the frequency
+    of one.
+    """
 
     str_timeframes = [timeframe.replace('_', ' ') for timeframe in timeframes]
     str_timeframes = [string.capwords(timeframe) for timeframe in str_timeframes]
@@ -286,6 +307,11 @@ def create_genre_dataset(timeframe1_genres, timeframe2_genres, timeframes):
 
 
 def process_compare_genres(user_id, timeframe1, timeframe2):
+    """
+    Create a dataset of top genre comparison data for the frontend.
+    Data includes top genres for each timeframe and Charts js data for visualization.
+    """
+        
     timeframe1_top_genre = crud.get_top_user_genre(user_id = user_id, timeframe = timeframe1).first()
     timeframe2_top_genre = crud.get_top_user_genre(user_id = user_id, timeframe = timeframe2).first()
     timeframe1_genres = crud.get_all_user_genres(user_id = user_id, timeframe = timeframe1).all()
@@ -304,7 +330,7 @@ def process_compare_genres(user_id, timeframe1, timeframe2):
 
     compare_genres_dict['top_genres'] = [timeframe1_top_genre, timeframe2_top_genre]
     compare_genres_dict['genre_data'] = create_genre_dataset(timeframe1_genres,
-                                                                 timeframe2_genres,
-                                                                 [timeframe1, timeframe2])
+                                                             timeframe2_genres,
+                                                             [timeframe1, timeframe2])
 
     return compare_genres_dict

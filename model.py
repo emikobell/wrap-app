@@ -3,6 +3,7 @@ import os
 
 db = SQLAlchemy()
 
+
 class User(db.Model):
     """Class for users in the db."""
 
@@ -18,7 +19,8 @@ class User(db.Model):
 
     def __repr__(self):
         return f'<User Name {self.display_name} Spotify ID: {self.spotify_id}>'
-    
+
+
 class Track(db.Model):
     """Class for tracks in the db."""
 
@@ -34,7 +36,8 @@ class Track(db.Model):
 
     def __repr__(self):
         return f'<Track Title: {self.name} Spotify ID: {self.spotify_id}>'
-    
+
+
 class Artist(db.Model):
     """Class for artists in the db."""
 
@@ -52,6 +55,7 @@ class Artist(db.Model):
     def __repr__(self):
         return f'<Artist Name: {self.name} Spotify ID: {self.spotify_id}>'
 
+
 class Genre(db.Model):
     """Class for genres in the db."""
 
@@ -65,6 +69,7 @@ class Genre(db.Model):
 
     def __repr__(self):
         return f'<Genre Name: {self.name} Genre ID: {self.genre_id}>'
+
 
 class Timeframe(db.Model):
     """Class for timeframes in the db."""
@@ -95,6 +100,7 @@ class Timeframe(db.Model):
     def __repr__(self):
         return f'<Timeframe: {self.timeframe}>'
 
+
 class UserTrack(db.Model):
     """
     Class for associative table between users and tracks.
@@ -115,6 +121,7 @@ class UserTrack(db.Model):
 
     def __repr__(self):
         return f'<User Track ID: {self.user_track_id} User: {self.user_id} Track: {self.track_id} Timeframe: {self.timeframe}>'
+
 
 class UserArtist(db.Model):
     """
@@ -137,6 +144,7 @@ class UserArtist(db.Model):
     def __repr__(self):
         return f'<User Artist ID: {self.user_artist_id} User: {self.user_id} Artist: {self.artist_id} Timeframe: {self.timeframe}>'
     
+
 class UserGenre(db.Model):
     """
     Class for associative table between users and genres.
@@ -158,6 +166,7 @@ class UserGenre(db.Model):
     def __repr__(self):
         return f'<User Genre ID: {self.user_genre_id} User: {self.user_id} Genre: {self.genre_id} Timeframe: {self.timeframe}>'
 
+
 class TrackArtist(db.Model):
     """
     Class for associative table between tracks and artists.
@@ -174,6 +183,7 @@ class TrackArtist(db.Model):
     
     def __repr__(self):
         return f'<Track Artist ID: {self.track_artist_id} Track: {self.track_id} Artist: {self.artist_id}>'
+
 
 class ArtistGenre(db.Model):
     """
