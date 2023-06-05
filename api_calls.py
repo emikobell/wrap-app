@@ -66,7 +66,7 @@ def make_user_call(token):
 
 
 def make_artist_call(token, timeframe):
-    """Make an user top artist call to the Spotify API."""
+    """Make a user top artist call to the Spotify API."""
 
     url = f'https://api.spotify.com/v1/me/top/artists?limit=50&offset=0&time_range={timeframe}'
     header = {'Authorization': f'Bearer {token}'}
@@ -76,7 +76,7 @@ def make_artist_call(token, timeframe):
 
 
 def make_track_call(token, timeframe):
-    """Make an user top artist call to the Spotify API."""
+    """Make an user top track call to the Spotify API."""
 
     url = f'https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0&time_range={timeframe}'
     header = {'Authorization': f'Bearer {token}'}
@@ -86,7 +86,7 @@ def make_track_call(token, timeframe):
 
 
 def get_artist_from_api(href, token):
-    """Make a artist API call to get information about an artist."""
+    """Make a artist call to get information about an artist from the Spotify API."""
 
     header = {'Authorization': f'Bearer {token}'}
     response_json = requests.get(href, headers = header)
@@ -95,7 +95,7 @@ def get_artist_from_api(href, token):
 
 
 def create_playlist(user_id, name, token):
-    """Make a artist API call to get information about an artist."""
+    """Make a playlist creation call to the Spotify API."""
 
     url = f'https://api.spotify.com/v1/users/{user_id}/playlists'
 

@@ -1,4 +1,7 @@
 const RenderHomeContent = (props) => {
+    /**
+     * Render the landing page content.
+     */
     return(
         <React.Fragment>
             <ReactBootstrap.Container id="page-content">

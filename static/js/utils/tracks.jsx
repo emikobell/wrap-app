@@ -1,4 +1,7 @@
 const GenerateTrackButton = (props) => {
+    /**
+     * Render a button to show more tracks or hide them.
+     */
     return (
         <React.Fragment>
             <ReactBootstrap.Button variant="light" size="lg" onClick={props.handleTrackVisibility}>
@@ -10,6 +13,9 @@ const GenerateTrackButton = (props) => {
 
 
 const TopTrack = (props) => {
+    /**
+     * Render the user's top track.
+     */
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="top-song">
@@ -51,6 +57,9 @@ const TopTrack = (props) => {
 
 
 const AllTracks = (props) => {
+    /**
+     * Render the user's top tracks.
+     */
     const [trackVisibility, setTrackVisibility] = React.useState(false);
     const [trackNumber, setTrackNumber] = React.useState(5);
     const [buttonText, setButtonText] = React.useState("Show More Songs");

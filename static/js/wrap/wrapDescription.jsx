@@ -1,4 +1,7 @@
 const RenderWrapDescription = (props) => {
+    /**
+     * Render the description page for the wrap feature.
+     */
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="page-content">

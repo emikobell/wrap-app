@@ -1,4 +1,8 @@
 const RenderLoginButton = (props) => {
+    /**
+     * Render login button for feature description pages.
+     * This component appears under the Wrap and Compare features.
+     */
     return(
         <ReactBootstrap.Container id="login-button">
             <ReactBootstrap.Row breakpoint="md" className="justify-content-center">
@@ -13,6 +17,10 @@ const RenderLoginButton = (props) => {
 
     
 const RenderLoginProfile = (props) => {
+    /**
+     * Render the user profile for the authenticated user
+     * on the nav bar.
+     */
     return(
         <React.Fragment>
             {props.userInfo.img_url &&
@@ -26,6 +34,9 @@ const RenderLoginProfile = (props) => {
 
 
 const RenderNavLogin = (props) => {
+    /**
+     * Render the login button on the navbar.
+     */
     return(
         <React.Fragment>
             <ReactBootstrap.Nav.Link id="login-nav" onClick={props.openSpotifyLogin}>Log In</ReactBootstrap.Nav.Link>

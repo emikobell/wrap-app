@@ -1,7 +1,45 @@
 const App = () => {
 	/**
-	 * This component is the React application for the wrap app.
-	 * This component calls children components to render the single-page application.
+	 * React application for the wrap project.
+	 * React components are called in the following format:
+	 * 
+	 * App
+	 * ├── RenderNavbar (homepage/navbar.jsx)
+	 * │	├── RenderLoginProfile (utils/login.jsx)
+	 * │	└── RenderNavLogin (utils/login.jsx)
+	 * ├── RenderHomeContent (homepage/home.jsx)
+	 * ├── RenderCompare (compare/compare.jsx)
+	 * │   ├── RenderCompareDescription (compare/compareDescription.jsx)
+	 * │   │	├── RenderCompareForm (compare/compareForm.jsx)
+	 * │   │    └── RenderLoginButton (utils/login.jsx)
+	 * │   └── CompareHistory (compare/compareHistory.jsx)
+	 * │		├── ShowError (utils/error.jsx)
+	 * │		├── RenderLoading (utils/loading.jsx)
+	 * │		├── ShowNoItems (utils/error.jsx)
+	 * │		├── TopTrack (utils/tracks.jsx)
+	 * │		├── AllTracks (utils/tracks.jsx)
+	 * │		├── CompareText (compare/compareText.jsx)
+	 * │		├── TopArtist (utils/artists.jsx)
+	 * │		├── AllArtists (utils/artists.jsx)
+	 * │		├── TopGenre (utils/genres.jsx)
+	 * │		└── GenerateCompareGenreGraph (utils/genres.jsx)
+	 * ├── RenderWrap (wrap/wrap.jsx)
+	 * │	├── RenderWrapDescription (wrap/wrapDescription.jsx)
+	 * │	│	├── RenderWrapForm (wrap/wrapForm.jsx)
+	 * │	│	└── RenderLoginButton (utils/login.jsx)
+	 * │	└── WrapHistory (wrap/wrapHistory)
+	 * │		├── ShowError (utils/error.jsx)
+	 * │		├── RenderLoading (utils/loading.jsx)
+	 * │		├── ShowNoItems (utils/error.jsx)
+	 * │		├── TopTrack (utils/tracks.jsx)
+	 * │		├── AllTracks (utils/tracks.jsx)
+	 * │		├── TopArtist (utils/artists.jsx)
+	 * │		├── AllArtists (utils/artists.jsx)
+	 * │		├── TopGenre (utils/genres.jsx)
+	 * │		├── AllGenres (utils/genres.jsx)
+	 * │		└── GenerateCompareGenreGraph (utils/playlist.jsx)
+	 * ├── ShowError (utils/error.jsx)
+	 * └── RenderFooter (homepage/footer.jsx)
 	 */
 
     const [pageLocation, setPageLocation] = React.useState("home")

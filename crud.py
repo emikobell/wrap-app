@@ -116,6 +116,8 @@ def get_genre(name):
 
 def create_genres_in_db(genres, genres_dict, artist_id):
     """
+    Create genres and artist genres in database.
+
     1. Create a unique list of genres
     2. Add genre to database
     3. Get genre ID from the created genre
@@ -172,6 +174,7 @@ def get_top_user_track(user_id, timeframe):
     return UserTrack.query.filter((UserTrack.user_id == user_id)
                                    & (UserTrack.timeframe == timeframe)
                                    & (UserTrack.rank == 1))
+
 
 def delete_user_tracks(user_id, timeframe):
     """Delete a user's top tracks by timeframe."""

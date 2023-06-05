@@ -1,4 +1,7 @@
 const RenderCompare = (props) => {
+    /**
+     * Render page content for the comparsion feature.
+     */
     const [startCompare, setStartCompare] = React.useState(false);
     const [timeframe1, setTimeframe1] = React.useState("");
     const [timeframe2, setTimeframe2] = React.useState("");

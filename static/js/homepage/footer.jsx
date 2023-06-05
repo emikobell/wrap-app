@@ -1,4 +1,7 @@
 const RenderFooter = () => {
+    /**
+     * Render footer for page.
+     */
     return (
         <ReactBootstrap.Container id="footer">
             <footer className="align-items-center py-3 my-5 border-top">

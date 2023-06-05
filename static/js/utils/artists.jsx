@@ -1,4 +1,7 @@
 const GenerateArtistButton = (props) => {
+    /**
+     * Render a button to show more artists or hide them.
+     */
     return (
         <React.Fragment>
             <ReactBootstrap.Button variant="light" size="lg" onClick={props.handleArtistVisibility}>
@@ -10,6 +13,9 @@ const GenerateArtistButton = (props) => {
 
 
 const TopArtist = (props) => {
+    /**
+     * Render the user's top artist.
+     */
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="top-artist">
@@ -35,6 +41,9 @@ const TopArtist = (props) => {
 
 
 const AllArtists = (props) => {
+    /**
+     * Render the user's top artists.
+     */
     const [artistVisibility, setArtistVisibility] = React.useState(false);
     const [artistNumber, setArtistNumber] = React.useState(5);
     const [buttonText, setButtonText] = React.useState("Show More Artists");

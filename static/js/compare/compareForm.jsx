@@ -1,4 +1,8 @@
 const RenderCompareForm = (props) => {
+    /**
+     * Render the form for listening history comparison feature.
+     */
+
     const [choice, setChoice] = React.useState();
     const [choice2, setChoice2] = React.useState();
     const [dispTimeframe1, setDispTimeframe1] = React.useState();

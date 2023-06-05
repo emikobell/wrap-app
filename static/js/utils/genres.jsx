@@ -1,4 +1,7 @@
 const TopGenre = (props) => {
+    /**
+     * Render the user's top genre.
+     */
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="top-artist">
@@ -19,6 +22,9 @@ const TopGenre = (props) => {
 
 
 const GenerateGenreGraph = (props) => {
+    /**
+     * Render a donut graph of the user's top genres.
+     */
     const [graphData, setGraphData] = React.useState(props.topGenres);
 
     React.useEffect(() => {
@@ -55,13 +61,17 @@ const GenerateGenreGraph = (props) => {
 
 
 const GenerateCompareGenreGraph = (props) => {
+    /**
+     * Render a radar graph of the user's overlapping top genres
+     * across two timeframes.
+     */
     const [graphData, setGraphData] = React.useState(props.genreData);
 
     React.useEffect(() => {
         if (graphData) {
             setTimeout(() => {
                 const ctx = document.getElementById("compareGenres");
-                console.log(graphData)
+                
                 new Chart(ctx, {
                     type: 'radar',
                     data: graphData,
@@ -94,6 +104,9 @@ const GenerateCompareGenreGraph = (props) => {
 
 
 const AllGenres = (props) => {
+    /**
+     * Render a list of top genres with their frequencies.
+     */
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="all-top-genres">

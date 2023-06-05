@@ -1,3 +1,5 @@
+"""Initialize test database."""
+
 from model import (db, Timeframe, connect_to_db)
 import sys
 

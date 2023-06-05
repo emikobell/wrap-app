@@ -1,7 +1,6 @@
 import crud
 from model import db
 from server import session
-from operator import itemgetter
 from datetime import datetime, timedelta, timezone
 import string
 
@@ -200,6 +199,7 @@ def process_compare_tracks(user_id, timeframe1, timeframe2):
 
 def create_artist_dict(artist, timeframe = None):
     """Create a dictionary of artist info."""
+    
     artist_dict = {
             'rank': artist.rank,
             'name': artist.artists.name,

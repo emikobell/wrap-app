@@ -1,4 +1,8 @@
 const CompareHistory = (props) => {
+    /**
+     * Fetch listening history comparison data from
+     * the server and render results.
+     */
 
     const {timeframe1, timeframe2} = props;
     const [compareTracks, setCompareTracks] = React.useState([]);
@@ -48,29 +52,9 @@ const CompareHistory = (props) => {
     if (errorState) {
         return <ShowError type="main" />
     } else if (compareTracks.length == 0 || compareArtists.length == 0 || compareGenres.length == 0) {
-        return(
-            <React.Fragment>
-            <ReactBootstrap.Row className="justify-content-center">
-                <ReactBootstrap.Col xs="auto" className="p-5">
-                    <h1>Loading...</h1>
-                </ReactBootstrap.Col>
-            </ReactBootstrap.Row>
-        </React.Fragment>
-        )
+        return <RenderLoading />
     } else if (!compareTracks.top_tracks || !compareArtists.top_artists || !compareGenres.top_genres) {
-        return(
-            <React.Fragment>
-                <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
-                        <h1>No results :&#40;</h1>
-                        <p>
-                            Your Spotify profile doesn't have items to compare. This might be because your profile is too new. <br />
-                            Please try again in the future after you've listened to some songs!
-                        </p>
-                    </ReactBootstrap.Col>
-                </ReactBootstrap.Row>
-            </React.Fragment>
-        )
+        return <ShowNoItems text="items to compare" />
     }
 
     return (
@@ -95,7 +79,7 @@ const CompareHistory = (props) => {
                 ? <AllTracks topTracks={compareTracks.similar_tracks}
                                 title="Here are some songs that you kept listening to:"
                                 hideRank={true}/>
-                : <CompareTrackText />
+                : <CompareText text="songs"/>
                 }
             </ReactBootstrap.Row>
             <ReactBootstrap.Row className="justify-content-center">
@@ -110,7 +94,7 @@ const CompareHistory = (props) => {
                 ? <AllArtists topArtists={compareArtists.similar_artists}
                                 title="Here are some artists that you kept listening to:"
                                 hideRank={true}/>
-                : <CompareArtistText />
+                : <CompareText text="artists" />
                 }
             </ReactBootstrap.Row>
             <ReactBootstrap.Row className="justify-content-center">
@@ -123,7 +107,7 @@ const CompareHistory = (props) => {
                 })}
                 {compareGenres.genre_data
                 ? <GenerateCompareGenreGraph genreData={compareGenres.genre_data} />
-                : <CompareGenresText />}
+                : <CompareText text="genres" />}
             </ReactBootstrap.Row>
             <ReactBootstrap.Container id="compare-again">
                 <ReactBootstrap.Row className="justify-content-center">

@@ -17,4 +17,3 @@ def check_refresh_state():
         new_auth_codes = api_calls.refresh_auth_code(session['refresh_token'])
         authorization = new_auth_codes.json()
         data_processing.process_auth_codes(authorization)
-        # Should add error handling here

@@ -1,4 +1,7 @@
 const RenderCompareDescription = (props) => {
+    /**
+     * Render the description page for the compare feature.
+     */
     return (
             <React.Fragment>
                 <ReactBootstrap.Container id="page-content">

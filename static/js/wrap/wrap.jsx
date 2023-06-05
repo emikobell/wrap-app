@@ -1,4 +1,7 @@
 const RenderWrap = (props) => {
+    /**
+     * Render page content for the wrap feature.
+     */
     const [startWrap, setStartWrap] = React.useState(false);
     const [timeframe, setTimeframe] = React.useState("");
 
