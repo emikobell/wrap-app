@@ -122,7 +122,7 @@ const AllGenres = (props) => {
                             <tbody>
                                 {props.topGenres.slice(0,10).map((genre) => {
                                     return (
-                                    <React.Fragment key={genre.rank}>
+                                    <React.Fragment key={genre.name}>
                                     <tr>
                                         <td><h4>{genre.name}</h4></td>
                                         <td><h2>{genre.freq}</h2></td>
