@@ -19,5 +19,5 @@ body {
 
 #page-content a:hover {
   color: grey;
-  text-decoration: underline;
+  text-decoration: none;
 }

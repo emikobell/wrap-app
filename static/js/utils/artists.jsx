@@ -18,15 +18,15 @@ const TopArtist = (props) => {
      */
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="top-artist">
+            <ReactBootstrap.Container id="top-artist" className="py-3">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-4">
+                    <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>Your <strong>{props.timeframeName}</strong> top artist:</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto">
-                        <ReactBootstrap.Image src={props.topArtist['img']} alt="Image of album cover" rounded />
+                    <ReactBootstrap.Col xs="auto" className="p-4">
+                        <ReactBootstrap.Image src={props.topArtist['img']} alt="Image of album cover" className="img-fluid" rounded />
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
@@ -62,9 +62,9 @@ const AllArtists = (props) => {
     
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="all-top-artists">
+            <ReactBootstrap.Container id="all-top-artists" className="py-3">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
+                    <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>{props.title}</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
@@ -86,8 +86,8 @@ const AllArtists = (props) => {
                         </ReactBootstrap.Table>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
-                <ReactBootstrap.Row className="justify-content-md-center">
-                    <ReactBootstrap.Col xs="auto">
+                <ReactBootstrap.Row className="justify-content-center">
+                    <ReactBootstrap.Col xs="auto" className="p-3">
                         <GenerateArtistButton handleArtistVisibility={handleArtistVisibility} buttonText={buttonText}/>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>

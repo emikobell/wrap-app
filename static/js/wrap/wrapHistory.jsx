@@ -55,7 +55,7 @@ const WrapHistory = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="wrap-history-greeting">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-4">
+                    <ReactBootstrap.Col xs="auto">
                         <h1>Hi, {props.username}! </h1>
                         <h2>Here's your wrap history.</h2>
                     </ReactBootstrap.Col>
@@ -70,7 +70,7 @@ const WrapHistory = (props) => {
             <GeneratePlaylist timeframe={timeframe} />
             <ReactBootstrap.Container id="wrap-again">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-4">
+                    <ReactBootstrap.Col xs="auto" className="p-3">
                         <ReactBootstrap.Button variant="light" size="lg" onClick={() => props.setStartWrap(false)}>
                             Wrap Again
                         </ReactBootstrap.Button>

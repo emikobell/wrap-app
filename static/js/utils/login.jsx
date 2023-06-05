@@ -6,7 +6,7 @@ const RenderLoginButton = (props) => {
     return(
         <ReactBootstrap.Container id="login-button">
             <ReactBootstrap.Row breakpoint="md" className="justify-content-center">
-                <ReactBootstrap.Col xs="auto">
+                <ReactBootstrap.Col xs="auto" className="p-3">
                     <ReactBootstrap.Button variant = "light" size="lg" onClick={props.openSpotifyLogin}>
                         Log In to Spotify
                     </ReactBootstrap.Button>

@@ -6,7 +6,7 @@ const RenderCompareDescription = (props) => {
             <React.Fragment>
                 <ReactBootstrap.Container id="page-content">
                     <ReactBootstrap.Row className="justify-content-center">
-                        <ReactBootstrap.Col xs="auto" className="p-5">
+                        <ReactBootstrap.Col xs="auto" className="p-3">
                             <h1>
                                 Compare your listening history.
                             </h1>

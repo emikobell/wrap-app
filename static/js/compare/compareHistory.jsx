@@ -61,7 +61,7 @@ const CompareHistory = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="wrap-history-greeting">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-4">
+                    <ReactBootstrap.Col xs="auto">
                         <h1>Hi, {props.username}! </h1>
                         <h2>Here's your listening history compared.</h2>
                     </ReactBootstrap.Col>
@@ -70,7 +70,7 @@ const CompareHistory = (props) => {
             <ReactBootstrap.Row className="justify-content-center">
                 {compareTracks.top_tracks.map((track) => {
                     return (
-                        <ReactBootstrap.Col xs="auto" className="p-5" key={track.timeframe}>
+                        <ReactBootstrap.Col xs="auto" className="p-sm-5" key={track.timeframe}>
                             <TopTrack topTrack={track} timeframeName={track.timeframe} />
                         </ReactBootstrap.Col>
                     )
@@ -85,7 +85,7 @@ const CompareHistory = (props) => {
             <ReactBootstrap.Row className="justify-content-center">
                 {compareArtists.top_artists.map((artist) => {
                     return (
-                        <ReactBootstrap.Col xs="auto" className="p-5" key={artist.timeframe}>
+                        <ReactBootstrap.Col xs="auto" className="p-sm-5" key={artist.timeframe}>
                             <TopArtist topArtist={artist} timeframeName={artist.timeframe} />
                         </ReactBootstrap.Col>
                     )
@@ -100,7 +100,7 @@ const CompareHistory = (props) => {
             <ReactBootstrap.Row className="justify-content-center">
                 {compareGenres.top_genres.map((genre) => {
                     return (
-                        <ReactBootstrap.Col xs="auto" className="p-5" key={genre.timeframe}>
+                        <ReactBootstrap.Col xs="auto" className="p-sm-5" key={genre.timeframe}>
                             <TopGenre topGenre={genre} timeframeName={genre.timeframe} />
                         </ReactBootstrap.Col>
                     )
@@ -111,7 +111,7 @@ const CompareHistory = (props) => {
             </ReactBootstrap.Row>
             <ReactBootstrap.Container id="compare-again">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-4">
+                    <ReactBootstrap.Col xs="auto" className="p-3">
                         <ReactBootstrap.Button variant="light" size="lg" onClick={() => props.setStartCompare(false)}>
                             Compare Again
                         </ReactBootstrap.Button>

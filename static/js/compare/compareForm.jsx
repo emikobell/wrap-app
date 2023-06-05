@@ -71,22 +71,22 @@ const RenderCompareForm = (props) => {
     return (
         <ReactBootstrap.Container id="compare-dropdown1">
             <ReactBootstrap.Row breakpoint="md" className="justify-content-center">
-                <ReactBootstrap.Col xs="auto">
+                <ReactBootstrap.Col xs="auto" className="p-3">
                     <ReactBootstrap.Dropdown>
                         <ReactBootstrap.DropdownButton  id="timeframe1"
                                                         variant="light" size = "lg"
                                                         drop="down-centered" onSelect={(eventKey) => handleTimeframe1(eventKey)}
-                                                        title={dispTimeframe1 || "Choose a Timeframe to Compare"}>
+                                                        title={dispTimeframe1 || "Choose a Timeframe"}>
                         {mapOptions(TIMEFRAMES)}
                         </ReactBootstrap.DropdownButton>
                     </ReactBootstrap.Dropdown>
                 </ReactBootstrap.Col>
-                <ReactBootstrap.Col xs="auto">
+                <ReactBootstrap.Col xs="auto" className="p-3">
                     <ReactBootstrap.Dropdown>
                         <ReactBootstrap.DropdownButton  id="timeframe2"
                                                         variant="light" size = "lg"
                                                         drop="down-centered"
-                                                        title={dispTimeframe2 || "Choose a Timeframe to Compare"}
+                                                        title={dispTimeframe2 || "Choose a Timeframe"}
                                                         onSelect={(eventKey) => handleTimeframe2(eventKey)}>
                         {options}
                         </ReactBootstrap.DropdownButton>
@@ -94,7 +94,7 @@ const RenderCompareForm = (props) => {
                 </ReactBootstrap.Col>
             </ReactBootstrap.Row>
             <ReactBootstrap.Row className="justify-content-center">
-                <ReactBootstrap.Col xs="auto" className="p-4">
+                <ReactBootstrap.Col xs="auto" className="p-3">
                     <ReactBootstrap.Button variant="light" size="lg" disabled={buttonDisabled} onClick={props.handleCompareStart}>
                         Compare
                     </ReactBootstrap.Button>

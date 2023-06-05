@@ -23,7 +23,7 @@ const GeneratePlaylist = (props) => {
     return (
         <ReactBootstrap.Container id="create-playlist">
             <ReactBootstrap.Row className="justify-content-center">
-                <ReactBootstrap.Col xs="auto" className="p-4">
+                <ReactBootstrap.Col xs="auto" className="p-3">
                 {createPlaylist ? <PlaylistCreated />
                 : <PlaylistButton setCreatePlaylist={setCreatePlaylist} />}
                 </ReactBootstrap.Col>

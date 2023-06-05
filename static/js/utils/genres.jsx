@@ -4,9 +4,9 @@ const TopGenre = (props) => {
      */
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="top-artist">
+            <ReactBootstrap.Container id="top-artist" className="py-3">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
+                    <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>Your <strong>{props.timeframeName}</strong> top genre:</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
@@ -51,7 +51,7 @@ const GenerateGenreGraph = (props) => {
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="genre-graph">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
+                    <ReactBootstrap.Col xs="auto" className="p-3">
                         <canvas id="allGenres"></canvas>
                     </ReactBootstrap.Col>
             </ReactBootstrap.Container>
@@ -92,8 +92,12 @@ const GenerateCompareGenreGraph = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="genre-compare-graph">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
+                    <ReactBootstrap.Col xs="auto" className="p-4">
                         <h1>Here are some genres that you kept listening to:</h1>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row className="justify-content-center">
+                    <ReactBootstrap.Col xs="auto" className="p-sm-3">
                         <canvas id="compareGenres"></canvas>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
@@ -109,9 +113,9 @@ const AllGenres = (props) => {
      */
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="all-top-genres">
+            <ReactBootstrap.Container id="all-top-genres" className="py-3">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-5">
+                    <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>Your top genres:</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
