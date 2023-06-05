@@ -3,7 +3,7 @@ const RenderNavbar = (props) => {
      * Render the navbar.
      */
     return (<React.Fragment>
-                <ReactBootstrap.Navbar bg="light" expand="lg" sticky="top">
+                <ReactBootstrap.Navbar id="top-navbar" expand="lg" sticky="top" className="py-3">
                     <ReactBootstrap.Container>
                         <ReactBootstrap.Navbar.Brand href="#" onClick={() => props.handlePageLocation("home")}>
                             Wrap
