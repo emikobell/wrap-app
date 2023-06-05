@@ -38,7 +38,7 @@ const PlaylistButton = (props) => {
      */
     return (
         <ReactBootstrap.Button variant="light" size="lg" onClick={() => props.setCreatePlaylist(true)}>
-            Create Playlist
+            Create Playlist on Spotify
         </ReactBootstrap.Button>
     )
 };

@@ -161,7 +161,7 @@ const App = () => {
 							openSpotifyLogin={openSpotifyLogin}
 							userInfo={userInfo}
 							handleLogOut={handleLogOut}/>
-			<ReactBootstrap.Container fluid className="my-4">
+			<ReactBootstrap.Container fluid className="my-4" id="page-content">
             	{errorState ? <ShowError type="main" /> : renderPageContent(pageLocation)}
 				<RenderFooter />
 			</ReactBootstrap.Container>
