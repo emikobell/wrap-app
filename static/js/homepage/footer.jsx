@@ -3,9 +3,9 @@ const RenderFooter = () => {
      * Render footer for page.
      */
     return (
-        <ReactBootstrap.Container id="footer">
-            <footer className="align-items-center py-3 my-5 border-top">
-                <ReactBootstrap.Navbar>
+        // <ReactBootstrap.Container id="footer">
+            <footer className="align-items-center py-3 border-top">
+                <ReactBootstrap.Navbar className="px-4">
                     <ReactBootstrap.Container>
                         <ReactBootstrap.Navbar.Brand href="https://emikobell.github.io/" target="_blank">
                             <small className="text-muted mb-2 fs-6">
@@ -30,5 +30,5 @@ const RenderFooter = () => {
                     </ReactBootstrap.Nav>
                 </ReactBootstrap.Navbar>
             </footer>
-        </ReactBootstrap.Container>
+        // </ReactBootstrap.Container>
     )};
