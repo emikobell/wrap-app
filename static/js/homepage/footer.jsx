@@ -7,7 +7,7 @@ const RenderFooter = () => {
             <footer className="align-items-center py-3 my-5 border-top">
                 <ReactBootstrap.Navbar>
                     <ReactBootstrap.Container>
-                        <ReactBootstrap.Navbar.Brand href="#">
+                        <ReactBootstrap.Navbar.Brand href="https://emikobell.github.io/" target="_blank">
                             <small className="text-muted mb-2 fs-6">
                                 <i className="bi bi-code-slash"></i>
                                 &nbsp; with &nbsp;
