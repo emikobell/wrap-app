@@ -5,9 +5,9 @@ const RenderCompareDescription = (props) => {
     return (
             <React.Fragment>
                 <ReactBootstrap.Container id="page-content">
-                <ReactBootstrap.Row className="justify-content-center">
+                <ReactBootstrap.Row className="justify-content-center pb-4">
                     <ReactBootstrap.Col xs="auto">
-                        <ReactBootstrap.Image src="/static/img/compare.png" className="img-fluid" width="500px"/>
+                        <ReactBootstrap.Image src="/static/img/compare.png" alt="Image of two overlapping circles" className="img-fluid" width="500px"/>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                     <ReactBootstrap.Row className="justify-content-center">

@@ -7,7 +7,7 @@ const RenderHomeContent = (props) => {
             <ReactBootstrap.Container id="page-content">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="py-3">
-                        <ReactBootstrap.Image src="/static/img/wrap1.png" className="img-fluid" width="1000px"/>
+                        <ReactBootstrap.Image src="/static/img/wrap1.png" alt="Image of three overlapping lines and two sets of two overlapping circles" className="img-fluid" width="1000px"/>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">

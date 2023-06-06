@@ -7,7 +7,7 @@ const RenderWrapDescription = (props) => {
             <ReactBootstrap.Container id="page-content">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto">
-                        <ReactBootstrap.Image src="/static/img/wrap2.png" className="img-fluid" width="700px"/>
+                        <ReactBootstrap.Image src="/static/img/wrap2.png" className="img-fluid" alt="Image of three lines, each with a loop" width="700px"/>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
