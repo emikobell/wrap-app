@@ -21,9 +21,9 @@ const RenderWrapDescription = (props) => {
                             You can also choose to generate a playlist of your top songs!
                         </p>
                         <ul className="fs-4">
-                            <li>Short term: Last month</li>
-                            <li>Medium term: Last six months</li>
-                            <li>Long term: Last several years</li>
+                            <li><strong>Short term:</strong> Last month</li>
+                            <li><strong>Medium term:</strong> Last six months</li>
+                            <li><strong>Long term:</strong> Last several years</li>
                         </ul>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>

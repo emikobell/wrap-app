@@ -2,8 +2,12 @@ body {
     font-family: 'Outfit', sans-serif;
 }
 
-p, h1 + h2 {
+p, h1 + h2, li strong {
   font-weight: 300;
+}
+
+ul {
+  font-weight: 200;
 }
 
 .dropdown-toggle,
