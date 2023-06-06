@@ -280,12 +280,17 @@ def create_genre_dataset(timeframe1_genres, timeframe2_genres, timeframes):
         'label': str_timeframes[0],
         'data': [],
         'fill': True,
-
+        'backgroundColor': 'rgba(42, 157, 143, 0.3)',
+        'pointBackgroundColor': 'rgb(42, 157, 143)',
+        'borderColor': 'rgb(42, 157, 143)',
     }
     timeframe2_data = {
         'label': str_timeframes[1],
         'data': [],
         'fill': True,
+        'backgroundColor': 'rgba(231, 111, 81, 0.3)',
+        'pointBackgroundColor': 'rgb(231, 111, 81)',
+        'borderColor': 'rgb(231, 111, 81)',
     }
 
     labels = []

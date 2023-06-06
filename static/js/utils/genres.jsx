@@ -35,7 +35,7 @@ const GenerateGenreGraph = (props) => {
                     labels: graphData.map(genre => genre.name),
                     datasets: [{
                         data: graphData.map(genre => genre.freq),
-                            }]
+                            }],
                     };
         
                 Chart.overrides['doughnut'].plugins.legend.display = false;
@@ -79,7 +79,28 @@ const GenerateCompareGenreGraph = (props) => {
                           line: {
                             borderWidth: 3
                           }
-                        }
+                        },
+                        scales: {
+                            r: {
+                                pointLabels: {
+                                    font: {
+                                        size: 15,
+                                    }
+                                },
+                                ticks: {
+                                    display: false,
+                                },
+                            },
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    font: {
+                                        size: 15,
+                                    },
+                                },
+                            },
+                        },
                       },
                 })
             }, 1000);
@@ -95,7 +116,7 @@ const GenerateCompareGenreGraph = (props) => {
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-sm-3">
+                    <ReactBootstrap.Col sm="6" className="p-sm-3">
                         <canvas id="compareGenres"></canvas>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>

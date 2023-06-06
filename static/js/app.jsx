@@ -66,6 +66,18 @@ const App = () => {
 		setLogin(false);
 	};
 
+	// Override chart js default color at page render
+
+	Chart.defaults.plugins.colors.enabled = false;
+	Chart.defaults.backgroundColor = [
+		'rgb(38, 70, 83)',
+		'rgb(42, 157, 143)',
+		'rgb(233, 196, 106)',
+		'rgb(244, 162, 97)',
+		'rgb(231, 111, 81)',
+		'rgb(220, 220, 220)',
+	];
+
     React.useEffect(() => {
         const fetchUserLogin = async () => {
 			const login = await fetch('/login-check');
