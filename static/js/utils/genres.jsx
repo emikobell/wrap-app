@@ -50,11 +50,9 @@ const GenerateGenreGraph = (props) => {
 
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="genre-graph">
-                    <ReactBootstrap.Col xs="auto" className="p-3">
+                    <ReactBootstrap.Col sm="6" className="px-5 mb-4 mb-sm-0">
                         <canvas id="allGenres"></canvas>
                     </ReactBootstrap.Col>
-            </ReactBootstrap.Container>
         </React.Fragment>
     )
 };
@@ -119,9 +117,9 @@ const AllGenres = (props) => {
                         <h1>Your top genres:</h1>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
-                <ReactBootstrap.Row className="justify-content-center">
+                <ReactBootstrap.Row className="d-flex align-items-center justify-content-center p-4">
                     <GenerateGenreGraph topGenres={props.topGenres} />
-                    <ReactBootstrap.Col xs="auto">
+                    <ReactBootstrap.Col sm="3" className="px-5">
                         <ReactBootstrap.Table borderless hover className="align-middle">
                             <tbody>
                                 {props.topGenres.slice(0,10).map((genre) => {
