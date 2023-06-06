@@ -6,6 +6,11 @@ const RenderWrapDescription = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="page-content">
                 <ReactBootstrap.Row className="justify-content-center">
+                    <ReactBootstrap.Col xs="auto">
+                        <ReactBootstrap.Image src="/static/img/wrap2.png" className="img-fluid" width="700px"/>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>
                             Wrap your listening history.

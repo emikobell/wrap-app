@@ -2,6 +2,10 @@ body {
     font-family: 'Outfit', sans-serif;
 }
 
+p, h1 + h2 {
+  font-weight: 300;
+}
+
 .dropdown-toggle,
 .dropdown-menu {
   width: 100%;

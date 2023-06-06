@@ -6,6 +6,11 @@ const RenderHomeContent = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="page-content">
                 <ReactBootstrap.Row className="justify-content-center">
+                    <ReactBootstrap.Col xs="auto" className="py-3">
+                        <ReactBootstrap.Image src="/static/img/wrap1.png" className="img-fluid" width="700px"/>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>
                             Wrap your Spotify<br/>
@@ -13,7 +18,6 @@ const RenderHomeContent = (props) => {
                         </h1>
                         <p className="fs-4">
                             See your top tracks, artists, and genres at any time. <br />
-                            <br />
                             You can choose to wrap your listening history within a specific timeframe, <br />
                             or compare your listening history over time.
                         </p>

@@ -36,6 +36,7 @@ const TopTrack = (props) => {
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto">
+                        <p className="fs-5">
                         {props.topTrack['artists'].map((artist, index) => {
                             let punct = "";
                             if (props.topTrack['artists'].length > 1 && !props.topTrack['artists'][index+1]) {
@@ -45,9 +46,10 @@ const TopTrack = (props) => {
                             }
                             return (
                                 <React.Fragment key={artist.name}>
-                                    <strong>{punct}<a href={artist.url} target="_blank">{artist.name}</a></strong>
+                                    {punct}<a href={artist.url} target="_blank">{artist.name}</a>
                                 </React.Fragment>
                             )})}
+                        </p>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
@@ -96,6 +98,7 @@ const AllTracks = (props) => {
                                         <td><ReactBootstrap.Image src={track.img} alt="Image of album cover" rounded fluid height="100px" width="100px" /></td>
                                         <td><h4><a href={track.url} target="_blank">{track.name}</a></h4>
                                             <div>
+                                                <p className="fs-5">
                                                 {track.artists.map((artist, index) => {
                                                     let punct = "";
                                                     if (track.artists.length > 1 && !track.artists[index+1]) {
@@ -108,6 +111,7 @@ const AllTracks = (props) => {
                                                             {punct}<a href={artist.url} target="_blank">{artist.name}</a>
                                                         </React.Fragment>
                                                     )})}
+                                                </p>
                                             </div>
                                         </td>
                                     </tr>
