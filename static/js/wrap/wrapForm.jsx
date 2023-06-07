@@ -3,7 +3,7 @@ const RenderWrapForm = (props) => {
      * Render the form for listening history wrap feature.
      */
     return (
-    <ReactBootstrap.Container id="wrap-dropdown">
+    <ReactBootstrap.Container id="wrap-dropdown" className="wrap-content pop-from-bottom">
         <ReactBootstrap.Row breakpoint="md" className="justify-content-center">
             <ReactBootstrap.Col xs="auto" className="p-3">
                 <ReactBootstrap.Dropdown>

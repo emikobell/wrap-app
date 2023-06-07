@@ -5,12 +5,12 @@ const RenderWrapDescription = (props) => {
     return (
         <React.Fragment>
             <ReactBootstrap.Container id="page-content">
-                <ReactBootstrap.Row className="justify-content-center">
+                <ReactBootstrap.Row className="justify-content-center pop-to-front">
                     <ReactBootstrap.Col xs="auto">
                         <ReactBootstrap.Image src="/static/img/wrap2.png" className="img-fluid" alt="Image of three lines, each with a loop" width="700px"/>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
-                <ReactBootstrap.Row className="justify-content-center">
+                <ReactBootstrap.Row className="justify-content-center pop-from-bottom">
                     <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>
                             Wrap your listening history.

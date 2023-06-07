@@ -5,12 +5,12 @@ const RenderCompareDescription = (props) => {
     return (
             <React.Fragment>
                 <ReactBootstrap.Container id="page-content">
-                <ReactBootstrap.Row className="justify-content-center pb-4">
-                    <ReactBootstrap.Col xs="auto">
-                        <ReactBootstrap.Image src="/static/img/compare.png" alt="Image of two overlapping circles" className="img-fluid" width="500px"/>
-                    </ReactBootstrap.Col>
-                </ReactBootstrap.Row>
-                    <ReactBootstrap.Row className="justify-content-center">
+                    <ReactBootstrap.Row className="justify-content-center pb-4 pop-to-front">
+                        <ReactBootstrap.Col xs="auto">
+                            <ReactBootstrap.Image src="/static/img/compare.png" alt="Image of two overlapping circles" className="img-fluid" width="500px"/>
+                        </ReactBootstrap.Col>
+                    </ReactBootstrap.Row>
+                    <ReactBootstrap.Row className="justify-content-center pop-from-bottom">
                         <ReactBootstrap.Col xs="auto" className="p-3">
                             <h1>
                                 Compare your listening history.

@@ -53,7 +53,7 @@ const WrapHistory = (props) => {
 
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="wrap-history-greeting">
+            <ReactBootstrap.Container className="pop-to-front">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto">
                         <h1>Hi, {props.username}! </h1>
@@ -61,21 +61,23 @@ const WrapHistory = (props) => {
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
-            <TopTrack topTrack={topTracks[0]} />
-            <AllTracks topTracks={topTracks} title="Your top songs:" />
-            <TopArtist topArtist={topArtists[0]} />
-            <AllArtists topArtists={topArtists} title="Your top artists:" />
-            <TopGenre topGenre={topGenres[0]} />
-            <AllGenres topGenres={topGenres} />
-            <GeneratePlaylist timeframe={timeframe} />
-            <ReactBootstrap.Container id="wrap-again">
-                <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="p-3">
-                        <ReactBootstrap.Button variant="light" size="lg" onClick={() => props.setStartWrap(false)}>
-                            Wrap Again
-                        </ReactBootstrap.Button>
-                    </ReactBootstrap.Col>
-                </ReactBootstrap.Row>
+            <ReactBootstrap.Container className="pop-from-bottom">
+                <TopTrack topTrack={topTracks[0]} />
+                <AllTracks topTracks={topTracks} title="Your top songs:" />
+                <TopArtist topArtist={topArtists[0]} />
+                <AllArtists topArtists={topArtists} title="Your top artists:" />
+                <TopGenre topGenre={topGenres[0]} />
+                <AllGenres topGenres={topGenres} />
+                <GeneratePlaylist timeframe={timeframe} />
+                <ReactBootstrap.Container id="wrap-again">
+                    <ReactBootstrap.Row className="justify-content-center">
+                        <ReactBootstrap.Col xs="auto" className="p-3">
+                            <ReactBootstrap.Button variant="light" size="lg" onClick={() => props.setStartWrap(false)}>
+                                Wrap Again
+                            </ReactBootstrap.Button>
+                        </ReactBootstrap.Col>
+                    </ReactBootstrap.Row>
+                </ReactBootstrap.Container>
             </ReactBootstrap.Container>
         </React.Fragment>
     )

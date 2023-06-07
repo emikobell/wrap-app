@@ -6,11 +6,11 @@ const RenderHomeContent = (props) => {
         <React.Fragment>
             <ReactBootstrap.Container id="page-content">
                 <ReactBootstrap.Row className="justify-content-center">
-                    <ReactBootstrap.Col xs="auto" className="py-3">
+                    <ReactBootstrap.Col xs="auto" className="py-3 pop-to-front">
                         <ReactBootstrap.Image src="/static/img/wrap1.png" alt="Image of three overlapping lines and two sets of two overlapping circles" className="img-fluid" width="1000px"/>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
-                <ReactBootstrap.Row className="justify-content-center">
+                <ReactBootstrap.Row className="justify-content-center pop-from-bottom">
                     <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>
                             Wrap your Spotify<br/>
@@ -24,7 +24,7 @@ const RenderHomeContent = (props) => {
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
-            <ReactBootstrap.Container id="wrap-buttons">
+            <ReactBootstrap.Container id="wrap-buttons" className="pop-from-bottom">
                 <ReactBootstrap.Row breakpoint="md" className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className= "p-3">
                         <ReactBootstrap.Button variant = "light" size="lg" onClick={() => props.handlePageLocation("wrap")}>Wrap Your History</ReactBootstrap.Button>

@@ -69,7 +69,7 @@ const RenderCompareForm = (props) => {
     }
 
     return (
-        <ReactBootstrap.Container id="compare-dropdown1">
+        <ReactBootstrap.Container className="pop-from-bottom">
             <ReactBootstrap.Row breakpoint="md" className="justify-content-center">
                 <ReactBootstrap.Col xs="auto" className="p-3">
                     <ReactBootstrap.Dropdown>
