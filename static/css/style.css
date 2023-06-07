@@ -16,9 +16,9 @@ ul {
 }
 
 .label-background {
-  background-size: 350px;
+  background-size: 325px;
   background-repeat: no-repeat;
-  background-position: 50% 0%;
+  background-position: 50% 15px;
 }
 
 #top-track {
@@ -41,7 +41,7 @@ ul {
   background-image: url('/static/img/label5.png');
 }
 
-#all-top-genres {
+#all-top-genres, #genre-compare-graph {
   background-image: url('/static/img/label6.png');
 }
 
