@@ -4,7 +4,7 @@ const TopGenre = (props) => {
      */
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="top-artist" className="py-3">
+            <ReactBootstrap.Container id="top-genre" className="py-3 label-background">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>Your <strong>{props.timeframeName}</strong> top genre:</h1>
@@ -132,7 +132,7 @@ const AllGenres = (props) => {
      */
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="all-top-genres" className="py-3">
+            <ReactBootstrap.Container id="all-top-genres" className="py-3 label-background">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>Your top genres:</h1>

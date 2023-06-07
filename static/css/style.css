@@ -15,6 +15,36 @@ ul {
   width: 100%;
 }
 
+.label-background {
+  background-size: 350px;
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+}
+
+#top-track {
+  background-image: url('/static/img/label1.png');
+}
+
+#all-top-tracks {
+  background-image: url('/static/img/label2.png');
+}
+
+#top-artist {
+  background-image: url('/static/img/label3.png');
+}
+
+#all-top-artists {
+  background-image: url('/static/img/label4.png');
+}
+
+#top-genre {
+  background-image: url('/static/img/label5.png');
+}
+
+#all-top-genres {
+  background-image: url('/static/img/label6.png');
+}
+
 #top-navbar {
   background: linear-gradient(to bottom, rgba(241, 244, 248, 1) 0%,
                               rgba(241, 244, 248, .75) 50%, 

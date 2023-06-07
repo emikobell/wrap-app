@@ -18,7 +18,7 @@ const TopArtist = (props) => {
      */
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="top-artist" className="py-3">
+            <ReactBootstrap.Container id="top-artist" className="py-3 label-background">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>Your <strong>{props.timeframeName}</strong> top artist:</h1>
@@ -62,7 +62,7 @@ const AllArtists = (props) => {
     
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="all-top-artists" className="py-3">
+            <ReactBootstrap.Container id="all-top-artists" className="py-3 label-background">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>{props.title}</h1>

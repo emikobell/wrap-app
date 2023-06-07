@@ -18,7 +18,7 @@ const TopTrack = (props) => {
      */
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="top-song" className="py-3">
+            <ReactBootstrap.Container id="top-track" className="py-3 label-background">
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>Your <strong>{props.timeframeName}</strong> top song:</h1>
@@ -80,7 +80,7 @@ const AllTracks = (props) => {
 
     return (
         <React.Fragment>
-            <ReactBootstrap.Container id="all-top-tracks" className = "py-3">
+            <ReactBootstrap.Container id="all-top-tracks" className = "py-3 label-background">
                 <ReactBootstrap.Row className="justify-content-md-center">
                     <ReactBootstrap.Col xs="auto" className="p-3">
                         <h1>{props.title}</h1>
