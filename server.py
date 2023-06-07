@@ -217,8 +217,6 @@ def create_top_playlist():
                                                   tracks = tracks,
                                                   token = session['access_token'])
     
-    print(playlist_response)
-
     return jsonify(playlist_url)
 
 
