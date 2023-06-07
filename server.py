@@ -204,6 +204,7 @@ def create_top_playlist():
                                                   token = session['access_token'])
 
     playlist_id = creation_response['id']
+    playlist_url = creation_response['external_urls']['spotify']
 
     tracks = []
     top_tracks = crud.get_user_tracks(session['user_id'], timeframe).all()
@@ -215,8 +216,10 @@ def create_top_playlist():
     playlist_response = api_calls.add_to_playlist(playlist_id = playlist_id,
                                                   tracks = tracks,
                                                   token = session['access_token'])
+    
+    print(playlist_response)
 
-    return 'Success', 200
+    return jsonify(playlist_url)
 
 
 @app.route('/compare-tracks')
