@@ -28,7 +28,7 @@ def oauth_login():
     """Access Spotify's login endpoint to authenticate the user and scopes."""
     scopes = ['user-top-read', 'user-read-private', 'playlist-modify-private']
     scopes = ' '.join(scopes)
-    redirect_uri = 'http://localhost:5000/callback'
+    redirect_uri = 'https://wrap-app.dev/callback'
     client = OAuth2Session(CLIENT_ID,
                            CLIENT_SECRET,
                            scope = scopes, redirect_uri = redirect_uri)
