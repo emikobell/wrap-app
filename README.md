@@ -99,28 +99,27 @@ source env/bin/activate
 pip3 install requirements.txt
 ```
 
-5. Save your Spotify developer API client ID and secret to a secrets file (e.g. secrets.sh). The variables should be named as the following:
-```zsh
-CLIENT_ID="abc123"
-CLIENT_SECRET="abc123"
+5. Create a secret.py file to save your Spotify developer API client ID, secret, and Flask key.
+server.py will be importing the following:
+```python
+CLIENT_ID = 'abc123'
+CLIENT_SECRET = 'abc123'
+def generate_flask_key():
+    # Your method of generating the key here
+    return key
 ```
 
-6. Make sure that the variables are available in your environment:  
-```zsh
-source secrets.sh
-```
-
-7. Create a database called 'spotify-data'.
+6. Create a database called 'spotify-data'.
 ```zsh
 createdb spotify-data
 ```
 
-8. Run model.py to create the database tables.
+7. Run model.py to create the database tables.
 ```zsh
 python3 model.py
 ```
 
-9. Run the Flask server.
+8. Run the Flask server.
 ```zsh
 python3 server.py
 ```
