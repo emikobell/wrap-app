@@ -269,10 +269,11 @@ def log_out():
 
 
 if __name__ == '__main__':
+    from waitress import serve
     db_name = 'spotify-data'
 
     if len(sys.argv) > 1 and sys.argv[1] == 'test':
         db_name = 'test-spotify-data'
 
     connect_to_db(app, db_name)
-    app.run()
+    serve(app, host="0.0.0.0", port=5000)
