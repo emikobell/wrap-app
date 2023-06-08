@@ -1,6 +1,5 @@
 # Wrap App
 
-## Summary
 The Wrap App is a tool designed for Spotify users to easily view their top tracks, artists, and genres across their listening history at any time. This app enables authenticated users to view their top listening histories and compare them across different timeframes. Users can choose a timeframe that spans a month, six months, or several years to summarize their top items. Additionally, the compare feature of the Wrap App enables users to identify and explore the similarities between their chosen timeframes, offering insights into their listening histories across time.
 
 ## Tech Stack
@@ -97,7 +96,7 @@ source env/bin/activate
 
 4. Install the dependencies provided in requirements.txt.
 ```zsh
-pip install requirements.txt
+pip3 install requirements.txt
 ```
 
 5. Save your Spotify developer API client ID and secret to a secrets file (e.g. secrets.sh). The variables should be named as the following:

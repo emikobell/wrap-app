@@ -1,8 +1,7 @@
 from flask import Flask, render_template, redirect, session, request, jsonify
 from authlib.integrations.requests_client import OAuth2Session
 from operator import itemgetter
-import os
-import secrets
+from secret import CLIENT_ID, CLIENT_SECRET, generate_flask_key
 import crud
 import data_processing
 import api_calls
@@ -15,7 +14,7 @@ import utils
 
 app = Flask(__name__)
 app.app_context().push()
-app.secret_key = secrets.token_hex(16)
+app.secret_key = generate_flask_key()
 
 
 @app.route('/')
@@ -30,8 +29,8 @@ def oauth_login():
     scopes = ['user-top-read', 'user-read-private', 'playlist-modify-private']
     scopes = ' '.join(scopes)
     redirect_uri = 'http://localhost:5000/callback'
-    client = OAuth2Session(os.environ.get('CLIENT_ID'),
-                           os.environ.get('CLIENT_SECRET'),
+    client = OAuth2Session(CLIENT_ID,
+                           CLIENT_SECRET,
                            scope = scopes, redirect_uri = redirect_uri)
     authorization_endpoint = 'https://accounts.spotify.com/authorize'
     uri, state = client.create_authorization_url(authorization_endpoint)
@@ -55,7 +54,7 @@ def return_auth_code():
 
     if state != session['state']:
         return 'Unauthorized', 403
-
+    
     response = api_calls.get_auth_code(code, uri)
 
     try:

@@ -1,14 +1,12 @@
-import os
+from secret import CLIENT_ID, CLIENT_SECRET
 import requests
 import base64
 
 
 def generate_auth_str():
-    client_id = os.environ.get('CLIENT_ID')
-    client_secret = os.environ.get('CLIENT_SECRET')
-
-    return base64.b64encode(client_id.encode() + b':' 
-                                + client_secret.encode()).decode('utf-8')
+    """Generate auth string for Spotify API calls."""
+    return base64.b64encode(CLIENT_ID.encode() + b':' 
+                                + CLIENT_SECRET.encode()).decode('utf-8')
 
 
 def get_auth_code(code, uri):

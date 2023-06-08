@@ -3,3 +3,4 @@
 *.sh
 __*
 *.sql
+secret.py
