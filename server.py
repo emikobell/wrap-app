@@ -275,4 +275,4 @@ if __name__ == '__main__':
         db_name = 'test-spotify-data'
 
     connect_to_db(app, db_name)
-    app.run(debug=True, host='0.0.0.0')
+    app.run()
