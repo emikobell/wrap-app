@@ -62,10 +62,22 @@ const WrapHistory = (props) => {
                 </ReactBootstrap.Row>
             </ReactBootstrap.Container>
             <ReactBootstrap.Container className="pop-from-bottom">
-                <TopTrack topTrack={topTracks[0]} />
-                <AllTracks topTracks={topTracks} title="Your top songs:" />
-                <TopArtist topArtist={topArtists[0]} />
-                <AllArtists topArtists={topArtists} title="Your top artists:" />
+                <ReactBootstrap.Row className="d-flex align-items-center p-4">
+                    <ReactBootstrap.Col>
+                        <TopTrack topTrack={topTracks[0]} />
+                    </ReactBootstrap.Col>
+                    <ReactBootstrap.Col>
+                        <AllTracks topTracks={topTracks} title="Your top songs:" />
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row className="d-flex align-items-center p-4">
+                    <ReactBootstrap.Col className="order-md-2">
+                        <TopArtist topArtist={topArtists[0]} />
+                    </ReactBootstrap.Col>
+                    <ReactBootstrap.Col className="order-md-1">
+                        <AllArtists topArtists={topArtists} title="Your top artists:" />
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
                 <TopGenre topGenre={topGenres[0]} />
                 <AllGenres topGenres={topGenres} />
                 <GeneratePlaylist timeframe={timeframe} />

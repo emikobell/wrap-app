@@ -4,7 +4,7 @@ const RenderLoginButton = (props) => {
      * This component appears under the Wrap and Compare features.
      */
     return(
-        <ReactBootstrap.Container id="login-button pop-from-bottom">
+        <ReactBootstrap.Container id="login-button" className="pop-from-bottom">
             <ReactBootstrap.Row breakpoint="md" className="justify-content-center">
                 <ReactBootstrap.Col xs="auto" className="p-3">
                     <ReactBootstrap.Button variant = "light" size="lg" onClick={props.openSpotifyLogin}>
