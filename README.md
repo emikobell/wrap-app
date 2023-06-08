@@ -52,7 +52,7 @@ The compare feature shows you your listening history similarities over time.
 - Spotify Web API client ID and secret.
 
 **Important note!!**
-You must have an app created in the [Spotify developer dashboard](https://developer.spotify.com/) with redirect URI set to where you are hosting this app, followed by `/callback`. (e.g. "https://hostedlink.com/callback).
+You must have an app created in the [Spotify developer dashboard](https://developer.spotify.com/) with redirect URI set to where you are hosting this app, followed by `/callback`. (e.g. https://hostedlink.com/callback).
 
 In addition, you need to add users manually to the app on the dashboard for them to log in to the application while in dev mode. 
 
@@ -83,7 +83,7 @@ pip install requirements.txt
 CLIENT_ID="abc123"
 CLIENT_SECRET="abc123"
 ```
-... Make sure that the variables are available in your environment:
+  Make sure that the variables are available in your environment:  
 ```zsh
 source secrets.sh
 ```
