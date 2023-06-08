@@ -69,14 +69,16 @@ The compare feature shows you your listening history similarities over time.
 ### Requirements
 - PostgreSQL 14
 - Python 3.9
-- Spotify Web API client ID and secret.
+- Spotify Web API client ID and secret
 
 **Important note!!**
-You must have an app created in the [Spotify developer dashboard](https://developer.spotify.com/) with redirect URI set to where you are hosting this app, followed by `/callback`. (e.g. https://hostedlink.com/callback).
+You must have an app created in the [Spotify developer dashboard](https://developer.spotify.com/) with the redirect URI set to where you are hosting this app, followed by `/callback`. (e.g. https://hostedlink.com/callback).
 
 In addition, you need to add users manually to the app on the dashboard for them to log in to the application while in dev mode. 
 
-Once you're set with the requirements, follow these steps!
+Once you're set with the requirements, you're ready to start!
+
+### Steps
 
 1. Clone the github repository.
 ```zsh
