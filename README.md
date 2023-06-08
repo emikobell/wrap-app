@@ -96,7 +96,7 @@ source env/bin/activate
 
 4. Install the dependencies provided in requirements.txt.
 ```zsh
-pip3 install requirements.txt
+pip3 install -r requirements.txt
 ```
 
 5. Create a secret.py file to save your Spotify developer API client ID, secret, and Flask key.
