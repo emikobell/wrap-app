@@ -29,32 +29,39 @@ The Wrap App is a tool designed for Spotify users to easily view their top track
 
 You can log in to your Spotify account through OAuth2 to see your top listening history.
 The app opens a popup directly to a Spotify login window.
+<br />
 
 ![Spotify OAuth Page](/static/img/login.gif)
-
+<br /> <br />
 
 ### Wrap Feature
 
-Once you are logged in, you can choose from three timeframe to "wrap" your listening history.
+Once you are logged in, you can choose from three timeframes to "wrap" your listening history.
+<br />
 
 ![Wrap Page](/static/img/wrap.gif)
-
+<br /> <br />
 
 The app shows you your top songs, artists, and genres. You can also choose to generate a playlist of your top 50 songs on your Spotify account.
+<br />
 
 ![Wrap History](/static/img/wrap-history.gif)
+<br /> <br />
 
 
 ### Compare Feature
 
 You can also compare your listening history by timeframe.
+<br />
 
 ![Compare Page](/static/img/compare.gif)
-
+<br /> <br />
 
 The compare feature shows you your listening history similarities over time.
+<br />
 
 ![Compare History](/static/img/compare-history.gif)
+<br /> <br />
 
 
 ## Installation
@@ -97,7 +104,7 @@ CLIENT_ID="abc123"
 CLIENT_SECRET="abc123"
 ```
 
-6.Make sure that the variables are available in your environment:  
+6. Make sure that the variables are available in your environment:  
 ```zsh
 source secrets.sh
 ```
