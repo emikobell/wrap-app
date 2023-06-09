@@ -50,7 +50,7 @@ def return_auth_code():
 
     code = request.args.get('code')
     state = request.args.get('state')
-    uri = 'http://localhost:5000/callback'
+    uri = 'https://wrap-app.dev/callback'
 
     if state != session['state']:
         return 'Unauthorized', 403
