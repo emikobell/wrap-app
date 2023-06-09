@@ -2,6 +2,8 @@
 
 The Wrap App is a tool designed for Spotify users to easily view their top tracks, artists, and genres across their listening history at any time. This app enables authenticated users to view their top listening histories and compare them across different timeframes. Users can choose a timeframe that spans a month, six months, or several years to summarize their top items. Additionally, the compare feature of the Wrap App enables users to identify and explore the similarities between their chosen timeframes, offering insights into their listening histories across time.
 
+**NOTE:** This app is pending approval from Spotify. Only registered users on the dev console can log in. Once approval is granted, all Spotify users can authenticate.
+
 ## Tech Stack
 ### Backend
 - Python
