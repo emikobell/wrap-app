@@ -28,7 +28,8 @@ def oauth_login():
     """Access Spotify's login endpoint to authenticate the user and scopes."""
     scopes = ['user-top-read', 'user-read-private', 'playlist-modify-private']
     scopes = ' '.join(scopes)
-    redirect_uri = 'https://wrap-app.dev/callback'
+    redirect_uri = 'https://wrap-app.dev/callback' # Prod redirect
+    # redirect_uri = 'http://localhost:5000/callback' # Dev redirect
     client = OAuth2Session(CLIENT_ID,
                            CLIENT_SECRET,
                            scope = scopes, redirect_uri = redirect_uri)
@@ -50,7 +51,8 @@ def return_auth_code():
 
     code = request.args.get('code')
     state = request.args.get('state')
-    uri = 'https://wrap-app.dev/callback'
+    uri = 'https://wrap-app.dev/callback' # Prod URI
+    # uri = 'http://localhost:5000/callback' # Dev URI
 
     if state != session['state']:
         return 'Unauthorized', 403
@@ -263,17 +265,21 @@ def return_genre_compare():
 
 @app.route('/logout')
 def log_out():
-    """Clear all Flask session data on backend."""
+    """Clear all Flask session data on backend and remove user data from db."""
+    if session.get('user_id', False):
+        print('deleted!')
+        crud.delete_all_user_info(session['user_id'])
     session.clear()
     return 'Success', 200
 
 
 if __name__ == '__main__':
-    from waitress import serve
+    from waitress import serve # Prod WSGI
     db_name = 'spotify-data'
 
     if len(sys.argv) > 1 and sys.argv[1] == 'test':
         db_name = 'test-spotify-data'
 
     connect_to_db(app, db_name)
-    serve(app, host="0.0.0.0", port=5000)
+    serve(app, host='0.0.0.0', port=5000) # Prod Serve
+    # app.run(host='0.0.0.0', debug=True) # Dev Serve
