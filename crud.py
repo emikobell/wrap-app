@@ -1,9 +1,8 @@
-from model import (db, User, Track, Artist, Genre, Timeframe,
+from model import (db, User, Track, Artist, Genre,
                    UserTrack, UserArtist, UserGenre,
                    TrackArtist, ArtistGenre)
 import api_calls
 from server import session
-import utils
 
 
 def create_user(spotify_id, display_name, img_url):
@@ -181,6 +180,7 @@ def delete_user_tracks(user_id, timeframe):
 
     UserTrack.query.filter((UserTrack.user_id == user_id)
                             & (UserTrack.timeframe == timeframe)).delete()
+    db.session.commit()
 
 
 def create_user_artist(rank, artist_id, user_id, timeframe):
@@ -220,6 +220,7 @@ def delete_user_artists(user_id, timeframe):
 
     UserArtist.query.filter((UserArtist.user_id == user_id)
                             & (UserArtist.timeframe == timeframe)).delete()
+    db.session.commit()
 
 
 def create_user_genre(genre_id, user_id, freq, timeframe):
@@ -266,6 +267,7 @@ def delete_user_genres(user_id, timeframe):
 
     UserGenre.query.filter((UserGenre.user_id == user_id)
                             & (UserGenre.timeframe == timeframe)).delete() 
+    db.session.commit()
 
 
 def create_track_artist(track_id, artist_id):
@@ -337,3 +339,13 @@ def get_artist_genre(artist_id, genre_id):
 
     return ArtistGenre.query.filter((ArtistGenre.artist_id == artist_id)
                                     & (ArtistGenre.genre_id == genre_id))
+
+
+def delete_all_user_info(user_id):
+    """Delete all user data from db."""
+
+    UserArtist.query.filter(UserArtist.user_id == user_id).delete()
+    UserTrack.query.filter(UserTrack.user_id == user_id).delete()
+    UserGenre.query.filter(UserGenre.user_id == user_id).delete()
+    User.query.filter(User.spotify_id == user_id).delete()
+    db.session.commit()
