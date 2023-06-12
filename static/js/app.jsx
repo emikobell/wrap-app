@@ -128,7 +128,7 @@ const App = () => {
 			const userResponse = await fetch('/user-info');
 
 			if (userResponse.status !== 200) {
-				handleLogOut()
+				setErrorState(true);
 				return;
 			}
 
