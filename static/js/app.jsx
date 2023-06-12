@@ -129,6 +129,9 @@ const App = () => {
 
 			if (userResponse.status !== 200) {
 				setErrorState(true);
+				setTimeout(() => {
+					handleLogOut();
+				}, 2000);
 				return;
 			}
 
