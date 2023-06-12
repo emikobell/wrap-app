@@ -131,7 +131,7 @@ const App = () => {
 				setErrorState(true);
 				setTimeout(() => {
 					handleLogOut();
-				}, 2000);
+				}, 3000);
 				return;
 			}
 
