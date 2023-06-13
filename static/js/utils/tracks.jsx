@@ -26,7 +26,9 @@ const TopTrack = (props) => {
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-4">
-                        <ReactBootstrap.Image src={props.topTrack['img']} alt="Image of album cover" className="img-fluid"/>
+                        <a href={props.topTrack['url']} target="_blank">
+                            <ReactBootstrap.Image src={props.topTrack['img']} alt="Image of album cover" className="img-fluid"/>
+                        </a>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
@@ -95,8 +97,13 @@ const AllTracks = (props) => {
                                     <React.Fragment key={track.rank}>
                                     <tr>
                                         {!props.hideRank && <td><h2>{track.rank}</h2></td>}
-                                        <td><ReactBootstrap.Image src={track.img} alt="Image of album cover" fluid height="100px" width="100px" /></td>
-                                        <td><h4><a href={track.url} target="_blank">{track.name}</a></h4>
+                                        <td>
+                                            <a href={track.url} target="_blank">
+                                                <ReactBootstrap.Image src={track.img} alt="Image of album cover" fluid height="100px" width="100px" />
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <h4><a href={track.url} target="_blank">{track.name}</a></h4>
                                             <div>
                                                 <p className="fs-5">
                                                 {track.artists.map((artist, index) => {

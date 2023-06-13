@@ -26,7 +26,9 @@ const TopArtist = (props) => {
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-4">
-                        <ReactBootstrap.Image src={props.topArtist['img']} alt="Image of album cover" className="img-fluid" />
+                        <a href={props.topArtist['url']} target="_blank">
+                            <ReactBootstrap.Image src={props.topArtist['img']} alt="Image of album cover" className="img-fluid" />
+                        </a>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
@@ -77,8 +79,14 @@ const AllArtists = (props) => {
                                     <React.Fragment key={artist.rank}>
                                     <tr>
                                         {!props.hideRank && <td><h2>{artist.rank}</h2></td>}
-                                        <td><ReactBootstrap.Image src={artist.img} alt={"Image of artist, " + artist.name} fluid height="100px" width="100px" /></td>
-                                        <td><h4><a href={artist.url} target="_blank">{artist.name}</a></h4></td>
+                                        <td>
+                                            <a href={artist.url} target="_blank">
+                                                <ReactBootstrap.Image src={artist.img} alt={"Image of artist, " + artist.name} fluid height="100px" width="100px" />
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <h4><a href={artist.url} target="_blank">{artist.name}</a></h4>
+                                        </td>
                                     </tr>
                                     </React.Fragment>
                                 )})}
