@@ -27,7 +27,7 @@ const RenderLoginProfile = (props) => {
                 <ReactBootstrap.Image src={props.userInfo.img_url} alt="Image of your Spotify profile"
                                       roundedCircle width="30" height="30" className="my-auto"/>}
             <ReactBootstrap.NavDropdown title={props.userInfo.display_name} id="basic-nav-dropdown">
-                <ReactBootstrap.NavDropdown.Item><a href="https://www.spotify.com/account/apps/">Disconnect Wrap from Spotify</a></ReactBootstrap.NavDropdown.Item>
+                <ReactBootstrap.NavDropdown.Item href="https://www.spotify.com/account/apps/" target="_blank">Disconnect Wrap from Spotify</ReactBootstrap.NavDropdown.Item>
                 <ReactBootstrap.NavDropdown.Item onClick={props.handleLogOut}>Log out</ReactBootstrap.NavDropdown.Item>
             </ReactBootstrap.NavDropdown>
         </React.Fragment>
