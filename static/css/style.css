@@ -73,6 +73,10 @@ ul {
                               rgba(241, 244, 248, 0) 100%);
 }
 
+#spotify-logo {
+  width: 70px;
+}
+
 .pop-to-front {
   animation: poptofront 1s;
 }

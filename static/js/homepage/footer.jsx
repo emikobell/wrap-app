@@ -31,7 +31,7 @@ const RenderFooter = () => {
                 </ReactBootstrap.Navbar>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto">
-                        <ReactBootstrap.Image id="spotify_logo" src="/static/img/spotify_logo.png" />
+                        <ReactBootstrap.Image id="spotify-logo" src="/static/img/spotify_logo.png" />
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
             </footer>
