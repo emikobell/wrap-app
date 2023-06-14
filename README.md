@@ -121,7 +121,14 @@ createdb spotify-data
 python3 model.py
 ```
 
-8. Run the Flask server.
+8. Edit server.py and api_calls.py with your callback address. The Spotify Web API requires your callback route on some headers.
+For example, the callback route currently looks like this:
+```python
+'redirect_uri': 'https://wrap-app.dev/callback', # Prod callback
+# 'redirect_uri': 'http://localhost:5000/callback', # Dev callback
+```
+
+9. Run the Flask server.
 ```zsh
 python3 server.py
 ```
