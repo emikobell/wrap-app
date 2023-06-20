@@ -266,8 +266,8 @@ def return_genre_compare():
 @app.route('/logout')
 def log_out():
     """Clear all Flask session data on backend and remove user data from db."""
+    
     if session.get('user_id', False):
-        print('deleted!')
         crud.delete_all_user_info(session['user_id'])
     session.clear()
     return 'Success', 200

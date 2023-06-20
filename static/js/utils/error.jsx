@@ -23,10 +23,6 @@ const ShowError = (props) => {
                     <h1>Error :&#40;</h1>
                     <p>
                         There was an error. Please reload the page and try again. <br />
-                        <br />
-                        <strong>NOTE:</strong> This app is pending approval from Spotify. Only registered users on the dev console can log in and use the app. <br />
-                        Once approval is granted, all Spotify users can authenticate and use the app! <br />
-                        In the meantime, checkout the <a href="https://github.com/emikobell/wrap-app" target="_blank">GitHub repo</a> for a preview!
                     </p>
                 </ReactBootstrap.Col>
             </ReactBootstrap.Row>
