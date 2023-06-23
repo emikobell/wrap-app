@@ -26,8 +26,8 @@ const TopArtist = (props) => {
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row className="justify-content-center">
                     <ReactBootstrap.Col xs="auto" className="p-4">
-                        <a href={props.topArtist['url']} target="_blank">
-                            <ReactBootstrap.Image src={props.topArtist['img']} alt="Image of album cover" className="img-fluid" />
+                        <a href={props.topArtist['url']} title={props.topArtist['name'] + " Spotify link"} target="_blank">
+                            <ReactBootstrap.Image src={props.topArtist['img']} alt={"Image of album cover for " + props.topArtist['name']} className="img-fluid" />
                         </a>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
