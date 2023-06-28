@@ -1,4 +1,5 @@
 import { Container, Row, Col, Image, Button } from 'react-bootstrap';
+import wrapImage from '../img/wrap1.png';
 
 const RenderHomeContent = (props) => {
     /**
@@ -9,7 +10,7 @@ const RenderHomeContent = (props) => {
             <Container id="page-content">
                 <Row className="justify-content-center">
                     <Col xs="auto" className="py-3 pop-to-front">
-                        <Image src="../img/wrap1.png" alt="Image of three overlapping lines and two sets of two overlapping circles" className="img-fluid" width="1000px"/>
+                        <Image src={wrapImage} alt="Image of three overlapping lines and two sets of two overlapping circles" className="img-fluid" width="1000px"/>
                     </Col>
                 </Row>
                 <Row className="justify-content-center pop-from-bottom">

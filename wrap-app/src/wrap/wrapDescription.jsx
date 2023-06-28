@@ -1,6 +1,7 @@
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { RenderLoginButton } from '../utils/login.jsx';
 import RenderWrapForm from './wrapForm.jsx';
+import wrapImage from '../img/wrap2.png';
 
 const RenderWrapDescription = (props) => {
     /**
@@ -11,7 +12,7 @@ const RenderWrapDescription = (props) => {
             <Container id="page-content">
                 <Row className="justify-content-center pop-to-front">
                     <Col xs="auto">
-                        <Image src="../img/wrap2.png" className="img-fluid" alt="Image of three lines, each with a loop" width="700px"/>
+                        <Image src={wrapImage} className="img-fluid" alt="Image of three lines, each with a loop" width="700px"/>
                     </Col>
                 </Row>
                 <Row className="justify-content-center pop-from-bottom">

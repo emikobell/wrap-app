@@ -1,4 +1,5 @@
 import { Navbar, Container, Nav, Row, Col, Image } from 'react-bootstrap';
+import spotifyLogo from '../img/spotify_logo.png';
 
 const RenderFooter = () => {
     /**
@@ -32,7 +33,7 @@ const RenderFooter = () => {
                 </Navbar>
                 <Row className="justify-content-center">
                     <Col xs="auto" className="p-3">
-                        <Image id="spotify-logo" alt="Spotify Logo" src="../img/spotify_logo.png" />
+                        <Image id="spotify-logo" alt="Spotify Logo" src={spotifyLogo} />
                     </Col>
                 </Row>
             </footer>

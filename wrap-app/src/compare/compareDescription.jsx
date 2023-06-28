@@ -1,6 +1,7 @@
 import { Container, Row, Col, Image } from 'react-bootstrap';
 import { RenderLoginButton } from '../utils/login.jsx';
 import RenderCompareForm from './compareForm.jsx';
+import compareImage from '../img/compare.png';
 
 const RenderCompareDescription = (props) => {
     /**
@@ -11,7 +12,7 @@ const RenderCompareDescription = (props) => {
                 <Container id="page-content">
                     <Row className="justify-content-center pb-4 pop-to-front">
                         <Col xs="auto">
-                            <Image src="../img/compare.png" alt="Image of two overlapping circles" className="img-fluid" width="500px"/>
+                            <Image src={compareImage} alt="Image of two overlapping circles" className="img-fluid" width="500px"/>
                         </Col>
                     </Row>
                     <Row className="justify-content-center pop-from-bottom">

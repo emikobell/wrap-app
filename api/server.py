@@ -17,12 +17,6 @@ app.app_context().push()
 app.secret_key = generate_flask_key()
 
 
-@app.route('/')
-def render_landing_page():
-    """Render the React application through the Flask template."""
-    return render_template('homepage.html')
-
-
 @app.route('/login')
 def oauth_login():
     """Access Spotify's login endpoint to authenticate the user and scopes."""
