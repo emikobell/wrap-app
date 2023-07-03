@@ -21,6 +21,11 @@ const CompareHistory = (props) => {
 
     useEffect(() => {
         const fetchTopItems = async (timeframe1, timeframe2) => {
+
+            if (!timeframe1 || !timeframe2) {
+                return;
+            }
+
             const timeframe1Response = await fetch(`/wrap-history?timeframe=${timeframe1}`);
             if (timeframe1Response.status !== 200) {
                 setErrorState(true);
@@ -56,13 +61,14 @@ const CompareHistory = (props) => {
             setCompareGenres(compareGenresParsed);
         };
         fetchTopItems(timeframe1, timeframe2);
-    }, []);
+    }, [timeframe1, timeframe2]);
 
     if (errorState) {
         return <ShowError type="main" />
     } else if (compareTracks.length === 0 || compareArtists.length === 0 || compareGenres.length === 0) {
         return <RenderLoading />
     } else if (!compareTracks.top_tracks || !compareArtists.top_artists || !compareGenres.top_genres) {
+        console.log(compareTracks);
         return <ShowNoItems text="items to compare" />
     }
 

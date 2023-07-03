@@ -43,7 +43,7 @@ def refresh_auth_code(refresh_token):
             'grant_type': 'refresh_token',
             'refresh_token': refresh_token,
             # 'redirect_uri': 'https://wrap-app.dev/callback', # Prod callback 
-            'redirect_uri': 'http://localhost:5000/callback', # Dev callback
+            'redirect_uri': 'http://localhost:3000/callback', # Dev callback
             },
         'header': {
             'Authorization': f'Basic {auth_str}',

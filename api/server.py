@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session, request, jsonify
+from flask import Flask, redirect, session, request, jsonify
 from authlib.integrations.requests_client import OAuth2Session
 from operator import itemgetter
 from secret import CLIENT_ID, CLIENT_SECRET, generate_flask_key
@@ -23,7 +23,7 @@ def oauth_login():
     scopes = ['user-top-read', 'user-read-private', 'playlist-modify-private']
     scopes = ' '.join(scopes)
     # redirect_uri = 'https://wrap-app.dev/callback' # Prod redirect
-    redirect_uri = 'http://localhost:5000/callback' # Dev redirect
+    redirect_uri = 'http://localhost:3000/callback' # Dev redirect
     client = OAuth2Session(CLIENT_ID,
                            CLIENT_SECRET,
                            scope = scopes, redirect_uri = redirect_uri)
@@ -46,7 +46,7 @@ def return_auth_code():
     code = request.args.get('code')
     state = request.args.get('state')
     # uri = 'https://wrap-app.dev/callback' # Prod URI
-    uri = 'http://localhost:5000/callback' # Dev URI
+    uri = 'http://localhost:3000/callback' # Dev URI
 
     if state != session['state']:
         return 'Unauthorized', 403

@@ -50,13 +50,16 @@ const WrapHistory = (props) => {
             setTopGenres(topGenresParsed);
         };
         fetchTopItems(timeframe);
-    }, []);
+    }, [timeframe]);
 
     if (errorState) {
         return <ShowError type="main" />
     } else if (topTracks.length === 0 || topArtists.length === 0 || topGenres.length === 0){
         return <RenderLoading />
     } else if (!topTracks[0] || !topArtists[0] || !topGenres[0]) {
+        console.log(topTracks);
+        console.log(topArtists);
+        console.log(topGenres);
         return <ShowNoItems text="top items" />
     }
 

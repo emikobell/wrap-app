@@ -66,7 +66,7 @@ const App = () => {
     const handlePageLocation = (location) => {
         setPageLocation(location)
     };
-
+	
     const openSpotifyLogin = () => {
         setPopupState(window.open("/login", "", "popup"));
     };
@@ -110,26 +110,23 @@ const App = () => {
         
         const timer = setInterval(() => {
 
-			if (!popupState) {
-				timer && clearInterval(timer);
-				return;
-			}
+				const currentUrl = popupState.location.href;
 
-			const currentUrl = popupState.location.href;
+				if (!currentUrl) {
+					return;
+				}
 
-			if (!currentUrl) {
-				return;
-			}
+				const {searchParams} = new URL(currentUrl);
+				const code = searchParams.get('code');
 
-			const {searchParams} = new URL(currentUrl);
-			const code = searchParams.get('code');
+				if (!code) {
+					return;
+				}
 
-			if (code) {
 				popupState.close();
 				setPopupState(null);
 				setLogin(true);
 				timer && clearInterval(timer);
-			}
 		}, 500);
 	}, [popupState]);
 
