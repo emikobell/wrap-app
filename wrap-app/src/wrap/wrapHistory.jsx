@@ -10,13 +10,15 @@ import GeneratePlaylist from '../utils/playlist.jsx';
 const WrapHistory = (props) => {
 
     const { timeframe } = props;
-    const [topTracks, setTopTracks] = useState([]);
-    const [topArtists, setTopArtists] = useState([]);
-    const [topGenres, setTopGenres] = useState([]);
+    const [topItems, setTopItems] = useState(null);
     const [errorState, setErrorState] = useState(false);
 
     useEffect(() => {
-        const fetchTopItems =  async (timeframe) => { 
+        const fetchTopItems =  async (timeframe) => {
+            if (!timeframe) {
+                return;
+            }
+
             const response = await fetch(`/wrap-history?timeframe=${timeframe}`);
             if (response.status !== 200) {
                 setErrorState(true);
@@ -29,7 +31,6 @@ const WrapHistory = (props) => {
             }
 
             const topTracksParsed = await topTracksResponse.json();
-            setTopTracks(topTracksParsed);
 
             const topArtistsResponse = await fetch(`/top-artists?timeframe=${timeframe}`);
 
@@ -38,7 +39,6 @@ const WrapHistory = (props) => {
             }
 
             const topArtistsParsed = await topArtistsResponse.json();
-            setTopArtists(topArtistsParsed);
 
             const topGenresResponse = await fetch(`/top-genres?timeframe=${timeframe}`);
 
@@ -47,19 +47,25 @@ const WrapHistory = (props) => {
             }
 
             const topGenresParsed = await topGenresResponse.json();
-            setTopGenres(topGenresParsed);
+
+            setTopItems({
+                'topTracks': topTracksParsed,
+                'topArtists': topArtistsParsed,
+                'topGenres': topGenresParsed,
+            });
         };
+        
+        if (!timeframe) {
+            return;
+        }
         fetchTopItems(timeframe);
     }, [timeframe]);
 
     if (errorState) {
         return <ShowError type="main" />
-    } else if (topTracks.length === 0 || topArtists.length === 0 || topGenres.length === 0){
+    } else if (!topItems){
         return <RenderLoading />
-    } else if (!topTracks[0] || !topArtists[0] || !topGenres[0]) {
-        console.log(topTracks);
-        console.log(topArtists);
-        console.log(topGenres);
+    } else if (!topItems.topTracks[0] || !topItems.topArtists[0] || !topItems.topGenres[0]) {
         return <ShowNoItems text="top items" />
     }
 
@@ -76,22 +82,22 @@ const WrapHistory = (props) => {
             <Container className="pop-from-bottom">
                 <Row className="d-flex align-items-center p-4">
                     <Col>
-                        <TopTrack topTrack={topTracks[0]} />
+                        <TopTrack topTrack={topItems.topTracks[0]} />
                     </Col>
                     <Col>
-                        <AllTracks topTracks={topTracks} title="Your top songs:" />
+                        <AllTracks topTracks={topItems.topTracks} title="Your top songs:" />
                     </Col>
                 </Row>
                 <Row className="d-flex align-items-center p-4">
                     <Col className="order-md-2">
-                        <TopArtist topArtist={topArtists[0]} />
+                        <TopArtist topArtist={topItems.topArtists[0]} />
                     </Col>
                     <Col className="order-md-1">
-                        <AllArtists topArtists={topArtists} title="Your top artists:" />
+                        <AllArtists topArtists={topItems.topArtists} title="Your top artists:" />
                     </Col>
                 </Row>
-                <TopGenre topGenre={topGenres[0]} />
-                <AllGenres topGenres={topGenres} />
+                <TopGenre topGenre={topItems.topGenres[0]} />
+                <AllGenres topGenres={topItems.topGenres} />
                 <GeneratePlaylist timeframe={timeframe} />
                 <Container id="wrap-again">
                     <Row className="justify-content-center">

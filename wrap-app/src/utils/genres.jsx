@@ -29,6 +29,8 @@ const GenerateGenreGraph = (props) => {
     /**
      * Render a donut graph of the user's top genres.
      */
+
+    // eslint-disable-next-line
     const [graphData, setGraphData] = useState(props.topGenres);
 
     useEffect(() => {
@@ -50,13 +52,13 @@ const GenerateGenreGraph = (props) => {
                 })
             }, 1000);
         }
-    }, []);
+    }, [graphData]);
 
     return (
         <>
-                    <Col sm="6" className="px-5 mb-4 mb-sm-0">
-                        <canvas id="allGenres"></canvas>
-                    </Col>
+            <Col sm="6" className="px-5 mb-4 mb-sm-0">
+                <canvas id="allGenres"></canvas>
+            </Col>
         </>
     )
 };
@@ -67,6 +69,8 @@ export const GenerateCompareGenreGraph = (props) => {
      * Render a radar graph of the user's overlapping top genres
      * across two timeframes.
      */
+
+    // eslint-disable-next-line
     const [graphData, setGraphData] = useState(props.genreData);
 
     useEffect(() => {
@@ -109,7 +113,7 @@ export const GenerateCompareGenreGraph = (props) => {
                 })
             }, 1000);
         }
-    }, []);
+    }, [graphData]);
 
     return (
         <>

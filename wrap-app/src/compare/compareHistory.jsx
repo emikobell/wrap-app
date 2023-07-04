@@ -22,10 +22,6 @@ const CompareHistory = (props) => {
     useEffect(() => {
         const fetchTopItems = async (timeframe1, timeframe2) => {
 
-            if (!timeframe1 || !timeframe2) {
-                return;
-            }
-
             const timeframe1Response = await fetch(`/wrap-history?timeframe=${timeframe1}`);
             if (timeframe1Response.status !== 200) {
                 setErrorState(true);
@@ -60,6 +56,11 @@ const CompareHistory = (props) => {
             const compareGenresParsed = await compareGenresResponse.json();
             setCompareGenres(compareGenresParsed);
         };
+
+        if (!timeframe1 || !timeframe2) {
+            return;
+        }
+        
         fetchTopItems(timeframe1, timeframe2);
     }, [timeframe1, timeframe2]);
 
