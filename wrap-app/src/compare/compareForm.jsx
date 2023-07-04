@@ -33,9 +33,9 @@ const RenderCompareForm = (props) => {
         setDispTimeframe1(getTimeframeTitle(eventKey));
         props.setTimeframe1(eventKey);
 
-        if (eventKey == choice2) {
+        if (eventKey === choice2) {
             setButtonDisabled(true);
-        } else if (choice2 && buttonDisabled == true) {
+        } else if (choice2 && buttonDisabled === true) {
             setButtonDisabled(false);
         }
     };
@@ -58,7 +58,7 @@ const RenderCompareForm = (props) => {
 
     const getTimeframeTitle = (eventKey) => {
         for (const timeframe of TIMEFRAMES) {
-            if (timeframe.key == eventKey) {
+            if (timeframe.key === eventKey) {
                 return timeframe.name;
             }
         }

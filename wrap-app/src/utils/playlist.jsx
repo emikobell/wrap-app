@@ -63,7 +63,7 @@ const PlaylistCreated = (props) => {
      * Render a playlist created button.
      */
     return (
-        <Button href={props.playlistURL} target="_blank" variant="secondary" className="text-white" size="lg">
+        <Button href={props.playlistURL} target="_blank" rel="noopener noreferrer" variant="secondary" className="text-white" size="lg">
             Go to Playlist
         </Button>
     )

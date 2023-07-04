@@ -29,14 +29,14 @@ export const TopTrack = (props) => {
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs="auto" className="p-4">
-                        <a href={props.topTrack['url']} target="_blank">
+                        <a href={props.topTrack['url']} target="_blank" rel="noopener noreferrer">
                             <Image src={props.topTrack['img']} alt="Image of album cover" className="img-fluid"/>
                         </a>
                     </Col>
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs="auto">
-                        <h2><a href={props.topTrack['url']} target="_blank">{props.topTrack['name']}</a></h2>
+                        <h2><a href={props.topTrack['url']} target="_blank" rel="noopener noreferrer">{props.topTrack['name']}</a></h2>
                     </Col>
                 </Row>
                 <Row className="justify-content-center">
@@ -46,12 +46,12 @@ export const TopTrack = (props) => {
                             let punct = "";
                             if (props.topTrack['artists'].length > 1 && !props.topTrack['artists'][index+1]) {
                                 punct = " & "
-                            } else if (props.topTrack['artists'].length != 1 && index != 0) {
+                            } else if (props.topTrack['artists'].length !== 1 && index !== 0) {
                                 punct = ", "
                             }
                             return (
                                 <Fragment key={artist.name}>
-                                    {punct}<a href={artist.url} target="_blank">{artist.name}</a>
+                                    {punct}<a href={artist.url} target="_blank" rel="noopener noreferrer">{artist.name}</a>
                                 </Fragment>
                             )})}
                         </p>
@@ -101,24 +101,24 @@ export const AllTracks = (props) => {
                                     <tr>
                                         {!props.hideRank && <td><h2>{track.rank}</h2></td>}
                                         <td>
-                                            <a href={track.url} target="_blank">
+                                            <a href={track.url} target="_blank" rel="noopener noreferrer">
                                                 <Image src={track.img} alt="Image of album cover" fluid height="100px" width="100px" />
                                             </a>
                                         </td>
                                         <td>
-                                            <h4><a href={track.url} target="_blank">{track.name}</a></h4>
+                                            <h4><a href={track.url} target="_blank" rel="noopener noreferrer">{track.name}</a></h4>
                                             <div>
                                                 <p className="fs-5">
                                                 {track.artists.map((artist, index) => {
                                                     let punct = "";
                                                     if (track.artists.length > 1 && !track.artists[index+1]) {
                                                         punct = " & "
-                                                    } else if (track.artists.length != 1 && index != 0) {
+                                                    } else if (track.artists.length !== 1 && index !== 0) {
                                                         punct = ", "
                                                     }
                                                     return (
                                                         <Fragment key={artist.name}>
-                                                            {punct}<a href={artist.url} target="_blank">{artist.name}</a>
+                                                            {punct}<a href={artist.url} target="_blank" rel="noopener noreferrer">{artist.name}</a>
                                                         </Fragment>
                                                     )})}
                                                 </p>

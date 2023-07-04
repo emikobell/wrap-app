@@ -29,14 +29,14 @@ export const TopArtist = (props) => {
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs="auto" className="p-4">
-                        <a href={props.topArtist['url']} title={props.topArtist['name'] + " Spotify link"} target="_blank">
+                        <a href={props.topArtist['url']} title={props.topArtist['name'] + " Spotify link"} target="_blank" rel="noopener noreferrer">
                             <Image src={props.topArtist['img']} alt={"Image of album cover for " + props.topArtist['name']} className="img-fluid" />
                         </a>
                     </Col>
                 </Row>
                 <Row className="justify-content-center">
                     <Col xs="auto">
-                        <h2><a href={props.topArtist['url']} target="_blank">{props.topArtist['name']}</a></h2>
+                        <h2><a href={props.topArtist['url']} target="_blank" rel="noopener noreferrer">{props.topArtist['name']}</a></h2>
                     </Col>
                 </Row>
             </Container>
@@ -83,12 +83,12 @@ export const AllArtists = (props) => {
                                     <tr>
                                         {!props.hideRank && <td><h2>{artist.rank}</h2></td>}
                                         <td>
-                                            <a href={artist.url} target="_blank">
+                                            <a href={artist.url} target="_blank" rel="noopener noreferrer">
                                                 <Image src={artist.img} alt={"Image of artist, " + artist.name} fluid height="100px" width="100px" />
                                             </a>
                                         </td>
                                         <td>
-                                            <h4><a href={artist.url} target="_blank">{artist.name}</a></h4>
+                                            <h4><a href={artist.url} target="_blank" rel="noopener noreferrer">{artist.name}</a></h4>
                                         </td>
                                     </tr>
                                     </Fragment>
