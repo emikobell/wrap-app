@@ -68,7 +68,7 @@ const App = () => {
     };
 	
     const openSpotifyLogin = () => {
-        setPopupState(window.open("/login", "", "popup"));
+        setPopupState(window.open("/api/login", "", "popup"));
     };
 
 	const handleLogOut = () => {
