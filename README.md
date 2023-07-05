@@ -145,4 +145,4 @@ npm install
 npm start
 ```
 
-**Note:** Theste instructions are for locally hosting the project in development mode. For production hosting, please reference the Create React App instructions in wrap-app/README.
+**Note:** These instructions are for locally hosting the project in development mode. For production hosting, please reference the Create React App instructions in wrap-app/README.
