@@ -128,7 +128,21 @@ For example, the callback route currently looks like this:
 # 'redirect_uri': 'http://localhost:5000/callback', # Dev callback
 ```
 
-9. Run the Flask server.
+9. Navigate to the api folder and run the Flask server.
 ```zsh
+cd api
 python3 server.py
 ```
+
+10. In a separate terminal window, navigate to the wrap-app folder and install the Node dependencies.
+```zsh
+cd wrap-app
+npm install
+```
+
+11. Start the React app.
+```zsh
+npm start
+```
+
+**Note:** Theste instructions are for locally hosting the project in development mode. For production hosting, please reference the Create React App instructions in wrap-app/README.
