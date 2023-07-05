@@ -1,0 +1,123 @@
+body {
+    font-family: 'Outfit', sans-serif;
+}
+
+p, h1 + h2, li strong {
+  font-weight: 300;
+}
+
+ul {
+  font-weight: 200;
+}
+
+.dropdown-toggle,
+.dropdown-menu {
+  width: 100%;
+}
+
+.label-background {
+  background-size: 325px;
+  background-repeat: no-repeat;
+  background-position: 50% 15px;
+}
+
+.loading-circle {
+  border: 30px solid #f3f3f3;
+  border-top: 30px solid rgb(38, 70, 83);
+  border-radius: 50%;
+  width: 165px;
+  height: 165px;
+  animation: spin 2s linear infinite;
+  -webkit-animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#top-track {
+  background-image: url('./img/label1.png');
+}
+
+#all-top-tracks {
+  background-image: url('./img/label2.png');
+}
+
+#top-artist {
+  background-image: url('./img/label3.png');
+}
+
+#all-top-artists {
+  background-image: url('./img/label4.png');
+}
+
+#top-genre {
+  background-image: url('./img/label5.png');
+}
+
+#all-top-genres, #genre-compare-graph {
+  background-image: url('./img/label6.png');
+}
+
+#top-navbar {
+  background: linear-gradient(to bottom, rgba(241, 244, 248, 1) 0%,
+                              rgba(241, 244, 248, .75) 50%, 
+                              rgba(241, 244, 248, .5) 75%,
+                              rgba(241, 244, 248, .25) 90%, 
+                              rgba(241, 244, 248, 0) 100%);
+}
+
+#spotify-logo {
+  width: 130px;
+}
+
+.pop-to-front {
+  animation: poptofront 1s;
+}
+
+@-webkit-keyframes poptofront {
+  from { transform: scale(0.5); opacity:0 } 
+  to { transform: scale(1); opacity:1 }
+}
+
+@keyframes poptofront { 
+  from { transform: scale(0.5); opacity:0 } 
+  to { transform: scale(1); opacity:1 }
+}
+
+.pop-from-bottom {
+  position: relative;
+  -webkit-animation: animatebottom 1s;
+  animation: animatebottom 1s;
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+
+#page-content a:link {
+  color: black;
+  text-decoration: none;
+}
+
+#page-content a:visited {
+  color: black;
+  text-decoration: none;
+}
+
+#page-content a:hover {
+  color: grey;
+  text-decoration: none;
+}

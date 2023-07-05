@@ -12,8 +12,9 @@ The Wrap App is a tool designed for Spotify users to easily view their top track
 
 ### Frontend
 - Javascript
-- React js
-- Jinja
+- React
+- Node.js
+- Create React App
 - AJAX
 - CSS
 - Bootstrap
@@ -30,7 +31,7 @@ You can log in to your Spotify account through OAuth2 to see your top listening 
 The app opens a popup directly to a Spotify login window.
 <br />
 
-![Spotify OAuth Page](/static/img/login.gif)
+![Spotify OAuth Page](/wrap-app/src/img/login.gif)
 <br /> <br />
 
 ### Wrap Feature
@@ -38,13 +39,13 @@ The app opens a popup directly to a Spotify login window.
 Once you are logged in, you can choose from three timeframes to "wrap" your listening history.
 <br />
 
-![Wrap Page](/static/img/wrap.gif)
+![Wrap Page](/wrap-app/src/img/wrap.gif)
 <br /> <br />
 
 The app shows you your top songs, artists, and genres. You can also choose to generate a playlist of your top 50 songs on your Spotify account.
 <br />
 
-![Wrap History](/static/img/wrap-history.gif)
+![Wrap History](/wrap-app/src/img/wrap-history.gif)
 <br /> <br />
 
 
@@ -53,13 +54,13 @@ The app shows you your top songs, artists, and genres. You can also choose to ge
 You can also compare your listening history by timeframe.
 <br />
 
-![Compare Page](/static/img/compare.gif)
+![Compare Page](/wrap-app/src/img/compare.gif)
 <br /> <br />
 
 The compare feature shows you your listening history similarities over time.
 <br />
 
-![Compare History](/static/img/compare-history.gif)
+![Compare History](/wrap-app/src/img/compare-history.gif)
 <br /> <br />
 
 
@@ -68,6 +69,7 @@ The compare feature shows you your listening history similarities over time.
 ### Requirements
 - PostgreSQL 14
 - Python 3.9
+- Node.js
 - Spotify Web API client ID and secret
 
 **Important note!!**
@@ -126,7 +128,21 @@ For example, the callback route currently looks like this:
 # 'redirect_uri': 'http://localhost:5000/callback', # Dev callback
 ```
 
-9. Run the Flask server.
+9. Navigate to the api folder and run the Flask server.
 ```zsh
+cd api
 python3 server.py
 ```
+
+10. In a separate terminal window, navigate to the wrap-app folder and install the Node dependencies.
+```zsh
+cd wrap-app
+npm install
+```
+
+11. Start the React app.
+```zsh
+npm start
+```
+
+**Note:** Theste instructions are for locally hosting the project in development mode. For production hosting, please reference the Create React App instructions in wrap-app/README.
