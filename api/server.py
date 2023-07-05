@@ -17,7 +17,7 @@ app.app_context().push()
 app.secret_key = generate_flask_key()
 
 
-@app.route('/login')
+@app.route('/api/login')
 def oauth_login():
     """Access Spotify's login endpoint to authenticate the user and scopes."""
     scopes = ['user-top-read', 'user-read-private', 'playlist-modify-private']
@@ -34,7 +34,7 @@ def oauth_login():
     return redirect(uri)
 
 
-@app.route('/callback')
+@app.route('/api/callback')
 def return_auth_code():
     """
     Callback route for Spotify's OAuth authentication.
@@ -65,7 +65,7 @@ def return_auth_code():
     return 'Success', 200
 
 
-@app.route('/user-info')
+@app.route('/api/user-info')
 def return_user_info():
     """API to send user's profile info to the frontend."""
 
@@ -87,7 +87,7 @@ def return_user_info():
     return jsonify(user_info)
 
 
-@app.route('/login-check')
+@app.route('/api/login-check')
 def check_login():
     """Return session login info, if any."""
 
@@ -96,7 +96,7 @@ def check_login():
     return jsonify(login_state)
 
 
-@app.route('/wrap-history')
+@app.route('/api/wrap-history')
 def gather_wrap_data():
     """Call Spotify API for top listening history by timeframe. Store in database."""
 
@@ -121,7 +121,7 @@ def gather_wrap_data():
     return 'Success', 200
 
 
-@app.route('/top-tracks')
+@app.route('/api/top-tracks')
 def return_top_tracks():
     """API to return top track information to frontend by timeframe."""
 
@@ -142,7 +142,7 @@ def return_top_tracks():
     return jsonify(tracks_list)
 
 
-@app.route('/top-artists')
+@app.route('/api/top-artists')
 def return_top_artists():
     """API to return top artist information to frontend by timeframe."""
 
@@ -162,7 +162,7 @@ def return_top_artists():
     return jsonify(artists_list)
 
 
-@app.route('/top-genres')
+@app.route('/api/top-genres')
 def return_top_genres():
     """API to return top genre information to frontend by timeframe."""
 
@@ -182,7 +182,7 @@ def return_top_genres():
     return jsonify(genres_list)
 
 
-@app.route('/playlist')
+@app.route('/api/playlist')
 def create_top_playlist():
     """Create a Spotify playlist for the user by timeframe and send to Spotify API."""
 
@@ -215,7 +215,7 @@ def create_top_playlist():
     return jsonify(playlist_url)
 
 
-@app.route('/compare-tracks')
+@app.route('/api/compare-tracks')
 def return_track_compare():
     """API to return top track comparison data by timeframes."""
 
@@ -229,7 +229,7 @@ def return_track_compare():
     return jsonify(compare_top_tracks)
 
 
-@app.route('/compare-artists')
+@app.route('/api/compare-artists')
 def return_artist_compare():
     """API to return top artist comparison data by timeframes."""
 
@@ -243,7 +243,7 @@ def return_artist_compare():
     return jsonify(compare_top_artists)
 
 
-@app.route('/compare-genres')
+@app.route('/api/compare-genres')
 def return_genre_compare():
     """API to return top genre comparison data by timeframes."""
 
@@ -257,7 +257,7 @@ def return_genre_compare():
     return jsonify(compare_top_genres)
 
 
-@app.route('/logout')
+@app.route('/api/logout')
 def log_out():
     """Clear all Flask session data on backend and remove user data from db."""
     

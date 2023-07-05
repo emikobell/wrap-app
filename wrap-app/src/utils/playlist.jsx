@@ -12,7 +12,7 @@ const GeneratePlaylist = (props) => {
 
     useEffect(() => {
         const requestPlaylist = async (timeframe) => {
-            const response = await fetch(`/playlist?timeframe=${timeframe}`);
+            const response = await fetch(`/api/playlist?timeframe=${timeframe}`);
         
             if (response.status !== 200) {
                 return (

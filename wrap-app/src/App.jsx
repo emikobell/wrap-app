@@ -90,7 +90,7 @@ const App = () => {
 
     useEffect(() => {
         const fetchUserLogin = async () => {
-			const login = await fetch('/login-check');
+			const login = await fetch('/api/login-check');
 
 			if (login.status !== 200) {
 				setErrorState(true);
@@ -132,7 +132,7 @@ const App = () => {
 
     useEffect(() => {
         const getUserInfo = async () => {
-			const userResponse = await fetch('/user-info');
+			const userResponse = await fetch('/api/user-info');
 
 			if (userResponse.status !== 200) {
 				setErrorState(true);
@@ -153,7 +153,7 @@ const App = () => {
 
 	useEffect(() => {
 		const userLogOut = async () => {
-				const response = await fetch('/logout');
+				const response = await fetch('/api/logout');
 				if (response.status !== 200) {
 					setErrorState(true);
 					return;

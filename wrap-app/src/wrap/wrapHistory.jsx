@@ -19,12 +19,12 @@ const WrapHistory = (props) => {
                 return;
             }
 
-            const response = await fetch(`/wrap-history?timeframe=${timeframe}`);
+            const response = await fetch(`/api/wrap-history?timeframe=${timeframe}`);
             if (response.status !== 200) {
                 setErrorState(true);
             }
         
-            const topTracksResponse = await fetch(`/top-tracks?timeframe=${timeframe}`);
+            const topTracksResponse = await fetch(`/api/top-tracks?timeframe=${timeframe}`);
 
             if (topTracksResponse.status !== 200) {
                 setErrorState(true);
@@ -32,7 +32,7 @@ const WrapHistory = (props) => {
 
             const topTracksParsed = await topTracksResponse.json();
 
-            const topArtistsResponse = await fetch(`/top-artists?timeframe=${timeframe}`);
+            const topArtistsResponse = await fetch(`/api/top-artists?timeframe=${timeframe}`);
 
             if (topArtistsResponse.status !== 200) {
                 setErrorState(true);
@@ -40,7 +40,7 @@ const WrapHistory = (props) => {
 
             const topArtistsParsed = await topArtistsResponse.json();
 
-            const topGenresResponse = await fetch(`/top-genres?timeframe=${timeframe}`);
+            const topGenresResponse = await fetch(`/api/top-genres?timeframe=${timeframe}`);
 
             if (topGenresResponse.status !== 200) {
                 setErrorState(true);

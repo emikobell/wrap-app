@@ -22,17 +22,17 @@ const CompareHistory = (props) => {
     useEffect(() => {
         const fetchTopItems = async (timeframe1, timeframe2) => {
 
-            const timeframe1Response = await fetch(`/wrap-history?timeframe=${timeframe1}`);
+            const timeframe1Response = await fetch(`/api/wrap-history?timeframe=${timeframe1}`);
             if (timeframe1Response.status !== 200) {
                 setErrorState(true);
             }
 
-            const timeframe2Response = await fetch(`/wrap-history?timeframe=${timeframe2}`);
+            const timeframe2Response = await fetch(`/api/wrap-history?timeframe=${timeframe2}`);
             if (timeframe2Response.status !== 200) {
                 setErrorState(true);
             }
 
-            const compareTracksResponse = await fetch(`/compare-tracks?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
+            const compareTracksResponse = await fetch(`/api/compare-tracks?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
             if (compareTracksResponse.status !== 200) {
                 setErrorState(true);
             }
@@ -40,7 +40,7 @@ const CompareHistory = (props) => {
             const compareTracksParsed = await compareTracksResponse.json();
             setCompareTracks(compareTracksParsed);
 
-            const compareArtistsResponse = await fetch(`/compare-artists?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
+            const compareArtistsResponse = await fetch(`/api/compare-artists?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
             if (compareTracksResponse.status !== 200) {
                 setErrorState(true);
             }
@@ -48,7 +48,7 @@ const CompareHistory = (props) => {
             const compareArtistsParsed = await compareArtistsResponse.json();
             setCompareArtists(compareArtistsParsed);
             
-            const compareGenresResponse = await fetch(`/compare-genres?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
+            const compareGenresResponse = await fetch(`/api/compare-genres?timeframe1=${timeframe1}&timeframe2=${timeframe2}`);
             if (compareGenresResponse.status !== 200) {
                 setErrorState(true);
             }
